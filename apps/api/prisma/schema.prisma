@@ -1,0 +1,798 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+  // Legacy roles (kept for backward compatibility during migration)
+  CEO
+  CFO
+  COO
+  TEAM_LEAD
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  PENDING // For invited users who haven't completed registration
+}
+
+enum VisibilityScope {
+  TEAM_ONLY      // Can only see their team's data
+  DEPARTMENT     // Can see their department's data
+  ALL            // Can see all data (for admins)
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  CANCELLED
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum TaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  COMPLETED
+  CANCELLED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ChatRoomType {
+  GENERAL
+  PROJECT
+  GROUP
+  DIRECT
+}
+
+enum NotificationType {
+  TASK_ASSIGNED
+  TASK_UPDATED
+  TASK_COMPLETED
+  TASK_DUE_SOON
+  TASK_OVERDUE
+  COMMENT_ADDED
+  MENTION
+  CHAT_MESSAGE
+  CHAT_MENTION
+  KPI_REMINDER
+  SYSTEM
+}
+
+// Models
+model Department {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  code      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users    User[]
+  projects Project[]
+
+  @@map("departments")
+}
+
+model User {
+  id              String          @id @default(uuid())
+  email           String          @unique
+  passwordHash    String?         // Nullable for invited users who haven't set password
+  name            String
+  role            UserRole        @default(EMPLOYEE)
+  status          UserStatus      @default(ACTIVE)
+  departmentId    String?
+  avatar          String?
+  phone           String?
+  designation     String?         // Job title/position
+  joinDate        DateTime?       // Employment start date
+  visibilityScope VisibilityScope @default(TEAM_ONLY) // For managers
+  isActive        Boolean         @default(true)
+  lastLoginAt     DateTime?
+  createdById     String?         // Who created this user
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  department Department? @relation(fields: [departmentId], references: [id])
+  createdBy  User?       @relation("UserCreator", fields: [createdById], references: [id])
+
+  // Relations
+  createdUsers     User[]             @relation("UserCreator")
+  refreshTokens    RefreshToken[]
+  ownedProjects    Project[]          @relation("ProjectOwner")
+  projectMembers   ProjectMember[]
+  assignedTasks    Task[]             @relation("TaskAssignee")
+  reportedTasks    Task[]             @relation("TaskReporter")
+  comments         Comment[]
+  timeEntries      TimeEntry[]
+  uploadedFiles    File[]
+  chatRoomsCreated ChatRoom[]         @relation("ChatRoomCreator")
+  chatRoomMembers  ChatRoomMember[]
+  chatMessages     ChatMessage[]
+  kpiRecords       KPIRecord[]        @relation("KPIUser")
+  kpiReviews       KPIRecord[]        @relation("KPIReviewer")
+  kpiSummaries     MonthlyKPISummary[] @relation("KPISummaries")
+  dailyKPIScores   DailyKPIScore[]    @relation("DailyKPIUser")
+  dailyKPIScored   DailyKPIScore[]    @relation("DailyKPIScorer")
+  eodrEntries      EODREntry[]
+  verifiedEodrs    EODREntry[]        @relation("EODRVerifier")
+  notifications    Notification[]
+  messageReactions MessageReaction[]
+  activityLogs     ActivityLog[]
+  permissions      UserPermission[]
+  teamMembers      TeamMember[]
+  managedTeams     Team[]             @relation("TeamManager")
+  profile          UserProfile?
+  sentInvitations  UserInvitation[]   @relation("InvitationSender")
+
+  // EODR V2 Commission System relations
+  createdHolidays        Holiday[]              @relation("HolidayCreator")
+  dailyEODRs             DailyEODR[]            @relation("DailyEODRUser")
+  verifiedDailyEODRs     DailyEODR[]            @relation("DailyEODRVerifier")
+  weeklyEODRSummaries    WeeklyEODRSummary[]    @relation("WeeklyEODRUser")
+  monthlyEODRSummaries   MonthlyEODRSummary[]   @relation("MonthlyEODRUser")
+  finalizedMonthlyEODRs  MonthlyEODRSummary[]   @relation("MonthlyEODRFinalizer")
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model Project {
+  id           String        @id @default(uuid())
+  name         String
+  description  String?
+  status       ProjectStatus @default(PLANNING)
+  startDate    DateTime?
+  endDate      DateTime?
+  ownerId      String
+  departmentId String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  owner      User       @relation("ProjectOwner", fields: [ownerId], references: [id])
+  department Department @relation(fields: [departmentId], references: [id])
+
+  // Relations
+  members   ProjectMember[]
+  tasks     Task[]
+  files     File[]
+  chatRoom  ChatRoom?
+  tags      Tag[]
+
+  @@map("projects")
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid())
+  projectId String
+  userId    String
+  joinedAt  DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+  @@map("project_members")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  color     String   @default("#0ea5e9")
+  projectId String
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   TaskTag[]
+
+  @@unique([name, projectId])
+  @@map("tags")
+}
+
+model Task {
+  id             String       @id @default(uuid())
+  title          String
+  description    String?
+  status         TaskStatus   @default(TODO)
+  priority       TaskPriority @default(MEDIUM)
+  projectId      String
+  assigneeId     String?
+  reporterId     String
+  parentTaskId   String?
+  dueDate        DateTime?
+  estimatedHours Float?
+  actualHours    Float?
+  position       Int          @default(0)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  project  Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignee User?   @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  reporter User    @relation("TaskReporter", fields: [reporterId], references: [id])
+  parent   Task?   @relation("TaskSubtasks", fields: [parentTaskId], references: [id])
+
+  // Relations
+  subtasks        Task[]             @relation("TaskSubtasks")
+  comments        Comment[]
+  timeEntries     TimeEntry[]
+  files           File[]
+  tags            TaskTag[]
+  dependsOn       TaskDependency[]   @relation("DependentTask")
+  dependentTasks  TaskDependency[]   @relation("DependencyTask")
+
+  @@map("tasks")
+}
+
+model TaskTag {
+  taskId String
+  tagId  String
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, tagId])
+  @@map("task_tags")
+}
+
+model TaskDependency {
+  dependentTaskId  String
+  dependencyTaskId String
+
+  dependentTask  Task @relation("DependentTask", fields: [dependentTaskId], references: [id], onDelete: Cascade)
+  dependencyTask Task @relation("DependencyTask", fields: [dependencyTaskId], references: [id], onDelete: Cascade)
+
+  @@id([dependentTaskId, dependencyTaskId])
+  @@map("task_dependencies")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  taskId    String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("comments")
+}
+
+model TimeEntry {
+  id          String    @id @default(uuid())
+  taskId      String
+  userId      String
+  description String?
+  startTime   DateTime  @default(now())
+  endTime     DateTime?
+  duration    Int?      // Duration in minutes
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("time_entries")
+}
+
+model File {
+  id           String   @id @default(uuid())
+  name         String
+  originalName String
+  mimeType     String
+  size         Int
+  path         String
+  uploaderId   String
+  projectId    String?
+  taskId       String?
+  createdAt    DateTime @default(now())
+
+  uploader     User          @relation(fields: [uploaderId], references: [id])
+  project      Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  task         Task?         @relation(fields: [taskId], references: [id], onDelete: SetNull)
+  chatMessages ChatMessage[]
+  shares       FileShare[]
+
+  @@map("files")
+}
+
+model FileShare {
+  id            String    @id @default(uuid())
+  code          String    @unique // Short code like bitly (e.g., "abc123")
+  fileId        String
+  createdById   String
+  expiresAt     DateTime? // Optional expiration
+  password      String?   // Optional password protection
+  downloadCount Int       @default(0)
+  maxDownloads  Int?      // Optional download limit
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+
+  file      File @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@index([code])
+  @@map("file_shares")
+}
+
+model ChatRoom {
+  id          String       @id @default(uuid())
+  name        String
+  type        ChatRoomType @default(GROUP)
+  projectId   String?      @unique
+  createdById String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  createdBy User     @relation("ChatRoomCreator", fields: [createdById], references: [id])
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  members  ChatRoomMember[]
+  messages ChatMessage[]
+
+  @@map("chat_rooms")
+}
+
+model ChatRoomMember {
+  id        String    @id @default(uuid())
+  roomId    String
+  userId    String
+  joinedAt  DateTime  @default(now())
+  lastSeenAt DateTime?
+
+  room ChatRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, userId])
+  @@map("chat_room_members")
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  content   String
+  roomId    String
+  senderId  String
+  fileId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  room   ChatRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  sender User     @relation(fields: [senderId], references: [id])
+  file   File?    @relation(fields: [fileId], references: [id])
+
+  reactions MessageReaction[]
+
+  @@map("chat_messages")
+}
+
+model MessageReaction {
+  id        String   @id @default(uuid())
+  messageId String
+  userId    String
+  emoji     String
+  createdAt DateTime @default(now())
+
+  message ChatMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId, emoji])
+  @@map("message_reactions")
+}
+
+model KPIRecord {
+  id          String   @id @default(uuid())
+  userId      String
+  reviewerId  String
+  month       Int
+  year        Int
+  attendance  Float    @default(0)
+  quality     Float    @default(0)
+  behaviour   Float    @default(0)
+  eodrScore   Float    @default(0)
+  totalScore  Float    @default(0)
+  comments    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user     User @relation("KPIUser", fields: [userId], references: [id])
+  reviewer User @relation("KPIReviewer", fields: [reviewerId], references: [id])
+
+  @@unique([userId, month, year])
+  @@map("kpi_records")
+}
+
+// Daily KPI Score - Manager scores each employee every day
+model DailyKPIScore {
+  id              String    @id @default(uuid())
+  userId          String    // Employee being scored
+  scoredById      String    // Manager who scored
+  date            DateTime  @db.Date
+  attendance      Float     @default(0) // 0-10 scale
+  quality         Float     @default(0) // 0-10 scale
+  behaviour       Float     @default(0) // 0-10 scale
+  eodrScore       Float     @default(0) // 0-10 scale
+  totalScore      Float     @default(0) // Average of all 4
+  comments        String?   // Manager's daily comments
+  eodrEntryId     String?   // Link to the EODR entry for that day
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user     User @relation("DailyKPIUser", fields: [userId], references: [id])
+  scoredBy User @relation("DailyKPIScorer", fields: [scoredById], references: [id])
+
+  @@unique([userId, date])
+  @@index([userId, date])
+  @@index([scoredById])
+  @@map("daily_kpi_scores")
+}
+
+model EODREntry {
+  id               String    @id @default(uuid())
+  userId           String
+  date             DateTime  @db.Date
+  tasks            Json      // Array of detailed task objects
+  totalHours       Float     @default(0)
+  adjustedHours    Float?    // Manager-adjusted hours (if different from logged)
+  tasksCompleted   Int       @default(0)
+  notes            String?   // Employee's daily notes/justification
+  managerNotes     String?   // Manager's review notes
+  isVerified       Boolean   @default(false) // Manager verified this entry
+  verifiedById     String?   // Who verified
+  verifiedAt       DateTime? // When verified
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user       User  @relation(fields: [userId], references: [id])
+  verifiedBy User? @relation("EODRVerifier", fields: [verifiedById], references: [id])
+
+  @@unique([userId, date])
+  @@map("eodr_entries")
+}
+
+model MonthlyKPISummary {
+  id              String   @id @default(uuid())
+  userId          String
+  month           Int
+  year            Int
+  avgAttendance   Float    @default(0)
+  avgQuality      Float    @default(0)
+  avgBehaviour    Float    @default(0)
+  avgEodrScore    Float    @default(0)
+  overallScore    Float    @default(0)
+  commissionTier  String   @default("NONE")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation("KPISummaries", fields: [userId], references: [id])
+
+  @@unique([userId, month, year])
+  @@map("monthly_kpi_summaries")
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  type      NotificationType
+  title     String
+  message   String
+  userId    String
+  isRead    Boolean          @default(false)
+  data      Json?
+  createdAt DateTime         @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+enum ActivityAction {
+  CREATED
+  UPDATED
+  DELETED
+  STATUS_CHANGED
+  ASSIGNED
+  UNASSIGNED
+  COMMENTED
+  FILE_UPLOADED
+  FILE_DELETED
+  MEMBER_ADDED
+  MEMBER_REMOVED
+  TAG_ADDED
+  TAG_REMOVED
+}
+
+enum ActivityEntityType {
+  PROJECT
+  TASK
+  COMMENT
+  FILE
+}
+
+model ActivityLog {
+  id          String             @id @default(uuid())
+  entityType  ActivityEntityType
+  entityId    String
+  action      ActivityAction
+  userId      String
+  projectId   String?
+  taskId      String?
+  changes     Json?              // Stores before/after values
+  metadata    Json?              // Additional context
+  createdAt   DateTime           @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([entityType, entityId])
+  @@index([projectId])
+  @@index([taskId])
+  @@index([userId])
+  @@map("activity_logs")
+}
+
+// ==================== USER MANAGEMENT ====================
+
+// Available permissions in the system
+model Permission {
+  id          String   @id @default(uuid())
+  code        String   @unique  // e.g., "tasks.create", "projects.delete"
+  name        String             // Human-readable name
+  description String?
+  category    String             // Group: "tasks", "projects", "teams", "reports", "users"
+  createdAt   DateTime @default(now())
+
+  userPermissions UserPermission[]
+
+  @@map("permissions")
+}
+
+// User-specific permission overrides
+model UserPermission {
+  id           String   @id @default(uuid())
+  userId       String
+  permissionId String
+  granted      Boolean  @default(true) // true = granted, false = explicitly denied
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, permissionId])
+  @@map("user_permissions")
+}
+
+// Teams for flexible user grouping
+model Team {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  managerId   String?  // Team manager
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  manager User?        @relation("TeamManager", fields: [managerId], references: [id])
+  members TeamMember[]
+
+  @@map("teams")
+}
+
+// Team membership (many-to-many)
+model TeamMember {
+  id       String   @id @default(uuid())
+  teamId   String
+  userId   String
+  role     String   @default("MEMBER") // "MEMBER", "LEAD"
+  joinedAt DateTime @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@map("team_members")
+}
+
+// User invitations for email-based registration
+model UserInvitation {
+  id          String           @id @default(uuid())
+  email       String
+  name        String?
+  role        UserRole         @default(EMPLOYEE)
+  departmentId String?
+  teamIds     String[]         // Teams to add user to upon registration
+  token       String           @unique // Secure invitation token
+  status      InvitationStatus @default(PENDING)
+  invitedById String
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  createdAt   DateTime         @default(now())
+
+  invitedBy User @relation("InvitationSender", fields: [invitedById], references: [id])
+
+  @@index([email])
+  @@index([token])
+  @@map("user_invitations")
+}
+
+// Extended user profile for HR fields
+model UserProfile {
+  id               String    @id @default(uuid())
+  userId           String    @unique
+
+  // Personal Info
+  dateOfBirth      DateTime?
+  gender           String?
+  address          String?
+  city             String?
+  state            String?
+  country          String?
+  postalCode       String?
+
+  // Emergency Contact
+  emergencyName    String?
+  emergencyPhone   String?
+  emergencyRelation String?
+
+  // Employment Info
+  employeeId       String?   // Company employee ID
+  salary           Decimal?  @db.Decimal(12, 2)
+  salaryFrequency  String?   // "MONTHLY", "YEARLY"
+  bankName         String?
+  bankAccount      String?
+  taxId            String?   // PAN, SSN, etc.
+
+  // Skills & Qualifications
+  skills           String[]  // Array of skill names
+  qualifications   Json?     // Education details as JSON
+
+  // Documents (JSON array of document references)
+  documents        Json?     // {type: "ID_PROOF", fileId: "...", name: "..."}[]
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+// ==================== EODR V2 COMMISSION SYSTEM ====================
+
+// Configurable holidays and half-days
+model Holiday {
+  id          String   @id @default(uuid())
+  date        DateTime @db.Date
+  name        String
+  type        String   @default("FULL") // FULL or HALF
+  year        Int
+  month       Int
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  createdBy User @relation("HolidayCreator", fields: [createdById], references: [id])
+
+  @@unique([date])
+  @@index([year, month])
+  @@map("holidays")
+}
+
+// Enhanced daily EODR tracking
+model DailyEODR {
+  id               String    @id @default(uuid())
+  userId           String
+  date             DateTime  @db.Date
+  tasksAssigned    Float     @default(0)
+  tasksCompleted   Float     @default(0)
+  taskDetails      Json      @default("[]") // [{taskName, timeSpent, status}]
+  secondaryTasks   Json?     // Ad-hoc work
+  finalCount       Float     @default(0)
+  totalHoursLogged Float     @default(0)
+  adjustedHours    Float?    // Manager-adjusted hours
+  taskEquivalent   Float     @default(0)  // totalHoursLogged / 3
+  employeeComments String?
+  managerRemarks   String?
+  isHalfDay        Boolean   @default(false)
+  isHoliday        Boolean   @default(false)
+  status           String    @default("PENDING") // PENDING, VERIFIED, REJECTED
+  verifiedById     String?
+  verifiedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user       User  @relation("DailyEODRUser", fields: [userId], references: [id])
+  verifiedBy User? @relation("DailyEODRVerifier", fields: [verifiedById], references: [id])
+
+  @@unique([userId, date])
+  @@index([userId, date])
+  @@index([status])
+  @@map("daily_eodr")
+}
+
+// Weekly EODR rollup summary
+model WeeklyEODRSummary {
+  id             String   @id @default(uuid())
+  userId         String
+  weekNumber     Int
+  month          Int
+  year           Int
+  startDate      DateTime @db.Date
+  endDate        DateTime @db.Date
+  tasksAssigned  Float    @default(0)
+  tasksCompleted Float    @default(0)
+  weeklyTarget   Float    @default(15) // 5 working days × 3 tasks
+  adjustedTarget Float?   // Adjusted for holidays/half-days
+  completionRate Float    @default(0)  // (tasksCompleted / target) × 100
+  comments       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation("WeeklyEODRUser", fields: [userId], references: [id])
+
+  @@unique([userId, weekNumber, month, year])
+  @@index([userId, year, month])
+  @@map("weekly_eodr_summaries")
+}
+
+// Monthly EODR summary with commission calculation
+model MonthlyEODRSummary {
+  id                String    @id @default(uuid())
+  userId            String
+  month             Int
+  year              Int
+  totalWorkingDays  Int       @default(0)
+  taskTarget        Float     @default(0)  // workingDays × 3
+  tasksCompleted    Float     @default(0)
+  totalHoursLogged  Float     @default(0)
+  completionPercent Float     @default(0)  // (tasksCompleted / taskTarget) × 100
+  taskEquivalent    Float     @default(0)  // totalHoursLogged / 3
+  commissionTier    String    @default("NONE") // PLATINUM, GOLD, SILVER, BRONZE, NONE
+  commissionPercent Float     @default(0)  // 0.15, 0.10, 0.05, 0.02, 0
+  isFinalized       Boolean   @default(false)
+  finalizedById     String?
+  finalizedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user        User  @relation("MonthlyEODRUser", fields: [userId], references: [id])
+  finalizedBy User? @relation("MonthlyEODRFinalizer", fields: [finalizedById], references: [id])
+
+  @@unique([userId, month, year])
+  @@index([year, month])
+  @@index([commissionTier])
+  @@map("monthly_eodr_summaries")
+}
