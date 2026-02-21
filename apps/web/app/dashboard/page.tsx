@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/lib/auth-store';
-import { projectsApi, tasksApi, usersApi } from '@/lib/api';
+import { projectsApi, tasksApi, usersApi, activityApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -37,6 +37,12 @@ export default function DashboardPage() {
   const { data: usersData, isLoading: usersLoading } = useQuery({
     queryKey: ['users'],
     queryFn: () => usersApi.list(accessToken!),
+    enabled: !!accessToken,
+  });
+
+  const { data: activityData, isLoading: activityLoading } = useQuery({
+    queryKey: ['activity-feed'],
+    queryFn: () => activityApi.getFeed(accessToken!, 5),
     enabled: !!accessToken,
   });
 
@@ -82,17 +88,15 @@ export default function DashboardPage() {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase();
   };
 
-  // Get recent activity from tasks
-  const recentActivity = [...tasks]
-    .sort((a, b) => new Date(b.updatedAt || b.createdAt).getTime() - new Date(a.updatedAt || a.createdAt).getTime())
-    .slice(0, 5)
-    .map((task, index) => ({
-      id: task.id,
-      user: task.assignee?.name || 'Unknown User',
-      action: `updated task "${task.title}"`,
-      date: formatDate(task.updatedAt || task.createdAt),
-      colorIndex: index,
-    }));
+  // Get recent activity from the activity log API (always has user data)
+  const recentActivity = (activityData?.data || []).map((log, index) => ({
+    id: log.id,
+    user: log.user.name,
+    avatar: log.user.avatar,
+    action: log.action,
+    date: formatDate(log.createdAt),
+    colorIndex: index,
+  }));
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -157,9 +161,9 @@ export default function DashboardPage() {
         {isLoading ? (
           <>
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50">
-                <Skeleton className="h-4 w-24 mb-2 bg-slate-700" />
-                <Skeleton className="h-8 w-12 bg-slate-700" />
+              <div key={i} className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))]">
+                <Skeleton className="h-4 w-24 mb-2 bg-[hsl(var(--layout-border))]" />
+                <Skeleton className="h-8 w-12 bg-[hsl(var(--layout-border))]" />
               </div>
             ))}
           </>
@@ -167,13 +171,13 @@ export default function DashboardPage() {
           <>
             {/* Active Projects */}
             <div
-              className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50 cursor-pointer hover:bg-[#1a2942] transition-colors"
+              className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))] cursor-pointer hover:bg-[hsl(var(--layout-card-hover))] transition-colors"
               onClick={() => router.push('/dashboard/projects')}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Active Projects</p>
-                  <p className="text-3xl font-bold text-white mt-1">{String(activeProjects).padStart(2, '0')}</p>
+                  <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Active Projects</p>
+                  <p className="text-3xl font-bold text-[hsl(var(--text-primary))] mt-1">{String(activeProjects).padStart(2, '0')}</p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
                   <FolderKanban className="h-5 w-5 text-emerald-400" />
@@ -183,13 +187,13 @@ export default function DashboardPage() {
 
             {/* Assigned Tasks */}
             <div
-              className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50 cursor-pointer hover:bg-[#1a2942] transition-colors"
+              className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))] cursor-pointer hover:bg-[hsl(var(--layout-card-hover))] transition-colors"
               onClick={() => router.push('/dashboard/tasks')}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Assigned Tasks</p>
-                  <p className="text-3xl font-bold text-white mt-1">{String(myTasks.length).padStart(2, '0')}</p>
+                  <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Assigned Tasks</p>
+                  <p className="text-3xl font-bold text-[hsl(var(--text-primary))] mt-1">{String(myTasks.length).padStart(2, '0')}</p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center">
                   <CheckSquare className="h-5 w-5 text-orange-400" />
@@ -199,13 +203,13 @@ export default function DashboardPage() {
 
             {/* In Progress Tasks */}
             <div
-              className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50 cursor-pointer hover:bg-[#1a2942] transition-colors"
+              className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))] cursor-pointer hover:bg-[hsl(var(--layout-card-hover))] transition-colors"
               onClick={() => router.push('/dashboard/tasks')}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">In Progress Tasks</p>
-                  <p className="text-3xl font-bold text-white mt-1">{String(inProgressTasks.length).padStart(2, '0')}</p>
+                  <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">In Progress Tasks</p>
+                  <p className="text-3xl font-bold text-[hsl(var(--text-primary))] mt-1">{String(inProgressTasks.length).padStart(2, '0')}</p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
                   <Clock className="h-5 w-5 text-blue-400" />
@@ -215,13 +219,13 @@ export default function DashboardPage() {
 
             {/* Team Members */}
             <div
-              className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50 cursor-pointer hover:bg-[#1a2942] transition-colors"
+              className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))] cursor-pointer hover:bg-[hsl(var(--layout-card-hover))] transition-colors"
               onClick={() => router.push('/dashboard/team')}
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Team Members</p>
-                  <p className="text-3xl font-bold text-white mt-1">{String(activeUsers).padStart(2, '0')}</p>
+                  <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Team Members</p>
+                  <p className="text-3xl font-bold text-[hsl(var(--text-primary))] mt-1">{String(activeUsers).padStart(2, '0')}</p>
                 </div>
                 <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
                   <Users className="h-5 w-5 text-yellow-400" />
@@ -307,28 +311,28 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent Activity */}
-          <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-5">
+          <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-5">
             <div className="flex items-center justify-between mb-1">
-              <h2 className="text-lg font-semibold text-white">Recent Activity</h2>
+              <h2 className="text-lg font-semibold text-[hsl(var(--text-primary))]">Recent Activity</h2>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => router.push('/dashboard/activity')}
-                className="text-slate-400 hover:text-white hover:bg-slate-700/50 text-xs"
+                className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] text-xs"
               >
                 View all
                 <ArrowRight className="ml-1 h-3 w-3" />
               </Button>
             </div>
-            <p className="text-slate-500 text-sm mb-4">Latest updates from your projects</p>
+            <p className="text-[hsl(var(--text-muted))] text-sm mb-4">Latest updates from your projects</p>
 
-            {isLoading ? (
+            {activityLoading ? (
               <div className="space-y-4">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <Skeleton className="h-9 w-9 rounded-full bg-slate-700" />
-                    <Skeleton className="h-4 flex-1 bg-slate-700" />
-                    <Skeleton className="h-4 w-16 bg-slate-700" />
+                    <Skeleton className="h-9 w-9 rounded-full bg-[hsl(var(--layout-border))]" />
+                    <Skeleton className="h-4 flex-1 bg-[hsl(var(--layout-border))]" />
+                    <Skeleton className="h-4 w-16 bg-[hsl(var(--layout-border))]" />
                   </div>
                 ))}
               </div>
@@ -347,8 +351,8 @@ export default function DashboardPage() {
                       {getInitials(activity.user)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-slate-300">
-                        <span className="font-medium text-white">{activity.user}</span>{' '}
+                      <p className="text-sm text-[hsl(var(--text-secondary))]">
+                        <span className="font-medium text-[hsl(var(--text-primary))]">{activity.user}</span>{' '}
                         {activity.action}
                       </p>
                     </div>
@@ -369,20 +373,20 @@ export default function DashboardPage() {
         {/* Right Column */}
         <div className="space-y-6">
           {/* My Tasks */}
-          <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-5">
+          <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-5">
             <div className="flex items-center justify-between mb-1">
-              <h2 className="text-lg font-semibold text-white">My Tasks</h2>
+              <h2 className="text-lg font-semibold text-[hsl(var(--text-primary))]">My Tasks</h2>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => router.push('/dashboard/tasks')}
-                className="text-slate-400 hover:text-white hover:bg-slate-700/50 text-xs"
+                className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] text-xs"
               >
                 View all
                 <ArrowRight className="ml-1 h-3 w-3" />
               </Button>
             </div>
-            <p className="text-slate-500 text-sm mb-4">Tasks assigned to you</p>
+            <p className="text-[hsl(var(--text-muted))] text-sm mb-4">Tasks assigned to you</p>
 
             {isLoading ? (
               <div className="space-y-3">
@@ -400,13 +404,13 @@ export default function DashboardPage() {
                 {myTasks.slice(0, 5).map((task) => (
                   <div
                     key={task.id}
-                    className="bg-[#1a2942] rounded-lg p-3 cursor-pointer hover:bg-[#1f3352] transition-colors"
+                    className="bg-[hsl(var(--layout-card-hover))] rounded-lg p-3 cursor-pointer hover:bg-[hsl(var(--layout-card-hover))]/80 transition-colors"
                     onClick={() => router.push('/dashboard/tasks')}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-white truncate">{task.title}</p>
-                        <p className="text-sm text-slate-400">{task.assignee?.name || user?.name}</p>
+                        <p className="font-medium text-[hsl(var(--text-primary))] truncate">{task.title}</p>
+                        <p className="text-sm text-[hsl(var(--text-secondary))]">{task.assignee?.name || user?.name}</p>
                       </div>
                       <div className="shrink-0">
                         {getStatusBadge(task.status)}
@@ -419,20 +423,20 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent Projects */}
-          <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-5">
+          <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-5">
             <div className="flex items-center justify-between mb-1">
-              <h2 className="text-lg font-semibold text-white">Recent Projects</h2>
+              <h2 className="text-lg font-semibold text-[hsl(var(--text-primary))]">Recent Projects</h2>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => router.push('/dashboard/projects')}
-                className="text-slate-400 hover:text-white hover:bg-slate-700/50 text-xs"
+                className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] text-xs"
               >
                 View all
                 <ArrowRight className="ml-1 h-3 w-3" />
               </Button>
             </div>
-            <p className="text-slate-500 text-sm mb-4">Projects you&apos;re part of</p>
+            <p className="text-[hsl(var(--text-muted))] text-sm mb-4">Projects you&apos;re part of</p>
 
             {isLoading ? (
               <div className="space-y-3">
@@ -457,18 +461,18 @@ export default function DashboardPage() {
                   return (
                     <div
                       key={project.id}
-                      className="bg-[#1a2942] rounded-lg p-3 cursor-pointer hover:bg-[#1f3352] transition-colors"
+                      className="bg-[hsl(var(--layout-card-hover))] rounded-lg p-3 cursor-pointer hover:bg-[hsl(var(--layout-card-hover))]/80 transition-colors"
                       onClick={() => router.push(`/dashboard/projects/${project.id}`)}
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <p className="font-medium text-white">{project.name}</p>
+                        <p className="font-medium text-[hsl(var(--text-primary))]">{project.name}</p>
                         {getProjectStatusBadge(project.status)}
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="flex-1">
                           <Progress
                             value={progress}
-                            className="h-1.5 bg-slate-700"
+                            className="h-1.5 bg-[hsl(var(--layout-border))]"
                           />
                         </div>
                         <span className="text-xs text-slate-500">{progress}%</span>

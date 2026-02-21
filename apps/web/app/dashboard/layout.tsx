@@ -35,6 +35,7 @@ import { TimerIndicator } from '@/components/timer-indicator';
 import { NotificationsDropdown } from '@/components/notifications-dropdown';
 import { ChatNotificationProvider } from '@/components/chat/chat-notification-provider';
 import { AIChatBot } from '@/components/ai';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -108,10 +109,10 @@ export default function DashboardLayout({
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#0a1628]">
+      <div className="flex h-screen items-center justify-center bg-[hsl(var(--layout-bg))]">
         <div className="flex flex-col items-center gap-4">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-          <p className="text-slate-400">Loading...</p>
+          <p className="text-[hsl(var(--text-secondary))]">Loading...</p>
         </div>
       </div>
     );
@@ -137,7 +138,7 @@ export default function DashboardLayout({
 
   return (
     <ChatNotificationProvider>
-      <div className="flex h-screen overflow-hidden bg-[#0a1628]">
+      <div className="flex h-screen overflow-hidden bg-[hsl(var(--layout-bg))]">
         {/* Mobile sidebar backdrop */}
         {sidebarOpen && (
           <div
@@ -149,14 +150,14 @@ export default function DashboardLayout({
         {/* Sidebar */}
         <aside
           className={cn(
-            'fixed inset-y-0 left-0 z-50 flex flex-col bg-[#0a1628] border-r border-slate-700/50 transition-all duration-300 ease-in-out lg:static',
+            'fixed inset-y-0 left-0 z-50 flex flex-col bg-[hsl(var(--layout-bg))] border-r border-[hsl(var(--layout-border))] transition-all duration-300 ease-in-out lg:static',
             sidebarCollapsed ? 'w-20' : 'w-64',
             sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
           )}
         >
           {/* Logo Section */}
           <div className={cn(
-            'flex h-16 items-center justify-between px-4 border-b border-slate-700/50',
+            'flex h-16 items-center justify-between px-4 border-b border-[hsl(var(--layout-border))]',
             sidebarCollapsed && 'justify-center px-2'
           )}>
             <Link href="/dashboard" className="flex items-center gap-3">
@@ -165,7 +166,7 @@ export default function DashboardLayout({
                 <span className="text-sm font-bold text-white tracking-tight">SIT</span>
               </div>
               {!sidebarCollapsed && (
-                <span className="font-semibold text-white text-lg">Super In Tech</span>
+                <span className="font-semibold text-[hsl(var(--text-primary))] text-lg">Super In Tech</span>
               )}
             </Link>
             {!sidebarCollapsed && (
@@ -190,7 +191,7 @@ export default function DashboardLayout({
 
           {/* Expand button when collapsed */}
           {sidebarCollapsed && (
-            <div className="flex justify-center py-2 border-b border-slate-700/50">
+            <div className="flex justify-center py-2 border-b border-[hsl(var(--layout-border))]">
               <Button
                 variant="ghost"
                 size="icon"
@@ -219,7 +220,7 @@ export default function DashboardLayout({
                       sidebarCollapsed && 'justify-center px-2',
                       isActive
                         ? 'bg-blue-500/10 text-blue-400'
-                        : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                        : 'text-[hsl(var(--text-secondary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))]'
                     )}
                     onClick={() => setSidebarOpen(false)}
                     title={sidebarCollapsed ? item.name : undefined}
@@ -238,9 +239,9 @@ export default function DashboardLayout({
           {/* Bottom Card - Let's start! */}
           {!sidebarCollapsed && (
             <div className="p-4">
-              <div className="bg-[#131d2e] rounded-xl p-4 text-center">
-                <h3 className="text-white font-semibold mb-1">Let&apos;s start!</h3>
-                <p className="text-slate-400 text-xs mb-4">
+              <div className="bg-[hsl(var(--layout-card))] rounded-xl p-4 text-center">
+                <h3 className="text-[hsl(var(--text-primary))] font-semibold mb-1">Let&apos;s start!</h3>
+                <p className="text-[hsl(var(--text-secondary))] text-xs mb-4">
                   Creating or adding new tasks couldn&apos;t be easier
                 </p>
                 <Button
@@ -258,7 +259,7 @@ export default function DashboardLayout({
         {/* Main content */}
         <div className="flex flex-1 flex-col overflow-hidden">
           {/* Header */}
-          <header className="flex h-16 items-center justify-between bg-[#0a1628] border-b border-slate-700/50 px-6">
+          <header className="flex h-16 items-center justify-between bg-[hsl(var(--layout-header))] border-b border-[hsl(var(--layout-border))] px-6">
             {/* Left - Menu button (mobile) and Page Title */}
             <div className="flex items-center gap-4">
               <Button
@@ -273,7 +274,7 @@ export default function DashboardLayout({
                 <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
                   <Home className="h-4 w-4 text-blue-400" />
                 </div>
-                <span className="text-white font-semibold text-lg">{getCurrentPageTitle()}</span>
+                <span className="text-[hsl(var(--text-primary))] font-semibold text-lg">{getCurrentPageTitle()}</span>
               </div>
             </div>
 
@@ -308,11 +309,14 @@ export default function DashboardLayout({
               {/* Notifications */}
               <NotificationsDropdown />
 
+              {/* Theme Toggle */}
+              <ThemeToggle />
+
               {/* User Avatar */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0">
-                    <Avatar className="h-10 w-10 border-2 border-slate-600">
+                    <Avatar className="h-10 w-10 border-2 border-[hsl(var(--layout-border))]">
                       <AvatarImage src={user.avatar} alt={user.name} />
                       <AvatarFallback className="bg-gradient-to-br from-amber-400 to-orange-500 text-white font-medium">
                         {getInitials(user.name)}
@@ -320,22 +324,22 @@ export default function DashboardLayout({
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-[#131d2e] border-slate-700 text-white" align="end" forceMount>
+                <DropdownMenuContent className="w-56 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none text-white">{user.name}</p>
-                      <p className="text-xs leading-none text-slate-400">{user.email}</p>
+                      <p className="text-sm font-medium leading-none text-[hsl(var(--text-primary))]">{user.name}</p>
+                      <p className="text-xs leading-none text-[hsl(var(--text-secondary))]">{user.email}</p>
                       <p className="text-xs leading-none text-blue-400 font-medium mt-1">{user.role}</p>
                     </div>
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-slate-700" />
-                  <DropdownMenuItem asChild className="text-slate-300 focus:bg-slate-700 focus:text-white">
+                  <DropdownMenuSeparator className="bg-[hsl(var(--layout-border))]" />
+                  <DropdownMenuItem asChild className="text-[hsl(var(--text-secondary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-[hsl(var(--text-primary))]">
                     <Link href="/dashboard/team" className="flex items-center cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       My Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-slate-700" />
+                  <DropdownMenuSeparator className="bg-[hsl(var(--layout-border))]" />
                   <DropdownMenuItem
                     onClick={handleLogout}
                     className="text-red-400 focus:bg-red-500/10 focus:text-red-400"
@@ -349,7 +353,7 @@ export default function DashboardLayout({
           </header>
 
           {/* Page content */}
-          <main className="flex-1 overflow-y-auto p-6 bg-[#0a1628]">{children}</main>
+          <main className="flex-1 overflow-y-auto p-6 bg-[hsl(var(--layout-bg))]">{children}</main>
         </div>
       </div>
 

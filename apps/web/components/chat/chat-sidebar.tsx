@@ -132,10 +132,10 @@ export function ChatSidebar({
   };
 
   return (
-    <div className="w-60 bg-[#131d2e] flex flex-col h-full border-r border-slate-700">
+    <div className="w-full bg-[hsl(var(--layout-card))] flex flex-col h-full border-r border-[hsl(var(--layout-border))]">
       {/* Header */}
-      <div className="h-12 px-4 flex items-center border-b border-slate-700 shadow-sm">
-        <h2 className="font-semibold text-white">Messages</h2>
+      <div className="h-12 px-4 flex items-center border-b border-[hsl(var(--layout-border))] shadow-sm">
+        <h2 className="font-semibold text-[hsl(var(--text-primary))]">Messages</h2>
       </div>
 
       {/* Search */}
@@ -410,7 +410,7 @@ export function ChatSidebar({
       </ScrollArea>
 
       {/* User Panel */}
-      <div className="h-14 px-2 bg-[#0a1628] border-t border-slate-700 flex items-center gap-2">
+      <div className="h-14 px-2 bg-[hsl(var(--layout-bg))] border-t border-[hsl(var(--layout-border))] flex items-center gap-2">
         <div className="relative">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user?.avatar} />
@@ -421,7 +421,7 @@ export function ChatSidebar({
           <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0a1628]" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+          <p className="text-sm font-medium text-[hsl(var(--text-primary))] truncate">{user?.name}</p>
           <p className="text-xs text-slate-400">Online</p>
         </div>
       </div>

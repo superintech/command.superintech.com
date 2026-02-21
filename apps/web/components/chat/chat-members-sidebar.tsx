@@ -26,7 +26,7 @@ export function ChatMembersSidebar({ room, onlineUsers }: ChatMembersSidebarProp
   }
 
   return (
-    <div className="w-60 bg-[#131d2e] h-full border-l border-slate-700">
+    <div className="w-full bg-[hsl(var(--layout-card))] h-full border-l border-[hsl(var(--layout-border))]">
       <ScrollArea className="h-full py-4">
         {/* Online Members */}
         {onlineMembers.length > 0 && (
