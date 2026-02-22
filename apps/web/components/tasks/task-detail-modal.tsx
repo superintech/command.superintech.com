@@ -494,7 +494,7 @@ export function TaskDetailModal({
   return (
     <>
       <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
           {isLoading ? (
             <>
               <DialogHeader className="sr-only">
@@ -517,12 +517,12 @@ export function TaskDetailModal({
                         <Input
                           value={editForm.title}
                           onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                          className="text-xl font-semibold bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                          className="text-xl font-semibold bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                         />
                       </>
                     ) : (
                       <>
-                        <DialogTitle className="text-xl text-white">{task.title}</DialogTitle>
+                        <DialogTitle className="text-xl text-[hsl(var(--text-primary))]">{task.title}</DialogTitle>
                         <DialogDescription className="text-sm text-[hsl(var(--text-secondary))] mt-1">{task.project?.name}</DialogDescription>
                       </>
                     )}
@@ -534,13 +534,13 @@ export function TaskDetailModal({
                           <Save className="h-4 w-4 mr-1" />
                           Save
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setIsEditing(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                        <Button size="sm" variant="outline" onClick={() => setIsEditing(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                           Cancel
                         </Button>
                       </>
                     ) : (
                       <>
-                        <Button size="sm" variant="outline" onClick={() => setIsEditing(true)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                        <Button size="sm" variant="outline" onClick={() => setIsEditing(true)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                           <Edit className="h-4 w-4 mr-1" />
                           Edit
                         </Button>
@@ -565,7 +565,7 @@ export function TaskDetailModal({
                     <select
                       value={editForm.status}
                       onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                      className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-white px-2 py-1"
+                      className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-[hsl(var(--text-primary))] px-2 py-1"
                     >
                       {STATUS_OPTIONS.map((s) => (
                         <option key={s.value} value={s.value} className="bg-[hsl(var(--layout-bg))]">{s.label}</option>
@@ -574,7 +574,7 @@ export function TaskDetailModal({
                     <select
                       value={editForm.priority}
                       onChange={(e) => setEditForm({ ...editForm, priority: e.target.value })}
-                      className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-white px-2 py-1"
+                      className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-[hsl(var(--text-primary))] px-2 py-1"
                     >
                       {PRIORITY_OPTIONS.map((p) => (
                         <option key={p.value} value={p.value} className="bg-[hsl(var(--layout-bg))]">{p.label}</option>
@@ -625,7 +625,7 @@ export function TaskDetailModal({
                         minHeight="120px"
                       />
                     ) : task.description ? (
-                      <div className="bg-[hsl(var(--layout-bg))] rounded-lg p-3 text-white">
+                      <div className="bg-[hsl(var(--layout-bg))] rounded-lg p-3 text-[hsl(var(--text-primary))]">
                         <RichTextDisplay content={task.description} />
                       </div>
                     ) : (
@@ -643,7 +643,7 @@ export function TaskDetailModal({
                           <select
                             value={editForm.assigneeId}
                             onChange={(e) => setEditForm({ ...editForm, assigneeId: e.target.value })}
-                            className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-white px-2 py-1 w-full"
+                            className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-[hsl(var(--text-primary))] px-2 py-1 w-full"
                           >
                             <option value="" className="bg-[hsl(var(--layout-bg))]">Unassigned</option>
                             {users.map((u) => (
@@ -651,7 +651,7 @@ export function TaskDetailModal({
                             ))}
                           </select>
                         ) : (
-                          <p className="text-sm font-medium text-white">{task.assignee?.name || 'Unassigned'}</p>
+                          <p className="text-sm font-medium text-[hsl(var(--text-primary))]">{task.assignee?.name || 'Unassigned'}</p>
                         )}
                       </div>
                     </div>
@@ -660,7 +660,7 @@ export function TaskDetailModal({
                       <User className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       <div>
                         <p className="text-xs text-[hsl(var(--text-muted))]">Reporter</p>
-                        <p className="text-sm font-medium text-white">{task.reporter?.name}</p>
+                        <p className="text-sm font-medium text-[hsl(var(--text-primary))]">{task.reporter?.name}</p>
                       </div>
                     </div>
 
@@ -673,10 +673,10 @@ export function TaskDetailModal({
                             type="date"
                             value={editForm.dueDate}
                             onChange={(e) => setEditForm({ ...editForm, dueDate: e.target.value })}
-                            className="h-8 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                            className="h-8 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                           />
                         ) : (
-                          <p className="text-sm font-medium text-white">
+                          <p className="text-sm font-medium text-[hsl(var(--text-primary))]">
                             {task.dueDate ? formatDateTime(task.dueDate) : 'Not set'}
                           </p>
                         )}
@@ -687,7 +687,7 @@ export function TaskDetailModal({
                       <Clock className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       <div>
                         <p className="text-xs text-[hsl(var(--text-muted))]">Time Spent</p>
-                        <p className="text-sm font-medium text-white">
+                        <p className="text-sm font-medium text-[hsl(var(--text-primary))]">
                           {totalTimeSpent > 0 ? formatDuration(totalTimeSpent) : 'No time logged'}
                         </p>
                       </div>
@@ -725,7 +725,7 @@ export function TaskDetailModal({
                       {/* Add Tag Popover */}
                       <Popover>
                         <PopoverTrigger asChild>
-                          <Button variant="outline" size="sm" className="h-6 gap-1 border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                          <Button variant="outline" size="sm" className="h-6 gap-1 border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                             <Plus className="h-3 w-3" />
                             Add
                           </Button>
@@ -780,7 +780,7 @@ export function TaskDetailModal({
                             addSubtaskMutation.mutate(newSubtask);
                           }
                         }}
-                        className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                        className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                       />
                       <Button
                         size="icon"
@@ -813,7 +813,7 @@ export function TaskDetailModal({
                                 <Circle className="h-5 w-5 text-[hsl(var(--text-muted))]" />
                               )}
                             </button>
-                            <span className={subtask.status === 'COMPLETED' ? 'line-through text-[hsl(var(--text-muted))]' : 'text-white'}>
+                            <span className={subtask.status === 'COMPLETED' ? 'line-through text-[hsl(var(--text-muted))]' : 'text-[hsl(var(--text-primary))]'}>
                               {subtask.title}
                             </span>
                           </div>
@@ -835,7 +835,7 @@ export function TaskDetailModal({
                         placeholder="Add a comment..."
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
-                        className="min-h-[60px] bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                        className="min-h-[60px] bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                       />
                       <Button
                         size="icon"
@@ -859,7 +859,7 @@ export function TaskDetailModal({
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-2">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-sm font-medium text-white">{comment.user.name}</span>
+                                  <span className="text-sm font-medium text-[hsl(var(--text-primary))]">{comment.user.name}</span>
                                   <span className="text-xs text-[hsl(var(--text-muted))]">
                                     {formatDateTime(comment.createdAt)}
                                   </span>
@@ -870,7 +870,7 @@ export function TaskDetailModal({
                                     <Button
                                       variant="ghost"
                                       size="sm"
-                                      className="h-6 w-6 p-0 text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                                      className="h-6 w-6 p-0 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                                       onClick={() => {
                                         setEditingCommentId(comment.id);
                                         setEditingCommentContent(comment.content);
@@ -895,7 +895,7 @@ export function TaskDetailModal({
                                   <Textarea
                                     value={editingCommentContent}
                                     onChange={(e) => setEditingCommentContent(e.target.value)}
-                                    className="min-h-[60px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white"
+                                    className="min-h-[60px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                                   />
                                   <div className="flex gap-2">
                                     <Button
@@ -918,7 +918,7 @@ export function TaskDetailModal({
                                         setEditingCommentId(null);
                                         setEditingCommentContent('');
                                       }}
-                                      className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                                      className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                                     >
                                       Cancel
                                     </Button>
@@ -945,7 +945,7 @@ export function TaskDetailModal({
                     <div className="p-4 bg-[hsl(var(--layout-bg))] rounded-lg space-y-3">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-medium text-white">
+                          <p className="font-medium text-[hsl(var(--text-primary))]">
                             {isTimerRunningForThisTask ? 'Timer Running' : 'Start Timer'}
                           </p>
                           <p className="text-sm text-[hsl(var(--text-secondary))]">
@@ -982,7 +982,7 @@ export function TaskDetailModal({
                             value={timerDescription}
                             onChange={(e) => setTimerDescription(e.target.value)}
                             placeholder="e.g., Fixing bug in login form..."
-                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                           />
                         </div>
                       )}
@@ -997,13 +997,13 @@ export function TaskDetailModal({
 
                     {/* Time entries list */}
                     <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-white">Time Entries</h4>
+                      <h4 className="text-sm font-medium text-[hsl(var(--text-primary))]">Time Entries</h4>
                       {task.timeEntries && task.timeEntries.length > 0 ? (
                         task.timeEntries.map((entry) => (
                           <div key={entry.id} className="p-3 border border-[hsl(var(--layout-border))] rounded-lg bg-[hsl(var(--layout-bg))]">
                             <div className="flex items-center justify-between">
                               <div>
-                                <p className="text-sm font-medium text-white">{entry.user.name}</p>
+                                <p className="text-sm font-medium text-[hsl(var(--text-primary))]">{entry.user.name}</p>
                                 <p className="text-xs text-[hsl(var(--text-muted))]">
                                   {formatDateTime(entry.startTime)}
                                   {entry.endTime && ` - ${formatDateTime(entry.endTime)}`}
@@ -1033,7 +1033,7 @@ export function TaskDetailModal({
                   <div className="space-y-4">
                     {/* File upload section */}
                     <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-medium text-white">Attachments</h4>
+                      <h4 className="text-sm font-medium text-[hsl(var(--text-primary))]">Attachments</h4>
                       <div className="relative">
                         <input
                           ref={fileInputRef}
@@ -1069,7 +1069,7 @@ export function TaskDetailModal({
                                 <FileText className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
                               )}
                               <div>
-                                <p className="text-sm font-medium text-white">{file.originalName}</p>
+                                <p className="text-sm font-medium text-[hsl(var(--text-primary))]">{file.originalName}</p>
                                 <p className="text-xs text-[hsl(var(--text-muted))]">
                                   {formatFileSize(file.size)}
                                 </p>
@@ -1163,7 +1163,7 @@ export function TaskDetailModal({
       <Dialog open={!!shareUrl} onOpenChange={(open) => !open && closeShareDialog()}>
         <DialogContent className="max-w-md bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-white">
+            <DialogTitle className="flex items-center gap-2 text-[hsl(var(--text-primary))]">
               <Link className="h-5 w-5" />
               Share Link Created
             </DialogTitle>
@@ -1176,11 +1176,11 @@ export function TaskDetailModal({
               <Input
                 readOnly
                 value={shareUrl || ''}
-                className="flex-1 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white font-mono text-sm"
+                className="flex-1 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] font-mono text-sm"
               />
               <Button
                 onClick={handleCopyShareUrl}
-                className={copiedShareUrl ? 'shrink-0 bg-emerald-500 hover:bg-emerald-600' : 'shrink-0 border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]'}
+                className={copiedShareUrl ? 'shrink-0 bg-emerald-500 hover:bg-emerald-600' : 'shrink-0 border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]'}
                 variant={copiedShareUrl ? 'default' : 'outline'}
               >
                 {copiedShareUrl ? (
@@ -1197,7 +1197,7 @@ export function TaskDetailModal({
               </Button>
             </div>
             <div className="flex justify-end">
-              <Button variant="outline" onClick={closeShareDialog} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+              <Button variant="outline" onClick={closeShareDialog} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                 Done
               </Button>
             </div>

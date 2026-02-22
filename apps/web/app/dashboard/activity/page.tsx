@@ -188,7 +188,7 @@ export default function ActivityPage() {
           variant="ghost"
           size="icon"
           onClick={() => router.push('/dashboard')}
-          className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+          className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
@@ -197,7 +197,7 @@ export default function ActivityPage() {
             <Activity className="h-5 w-5 text-blue-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-white">All Activity</h1>
+            <h1 className="text-2xl font-bold text-[hsl(var(--text-primary))]">All Activity</h1>
             <p className="text-[hsl(var(--text-secondary))] text-sm">Complete history of updates from your projects and tasks</p>
           </div>
         </div>
@@ -248,7 +248,7 @@ export default function ActivityPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm text-[hsl(var(--text-primary))]">
-                          <span className="font-medium text-white">{activity.user}</span>{' '}
+                          <span className="font-medium text-[hsl(var(--text-primary))]">{activity.user}</span>{' '}
                           {activity.action}{' '}
                           <span className="text-blue-400">&quot;{activity.target}&quot;</span>
                         </p>

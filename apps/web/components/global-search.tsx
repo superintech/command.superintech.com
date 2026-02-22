@@ -180,12 +180,12 @@ export function GlobalSearch() {
           onChange={handleInputChange}
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
-          className="w-full bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] pl-10 pr-10 h-10 rounded-lg focus:border-blue-500 focus:ring-blue-500/20"
+          className="w-full bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))] pl-10 pr-10 h-10 rounded-lg focus:border-blue-500 focus:ring-blue-500/20"
         />
         {query && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[hsl(var(--text-secondary))] hover:text-white"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
           >
             <X className="h-4 w-4" />
           </button>
@@ -232,7 +232,7 @@ export function GlobalSearch() {
                           <FolderKanban className="h-4 w-4 text-blue-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-white font-medium truncate">{project.name}</p>
+                          <p className="text-[hsl(var(--text-primary))] font-medium truncate">{project.name}</p>
                           {project.description && (
                             <p className="text-xs text-[hsl(var(--text-muted))] truncate">{project.description}</p>
                           )}
@@ -280,7 +280,7 @@ export function GlobalSearch() {
                             <CheckSquare className="h-4 w-4 text-emerald-400" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-white font-medium truncate">{task.title}</p>
+                            <p className="text-[hsl(var(--text-primary))] font-medium truncate">{task.title}</p>
                             {task.project && (
                               <p className="text-xs text-[hsl(var(--text-muted))] truncate">
                                 {task.project.name}

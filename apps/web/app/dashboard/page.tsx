@@ -302,7 +302,7 @@ export default function DashboardPage() {
                       <AlertCircle className="h-5 w-5 text-[hsl(var(--text-primary))]" />
                     </div>
                     <div>
-                      <p className="text-white font-medium">
+                      <p className="text-[hsl(var(--text-primary))] font-medium">
                         You have {overdueTasks.length} overdue task{overdueTasks.length > 1 ? 's' : ''}
                       </p>
                       <p className="text-[hsl(var(--text-secondary))] text-sm">Please review and update your overdue tasks.</p>
@@ -320,7 +320,7 @@ export default function DashboardPage() {
                       <CheckSquare className="h-5 w-5 text-emerald-400" />
                     </div>
                     <div>
-                      <p className="text-white font-medium">All tasks are on track!</p>
+                      <p className="text-[hsl(var(--text-primary))] font-medium">All tasks are on track!</p>
                       <p className="text-[hsl(var(--text-secondary))] text-sm">You have no overdue tasks.</p>
                     </div>
                   </div>

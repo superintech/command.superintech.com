@@ -289,7 +289,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
           ) : (
             <Hash className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
           )}
-          <h3 className="font-semibold text-white">{displayName}</h3>
+          <h3 className="font-semibold text-[hsl(var(--text-primary))]">{displayName}</h3>
           {room.type === 'DIRECT' && (
             <span
               className={cn(
@@ -307,7 +307,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                  <Button variant="ghost" size="icon" className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                     <Users className="h-5 w-5" />
                   </Button>
                 </TooltipTrigger>
@@ -319,7 +319,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
           )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
+              <Button variant="ghost" size="icon" className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
@@ -357,7 +357,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-[hsl(var(--text-secondary))]">
             <Hash className="h-16 w-16 mb-4 opacity-30" />
-            <h3 className="text-xl font-semibold text-white">
+            <h3 className="text-xl font-semibold text-[hsl(var(--text-primary))]">
               Welcome to #{displayName}
             </h3>
             <p className="text-sm mt-1">This is the start of your conversation</p>
@@ -410,7 +410,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                         <div className="flex-1 min-w-0">
                           {showHeader && (
                             <div className="flex items-baseline gap-2">
-                              <span className="font-medium text-white hover:underline cursor-pointer">
+                              <span className="font-medium text-[hsl(var(--text-primary))] hover:underline cursor-pointer">
                                 {msg.sender.name}
                               </span>
                               <span className="text-xs text-[hsl(var(--text-muted))]">
@@ -539,14 +539,14 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
               <FileIcon className="h-8 w-8 text-[hsl(var(--text-secondary))]" />
             )}
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-white truncate">{selectedFile.name}</p>
+              <p className="text-sm text-[hsl(var(--text-primary))] truncate">{selectedFile.name}</p>
               <p className="text-xs text-[hsl(var(--text-muted))]">{(selectedFile.size / 1024).toFixed(1)} KB</p>
             </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setSelectedFile(null)}
-              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+              className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -569,7 +569,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
             size="icon"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))] h-8 w-8"
+            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] h-8 w-8"
           >
             <Paperclip className="h-5 w-5" />
           </Button>
@@ -603,7 +603,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
               onKeyPress={handleKeyPress}
               placeholder={`Message @${displayName}`}
               disabled={!isConnected || isUploading}
-              className="flex-1 bg-transparent border-0 text-white placeholder:text-[hsl(var(--text-muted))] focus-visible:ring-0"
+              className="flex-1 bg-transparent border-0 text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))] focus-visible:ring-0"
             />
           )}
           <div className="relative">
@@ -611,7 +611,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
               variant="ghost"
               size="icon"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))] h-8 w-8"
+              className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] h-8 w-8"
             >
               <Smile className="h-5 w-5" />
             </Button>

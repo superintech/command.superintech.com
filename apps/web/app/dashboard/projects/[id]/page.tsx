@@ -286,7 +286,7 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <div className="text-center py-12">
-        <h2 className="text-xl font-semibold text-white">Project not found</h2>
+        <h2 className="text-xl font-semibold text-[hsl(var(--text-primary))]">Project not found</h2>
         <Button variant="link" onClick={() => router.push('/dashboard/projects')} className="text-blue-400">
           Back to Projects
         </Button>
@@ -316,13 +316,13 @@ export default function ProjectDetailPage() {
             variant="ghost"
             size="icon"
             onClick={() => router.push('/dashboard/projects')}
-            className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-white">{project.name}</h1>
+              <h1 className="text-2xl font-bold text-[hsl(var(--text-primary))]">{project.name}</h1>
               {getStatusBadge(project.status)}
             </div>
             <p className="text-[hsl(var(--text-secondary))]">{project.department?.name}</p>
@@ -334,7 +334,7 @@ export default function ProjectDetailPage() {
             <Button
               variant="outline"
               onClick={handleEditProject}
-              className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]"
+              className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <Edit className="mr-2 h-4 w-4" />
               Edit Project
@@ -355,8 +355,8 @@ export default function ProjectDetailPage() {
       {showEditProject && (
         <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-white">Edit Project</h2>
-            <Button variant="ghost" size="icon" onClick={() => setShowEditProject(false)} className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
+            <h2 className="text-lg font-semibold text-[hsl(var(--text-primary))]">Edit Project</h2>
+            <Button variant="ghost" size="icon" onClick={() => setShowEditProject(false)} className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
               <X className="h-5 w-5" />
             </Button>
           </div>
@@ -368,7 +368,7 @@ export default function ProjectDetailPage() {
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
                   placeholder="Project name"
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
               <div className="space-y-2">
@@ -376,7 +376,7 @@ export default function ProjectDetailPage() {
                 <select
                   value={editForm.status}
                   onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   <option value="PLANNING" className="bg-[hsl(var(--layout-bg))]">Planning</option>
                   <option value="ACTIVE" className="bg-[hsl(var(--layout-bg))]">Active</option>
@@ -392,14 +392,14 @@ export default function ProjectDetailPage() {
                 value={editForm.description}
                 onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
                 placeholder="Project description"
-                className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
               />
             </div>
             <div className="flex gap-2">
               <Button type="submit" disabled={updateProjectMutation.isPending} className="bg-blue-500 hover:bg-blue-600 text-white">
                 {updateProjectMutation.isPending ? 'Saving...' : 'Save Changes'}
               </Button>
-              <Button type="button" variant="outline" onClick={() => setShowEditProject(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+              <Button type="button" variant="outline" onClick={() => setShowEditProject(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                 Cancel
               </Button>
             </div>
@@ -410,7 +410,7 @@ export default function ProjectDetailPage() {
       {/* Progress Overview */}
       <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-white">Overall Progress</span>
+          <span className="text-sm font-medium text-[hsl(var(--text-primary))]">Overall Progress</span>
           <span className="text-sm text-[hsl(var(--text-secondary))]">{progressPercentage}% Complete</span>
         </div>
         <Progress value={progressPercentage} className="h-2 bg-[hsl(var(--layout-card-hover))]" />
@@ -427,7 +427,7 @@ export default function ProjectDetailPage() {
               <CheckSquare className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{String(taskStats.total).padStart(2, '0')}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{String(taskStats.total).padStart(2, '0')}</p>
               <p className="text-xs text-[hsl(var(--text-secondary))]">Total Tasks</p>
             </div>
           </div>
@@ -438,7 +438,7 @@ export default function ProjectDetailPage() {
               <ListTodo className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{String(taskStats.todo).padStart(2, '0')}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{String(taskStats.todo).padStart(2, '0')}</p>
               <p className="text-xs text-[hsl(var(--text-secondary))]">To Do</p>
             </div>
           </div>
@@ -449,7 +449,7 @@ export default function ProjectDetailPage() {
               <Clock className="h-5 w-5 text-amber-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{String(taskStats.inProgress).padStart(2, '0')}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{String(taskStats.inProgress).padStart(2, '0')}</p>
               <p className="text-xs text-[hsl(var(--text-secondary))]">In Progress</p>
             </div>
           </div>
@@ -460,7 +460,7 @@ export default function ProjectDetailPage() {
               <CheckSquare className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{String(taskStats.completed).padStart(2, '0')}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{String(taskStats.completed).padStart(2, '0')}</p>
               <p className="text-xs text-[hsl(var(--text-secondary))]">Completed</p>
             </div>
           </div>
@@ -497,7 +497,7 @@ export default function ProjectDetailPage() {
 
         <TabsContent value="tasks" className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-white">Project Tasks</h3>
+            <h3 className="text-lg font-semibold text-[hsl(var(--text-primary))]">Project Tasks</h3>
             <Button onClick={() => setShowCreateTask(!showCreateTask)} className="bg-blue-500 hover:bg-blue-600">
               <Plus className="mr-2 h-4 w-4" />
               Add Task
@@ -514,7 +514,7 @@ export default function ProjectDetailPage() {
                       value={newTask.title}
                       onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                       placeholder="Task title"
-                      className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                      className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                     />
                   </div>
                   <div className="space-y-2">
@@ -522,7 +522,7 @@ export default function ProjectDetailPage() {
                     <select
                       value={newTask.assigneeId}
                       onChange={(e) => setNewTask({ ...newTask, assigneeId: e.target.value })}
-                      className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                      className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                     >
                       <option value="" className="bg-[hsl(var(--layout-bg))]">Unassigned</option>
                       {project.members?.map((m) => (
@@ -546,7 +546,7 @@ export default function ProjectDetailPage() {
                     <select
                       value={newTask.priority}
                       onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                      className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                      className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                     >
                       <option value="LOW" className="bg-[hsl(var(--layout-bg))]">Low</option>
                       <option value="MEDIUM" className="bg-[hsl(var(--layout-bg))]">Medium</option>
@@ -560,7 +560,7 @@ export default function ProjectDetailPage() {
                       type="date"
                       value={newTask.dueDate}
                       onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                      className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                      className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                     />
                   </div>
                 </div>
@@ -572,7 +572,7 @@ export default function ProjectDetailPage() {
                   <Button type="submit" disabled={createTaskMutation.isPending} className="bg-blue-500 hover:bg-blue-600">
                     {createTaskMutation.isPending ? 'Creating...' : 'Create'}
                   </Button>
-                  <Button type="button" variant="outline" onClick={() => setShowCreateTask(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                  <Button type="button" variant="outline" onClick={() => setShowCreateTask(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                     Cancel
                   </Button>
                 </div>
@@ -583,7 +583,7 @@ export default function ProjectDetailPage() {
           {tasks.length === 0 ? (
             <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-12 text-center">
               <CheckSquare className="h-12 w-12 text-[hsl(var(--text-muted))] mx-auto mb-3" />
-              <h3 className="text-lg font-medium text-white">No tasks yet</h3>
+              <h3 className="text-lg font-medium text-[hsl(var(--text-primary))]">No tasks yet</h3>
               <p className="text-sm text-[hsl(var(--text-secondary))] mt-1">Create your first task for this project</p>
             </div>
           ) : (
@@ -596,7 +596,7 @@ export default function ProjectDetailPage() {
                 >
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
-                      <h4 className="font-medium text-white">{task.title}</h4>
+                      <h4 className="font-medium text-[hsl(var(--text-primary))]">{task.title}</h4>
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-sm text-[hsl(var(--text-secondary))]">{task.assignee?.name || 'Unassigned'}</span>
                         {(task as any).actualHours > 0 && (
@@ -630,7 +630,7 @@ export default function ProjectDetailPage() {
 
         <TabsContent value="members" className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-white">Team Members</h3>
+            <h3 className="text-lg font-semibold text-[hsl(var(--text-primary))]">Team Members</h3>
             {isOwner && (
               <Button onClick={() => setShowAddMember(!showAddMember)} className="bg-blue-500 hover:bg-blue-600">
                 <UserPlus className="mr-2 h-4 w-4" />
@@ -645,7 +645,7 @@ export default function ProjectDetailPage() {
                 <select
                   value={selectedUserId}
                   onChange={(e) => setSelectedUserId(e.target.value)}
-                  className="flex h-10 flex-1 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="flex h-10 flex-1 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   <option value="" className="bg-[hsl(var(--layout-bg))]">Select a user</option>
                   {availableUsers.map((u) => (
@@ -655,7 +655,7 @@ export default function ProjectDetailPage() {
                 <Button onClick={() => selectedUserId && addMemberMutation.mutate(selectedUserId)} disabled={!selectedUserId || addMemberMutation.isPending} className="bg-blue-500 hover:bg-blue-600">
                   Add
                 </Button>
-                <Button variant="outline" onClick={() => setShowAddMember(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                <Button variant="outline" onClick={() => setShowAddMember(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                   Cancel
                 </Button>
               </div>
@@ -672,7 +672,7 @@ export default function ProjectDetailPage() {
                       <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white">{getInitials(member.user.name)}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-medium text-white">{member.user.name}</p>
+                      <p className="font-medium text-[hsl(var(--text-primary))]">{member.user.name}</p>
                       <p className="text-sm text-[hsl(var(--text-secondary))]">{member.user.role}</p>
                     </div>
                   </div>
@@ -689,7 +689,7 @@ export default function ProjectDetailPage() {
 
         <TabsContent value="tags" className="space-y-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold text-white">Project Tags</h3>
+            <h3 className="text-lg font-semibold text-[hsl(var(--text-primary))]">Project Tags</h3>
             {isOwner && (
               <Button onClick={() => setShowCreateTag(!showCreateTag)} className="bg-blue-500 hover:bg-blue-600">
                 <Plus className="mr-2 h-4 w-4" />
@@ -708,14 +708,14 @@ export default function ProjectDetailPage() {
                       value={newTag.name}
                       onChange={(e) => setNewTag({ ...newTag, name: e.target.value })}
                       placeholder="e.g., Bug, Feature, Documentation"
-                      className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                      className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                     />
                   </div>
                   <div className="space-y-2">
                     <Label className="text-[hsl(var(--text-primary))]">Color</Label>
                     <div className="flex items-center gap-2">
                       <input type="color" value={newTag.color} onChange={(e) => setNewTag({ ...newTag, color: e.target.value })} className="h-10 w-14 cursor-pointer rounded border border-[hsl(var(--layout-border))] bg-transparent p-1" />
-                      <Input value={newTag.color} onChange={(e) => setNewTag({ ...newTag, color: e.target.value })} className="flex-1 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white" />
+                      <Input value={newTag.color} onChange={(e) => setNewTag({ ...newTag, color: e.target.value })} className="flex-1 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]" />
                     </div>
                   </div>
                 </div>
@@ -729,7 +729,7 @@ export default function ProjectDetailPage() {
                   <Button type="submit" disabled={createTagMutation.isPending || !newTag.name.trim()} className="bg-blue-500 hover:bg-blue-600">
                     {createTagMutation.isPending ? 'Creating...' : 'Create Tag'}
                   </Button>
-                  <Button type="button" variant="outline" onClick={() => setShowCreateTag(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                  <Button type="button" variant="outline" onClick={() => setShowCreateTag(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                     Cancel
                   </Button>
                 </div>
@@ -740,7 +740,7 @@ export default function ProjectDetailPage() {
           {tags.length === 0 ? (
             <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-12 text-center">
               <Tags className="h-12 w-12 text-[hsl(var(--text-muted))] mx-auto mb-3" />
-              <h3 className="text-lg font-medium text-white">No tags yet</h3>
+              <h3 className="text-lg font-medium text-[hsl(var(--text-primary))]">No tags yet</h3>
               <p className="text-sm text-[hsl(var(--text-secondary))] mt-1">Create tags to organize and categorize your tasks</p>
             </div>
           ) : (
@@ -751,7 +751,7 @@ export default function ProjectDetailPage() {
                     <div className="flex items-center gap-3">
                       <span className="h-4 w-4 rounded-full shrink-0" style={{ backgroundColor: tag.color }} />
                       <div>
-                        <p className="font-medium text-white">{tag.name}</p>
+                        <p className="font-medium text-[hsl(var(--text-primary))]">{tag.name}</p>
                         <p className="text-xs text-[hsl(var(--text-muted))]">Used in {tag._count?.tasks || 0} task{(tag._count?.tasks || 0) !== 1 ? 's' : ''}</p>
                       </div>
                     </div>
@@ -769,34 +769,34 @@ export default function ProjectDetailPage() {
 
         <TabsContent value="activity">
           <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Project Activity</h3>
+            <h3 className="text-lg font-semibold text-[hsl(var(--text-primary))] mb-4">Project Activity</h3>
             <ActivityFeed projectId={projectId} limit={50} showHeader={false} />
           </div>
         </TabsContent>
 
         <TabsContent value="details">
           <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6 space-y-4">
-            <h3 className="text-lg font-semibold text-white mb-4">Project Details</h3>
+            <h3 className="text-lg font-semibold text-[hsl(var(--text-primary))] mb-4">Project Details</h3>
             <div>
               <Label className="text-[hsl(var(--text-muted))] text-sm">Description</Label>
-              <p className="mt-1 text-white">{project.description || 'No description provided'}</p>
+              <p className="mt-1 text-[hsl(var(--text-primary))]">{project.description || 'No description provided'}</p>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <div>
                 <Label className="text-[hsl(var(--text-muted))] text-sm">Owner</Label>
-                <p className="mt-1 text-white">{project.owner?.name}</p>
+                <p className="mt-1 text-[hsl(var(--text-primary))]">{project.owner?.name}</p>
               </div>
               <div>
                 <Label className="text-[hsl(var(--text-muted))] text-sm">Department</Label>
-                <p className="mt-1 text-white">{project.department?.name}</p>
+                <p className="mt-1 text-[hsl(var(--text-primary))]">{project.department?.name}</p>
               </div>
               <div>
                 <Label className="text-[hsl(var(--text-muted))] text-sm">Start Date</Label>
-                <p className="mt-1 text-white">{project.startDate ? new Date(project.startDate).toLocaleDateString() : 'Not set'}</p>
+                <p className="mt-1 text-[hsl(var(--text-primary))]">{project.startDate ? new Date(project.startDate).toLocaleDateString() : 'Not set'}</p>
               </div>
               <div>
                 <Label className="text-[hsl(var(--text-muted))] text-sm">End Date</Label>
-                <p className="mt-1 text-white">{project.endDate ? new Date(project.endDate).toLocaleDateString() : 'Not set'}</p>
+                <p className="mt-1 text-[hsl(var(--text-primary))]">{project.endDate ? new Date(project.endDate).toLocaleDateString() : 'Not set'}</p>
               </div>
             </div>
           </div>

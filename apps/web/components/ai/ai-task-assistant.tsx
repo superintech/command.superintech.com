@@ -174,7 +174,7 @@ export function AITaskAssistant({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden flex flex-col bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-white">
+          <DialogTitle className="flex items-center gap-2 text-[hsl(var(--text-primary))]">
             <Sparkles className="h-5 w-5 text-purple-400" />
             AI Task Assistant
           </DialogTitle>
@@ -207,7 +207,7 @@ export function AITaskAssistant({
                   placeholder="e.g., Create a user authentication system with login, signup, and password reset functionality..."
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  className="min-h-[100px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="min-h-[100px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs text-[hsl(var(--text-muted))]">Try:</span>
@@ -246,7 +246,7 @@ export function AITaskAssistant({
                 <Card className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
-                      <CardTitle className="text-lg text-white">
+                      <CardTitle className="text-lg text-[hsl(var(--text-primary))]">
                         {generatedTask.title}
                       </CardTitle>
                       <div className="flex items-center gap-2">
@@ -356,7 +356,7 @@ Meeting Notes - Sprint Planning
 - Review the API documentation before release`}
                   value={meetingNotes}
                   onChange={(e) => setMeetingNotes(e.target.value)}
-                  className="min-h-[150px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="min-h-[150px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 
@@ -382,7 +382,7 @@ Meeting Notes - Sprint Planning
               {extractedTasks.length > 0 && (
                 <Card className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-lg text-white flex items-center gap-2">
+                    <CardTitle className="text-lg text-[hsl(var(--text-primary))] flex items-center gap-2">
                       <ListTodo className="h-5 w-5" />
                       Extracted Tasks ({extractedTasks.length})
                     </CardTitle>
@@ -397,7 +397,7 @@ Meeting Notes - Sprint Planning
                         className="bg-[hsl(var(--layout-bg))] p-3 rounded-lg space-y-2"
                       >
                         <div className="flex items-start justify-between">
-                          <h4 className="font-medium text-white">{task.title}</h4>
+                          <h4 className="font-medium text-[hsl(var(--text-primary))]">{task.title}</h4>
                           <Badge className={cn('text-white text-xs', PRIORITY_COLORS[task.priority])}>
                             {task.priority}
                           </Badge>

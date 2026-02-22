@@ -87,7 +87,7 @@ function KPIScoreCard({ title, value, icon, description, color, max = 100 }: {
           <div>
             <p className="text-sm font-medium text-[hsl(var(--text-secondary))]">{title}</p>
             <div className="mt-2 flex items-baseline">
-              <p className="text-3xl font-bold text-white">{value}</p>
+              <p className="text-3xl font-bold text-[hsl(var(--text-primary))]">{value}</p>
               <p className="ml-1 text-sm text-[hsl(var(--text-muted))]">/{max}</p>
             </div>
             {description && (
@@ -120,7 +120,7 @@ function EODRCard({ entry, onReview }: { entry: EODREntry; onReview?: () => void
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
-            <span className="font-medium text-white">{dateStr}</span>
+            <span className="font-medium text-[hsl(var(--text-primary))]">{dateStr}</span>
           </div>
           <div className="flex items-center gap-2">
             {entry.isVerified ? (
@@ -133,7 +133,7 @@ function EODRCard({ entry, onReview }: { entry: EODREntry; onReview?: () => void
               </Badge>
             )}
             {onReview && (
-              <Button variant="ghost" size="sm" onClick={onReview} className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
+              <Button variant="ghost" size="sm" onClick={onReview} className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                 <Eye className="h-4 w-4" />
               </Button>
             )}
@@ -729,42 +729,42 @@ export default function ReportsPage() {
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Reports & KPI</h1>
+          <h1 className="text-2xl font-bold text-[hsl(var(--text-primary))]">Reports & KPI</h1>
           <p className="text-[hsl(var(--text-secondary))] mt-1">Track performance metrics and daily reports</p>
         </div>
 
         {/* Period Selector */}
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="icon" onClick={handlePreviousMonth} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+          <Button variant="outline" size="icon" onClick={handlePreviousMonth} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <div className="flex items-center gap-2">
             <Select value={selectedMonth.toString()} onValueChange={(v) => setSelectedMonth(parseInt(v))}>
-              <SelectTrigger className="w-[130px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+              <SelectTrigger className="w-[130px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                 {MONTHS.map((month, idx) => (
-                  <SelectItem key={idx} value={(idx + 1).toString()} className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
+                  <SelectItem key={idx} value={(idx + 1).toString()} className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
                     {month}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <Select value={selectedYear.toString()} onValueChange={(v) => setSelectedYear(parseInt(v))}>
-              <SelectTrigger className="w-[100px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+              <SelectTrigger className="w-[100px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                 {years.map((year) => (
-                  <SelectItem key={year} value={year.toString()} className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
+                  <SelectItem key={year} value={year.toString()} className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
                     {year}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          <Button variant="outline" size="icon" onClick={handleNextMonth} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+          <Button variant="outline" size="icon" onClick={handleNextMonth} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -827,7 +827,7 @@ export default function ReportsPage() {
                   <CardContent className="flex items-center justify-between p-6">
                     <div>
                       <p className="text-sm text-[hsl(var(--text-secondary))]">Current Commission Tier</p>
-                      <h3 className="text-2xl font-bold mt-1 text-white">{MONTHS[selectedMonth - 1]} {selectedYear}</h3>
+                      <h3 className="text-2xl font-bold mt-1 text-[hsl(var(--text-primary))]">{MONTHS[selectedMonth - 1]} {selectedYear}</h3>
                     </div>
                     <TierBadge tier={myKpi.commissionTier.tier} bonus={myKpi.commissionTier.bonus} />
                   </CardContent>
@@ -838,7 +838,7 @@ export default function ReportsPage() {
               {myDailyScores.length > 0 && (
                 <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
+                    <CardTitle className="flex items-center gap-2 text-[hsl(var(--text-primary))]">
                       <CalendarDays className="h-5 w-5 text-blue-400" />
                       My Daily Scores - {MONTHS[selectedMonth - 1]}
                     </CardTitle>
@@ -912,14 +912,14 @@ export default function ReportsPage() {
 
                   <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2 text-white">
+                      <CardTitle className="flex items-center gap-2 text-[hsl(var(--text-primary))]">
                         <TrendingUp className="h-5 w-5 text-blue-400" />
                         Overall Performance Score
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-4xl font-bold text-white">{myKpi.kpiRecord.totalScore}</span>
+                        <span className="text-4xl font-bold text-[hsl(var(--text-primary))]">{myKpi.kpiRecord.totalScore}</span>
                         <span className="text-[hsl(var(--text-muted))]">/100</span>
                       </div>
                       <div className="h-4 rounded-full bg-[hsl(var(--layout-card-hover))]">
@@ -946,7 +946,7 @@ export default function ReportsPage() {
                 <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardContent className="flex flex-col items-center justify-center py-12">
                     <BarChart3 className="h-12 w-12 text-[hsl(var(--text-muted))]" />
-                    <h3 className="mt-4 text-lg font-medium text-white">No Monthly KPI Record Yet</h3>
+                    <h3 className="mt-4 text-lg font-medium text-[hsl(var(--text-primary))]">No Monthly KPI Record Yet</h3>
                     <p className="mt-2 text-sm text-[hsl(var(--text-secondary))]">
                       Monthly summary for {MONTHS[selectedMonth - 1]} {selectedYear} has not been calculated yet.
                     </p>
@@ -961,23 +961,23 @@ export default function ReportsPage() {
 
               <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                 <CardHeader>
-                  <CardTitle className="text-white">EODR Summary for {MONTHS[selectedMonth - 1]}</CardTitle>
+                  <CardTitle className="text-[hsl(var(--text-primary))]">EODR Summary for {MONTHS[selectedMonth - 1]}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-4 md:grid-cols-3">
                     <div className="text-center p-4 bg-blue-500/20 rounded-lg border border-blue-500/30">
                       <FileText className="h-8 w-8 text-blue-400 mx-auto" />
-                      <p className="mt-2 text-2xl font-bold text-white">{myKpi.eodrStats.totalDays}</p>
+                      <p className="mt-2 text-2xl font-bold text-[hsl(var(--text-primary))]">{myKpi.eodrStats.totalDays}</p>
                       <p className="text-sm text-[hsl(var(--text-secondary))]">Days Reported</p>
                     </div>
                     <div className="text-center p-4 bg-green-500/20 rounded-lg border border-green-500/30">
                       <Clock className="h-8 w-8 text-green-400 mx-auto" />
-                      <p className="mt-2 text-2xl font-bold text-white">{myKpi.eodrStats.totalHours.toFixed(1)}</p>
+                      <p className="mt-2 text-2xl font-bold text-[hsl(var(--text-primary))]">{myKpi.eodrStats.totalHours.toFixed(1)}</p>
                       <p className="text-sm text-[hsl(var(--text-secondary))]">Total Hours</p>
                     </div>
                     <div className="text-center p-4 bg-purple-500/20 rounded-lg border border-purple-500/30">
                       <CheckCircle2 className="h-8 w-8 text-purple-400 mx-auto" />
-                      <p className="mt-2 text-2xl font-bold text-white">{myKpi.eodrStats.totalTasksCompleted}</p>
+                      <p className="mt-2 text-2xl font-bold text-[hsl(var(--text-primary))]">{myKpi.eodrStats.totalTasksCompleted}</p>
                       <p className="text-sm text-[hsl(var(--text-secondary))]">Tasks Completed</p>
                     </div>
                   </div>
@@ -988,7 +988,7 @@ export default function ReportsPage() {
             <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
               <CardContent className="flex flex-col items-center justify-center py-12">
                 <BarChart3 className="h-12 w-12 text-[hsl(var(--text-muted))]" />
-                <h3 className="mt-4 text-lg font-medium text-white">No Data Available</h3>
+                <h3 className="mt-4 text-lg font-medium text-[hsl(var(--text-primary))]">No Data Available</h3>
               </CardContent>
             </Card>
           )}
@@ -999,7 +999,7 @@ export default function ReportsPage() {
           <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="flex items-center gap-2 text-white">
+                <CardTitle className="flex items-center gap-2 text-[hsl(var(--text-primary))]">
                   <FileUp className="h-5 w-5 text-blue-400" />
                   Submit End of Day Report
                 </CardTitle>
@@ -1008,9 +1008,9 @@ export default function ReportsPage() {
                     type="date"
                     value={submitDate}
                     onChange={(e) => setSubmitDate(e.target.value)}
-                    className="w-[180px] bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                    className="w-[180px] bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                   />
-                  <Button variant="outline" size="sm" onClick={handleLoadFromTimeEntries} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                  <Button variant="outline" size="sm" onClick={handleLoadFromTimeEntries} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                     <RefreshCw className="h-4 w-4 mr-1" />
                     Load from Timer
                   </Button>
@@ -1021,8 +1021,8 @@ export default function ReportsPage() {
               {/* Task List */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <Label className="text-lg font-semibold text-white">Tasks Completed Today</Label>
-                  <Button variant="outline" size="sm" onClick={handleAddTask} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                  <Label className="text-lg font-semibold text-[hsl(var(--text-primary))]">Tasks Completed Today</Label>
+                  <Button variant="outline" size="sm" onClick={handleAddTask} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                     <Plus className="h-4 w-4 mr-1" />
                     Add Task
                   </Button>
@@ -1048,7 +1048,7 @@ export default function ReportsPage() {
                             value={task.title}
                             onChange={(e) => handleTaskChange(idx, 'title', e.target.value)}
                             placeholder="What was the task?"
-                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                           />
                         </div>
                         <div className="space-y-2">
@@ -1057,7 +1057,7 @@ export default function ReportsPage() {
                             id={`task-project-${idx}`}
                             value={task.projectId}
                             onChange={(e) => handleTaskChange(idx, 'projectId', e.target.value)}
-                            className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white px-3 py-2 text-sm"
+                            className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] px-3 py-2 text-sm"
                           >
                             <option value="">Select project</option>
                             {projects.map((p) => (
@@ -1075,7 +1075,7 @@ export default function ReportsPage() {
                             id={`task-select-${idx}`}
                             value={task.taskId}
                             onChange={(e) => handleTaskSelection(idx, e.target.value)}
-                            className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white px-3 py-2 text-sm"
+                            className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] px-3 py-2 text-sm"
                           >
                             <option value="">Select a task or enter manually below</option>
                             {getTasksForProject(task.projectId).map((t: Task) => (
@@ -1096,7 +1096,7 @@ export default function ReportsPage() {
                           onChange={(e) => handleTaskChange(idx, 'description', e.target.value)}
                           placeholder="Describe what you worked on and accomplished..."
                           rows={2}
-                          className={`bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] ${!task.description.trim() ? 'border-red-500/50' : ''}`}
+                          className={`bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))] ${!task.description.trim() ? 'border-red-500/50' : ''}`}
                           required
                         />
                         {!task.description.trim() && (
@@ -1115,7 +1115,7 @@ export default function ReportsPage() {
                             value={task.hours || ''}
                             onChange={(e) => handleTaskChange(idx, 'hours', parseFloat(e.target.value) || 0)}
                             placeholder="0.0"
-                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                           />
                         </div>
                         <div className="space-y-2">
@@ -1124,7 +1124,7 @@ export default function ReportsPage() {
                             id={`task-status-${idx}`}
                             value={task.status}
                             onChange={(e) => handleTaskChange(idx, 'status', e.target.value)}
-                            className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white px-3 py-2 text-sm"
+                            className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] px-3 py-2 text-sm"
                           >
                             <option value="COMPLETED">Completed</option>
                             <option value="IN_PROGRESS">In Progress</option>
@@ -1138,7 +1138,7 @@ export default function ReportsPage() {
                             type="time"
                             value={task.completedAt ? task.completedAt.split('T')[1]?.substring(0, 5) || '' : ''}
                             onChange={(e) => handleTaskChange(idx, 'completedAt', `${submitDate}T${e.target.value}:00.000Z`)}
-                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                           />
                         </div>
                       </div>
@@ -1151,7 +1151,7 @@ export default function ReportsPage() {
                             value={task.filesLocation}
                             onChange={(e) => handleTaskChange(idx, 'filesLocation', e.target.value)}
                             placeholder="Drive link, folder path, or N/A"
-                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                           />
                         </div>
                         <div className="space-y-2">
@@ -1161,7 +1161,7 @@ export default function ReportsPage() {
                             value={task.pendingItems}
                             onChange={(e) => handleTaskChange(idx, 'pendingItems', e.target.value)}
                             placeholder="Any outstanding items or N/A"
-                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                           />
                         </div>
                       </div>
@@ -1179,14 +1179,14 @@ export default function ReportsPage() {
                   onChange={(e) => setSubmitNotes(e.target.value)}
                   placeholder="Any additional notes about your day, blockers, achievements, etc."
                   rows={3}
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 
               {/* Summary */}
               <div className="bg-blue-500/20 p-4 rounded-lg border border-blue-500/30">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-medium text-white">Report Summary</span>
+                  <span className="font-medium text-[hsl(var(--text-primary))]">Report Summary</span>
                   <span className="text-sm text-[hsl(var(--text-secondary))]">{new Date(submitDate).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</span>
                 </div>
                 <div className="grid grid-cols-3 gap-4 text-center">
@@ -1213,7 +1213,7 @@ export default function ReportsPage() {
                     setSubmitTasks([{ taskId: '', projectId: '', title: '', description: '', completedAt: '', filesLocation: '', pendingItems: '', projectName: '', hours: 0, status: 'COMPLETED' }]);
                     setSubmitNotes('');
                   }}
-                  className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                  className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                 >
                   Clear Form
                 </Button>
@@ -1259,7 +1259,7 @@ export default function ReportsPage() {
             <Card className="bg-gradient-to-r from-[hsl(var(--layout-card))] to-[#1a2538] border-[hsl(var(--layout-border))]">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2 text-white">
+                  <CardTitle className="flex items-center gap-2 text-[hsl(var(--text-primary))]">
                     <Clock className="h-5 w-5 text-blue-400" />
                     Today&apos;s Work
                   </CardTitle>
@@ -1311,13 +1311,13 @@ export default function ReportsPage() {
                 value={selectedUserId || 'all'}
                 onValueChange={(v) => setSelectedUserId(v === 'all' ? null : v)}
               >
-                <SelectTrigger className="w-[250px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+                <SelectTrigger className="w-[250px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
                   <SelectValue placeholder="Filter by user" />
                 </SelectTrigger>
                 <SelectContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
-                  <SelectItem value="all" className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">All Users</SelectItem>
+                  <SelectItem value="all" className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">All Users</SelectItem>
                   {users.map((u) => (
-                    <SelectItem key={u.id} value={u.id} className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
+                    <SelectItem key={u.id} value={u.id} className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
                       {u.name}
                     </SelectItem>
                   ))}
@@ -1344,7 +1344,7 @@ export default function ReportsPage() {
             <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
               <CardContent className="flex flex-col items-center justify-center py-12">
                 <FileText className="h-12 w-12 text-[hsl(var(--text-muted))]" />
-                <h3 className="mt-4 text-lg font-medium text-white">No Reports Found</h3>
+                <h3 className="mt-4 text-lg font-medium text-[hsl(var(--text-primary))]">No Reports Found</h3>
                 <p className="mt-2 text-sm text-[hsl(var(--text-secondary))]">
                   No EODR entries for {MONTHS[selectedMonth - 1]} {selectedYear}
                 </p>
@@ -1359,7 +1359,7 @@ export default function ReportsPage() {
             {/* Date Selector */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Button variant="outline" size="icon" onClick={handlePreviousDay} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                <Button variant="outline" size="icon" onClick={handlePreviousDay} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <div className="flex items-center gap-2">
@@ -1367,22 +1367,22 @@ export default function ReportsPage() {
                     type="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-[180px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white"
+                    className="w-[180px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                   />
                 </div>
-                <Button variant="outline" size="icon" onClick={handleNextDay} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                <Button variant="outline" size="icon" onClick={handleNextDay} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                   <ChevronRight className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setSelectedDate(new Date().toISOString().split('T')[0])}
-                  className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                  className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                 >
                   Today
                 </Button>
               </div>
-              <p className="text-lg font-medium text-white">{selectedDateStr}</p>
+              <p className="text-lg font-medium text-[hsl(var(--text-primary))]">{selectedDateStr}</p>
             </div>
 
             {loadingTeamDaily ? (
@@ -1395,7 +1395,7 @@ export default function ReportsPage() {
                 <div className="grid gap-4 md:grid-cols-5">
                   <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                     <CardContent className="p-4 text-center">
-                      <p className="text-2xl font-bold text-white">{teamDaily.stats.totalUsers}</p>
+                      <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{teamDaily.stats.totalUsers}</p>
                       <p className="text-sm text-[hsl(var(--text-secondary))]">Total Team</p>
                     </CardContent>
                   </Card>
@@ -1428,7 +1428,7 @@ export default function ReportsPage() {
                 {/* Team Scoring Table */}
                 <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardHeader>
-                    <CardTitle className="text-white">Daily KPI Scoring - {selectedDateStr}</CardTitle>
+                    <CardTitle className="text-[hsl(var(--text-primary))]">Daily KPI Scoring - {selectedDateStr}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="overflow-x-auto">
@@ -1463,7 +1463,7 @@ export default function ReportsPage() {
                                     <AvatarFallback className="bg-blue-500 text-white">{member.user.name.charAt(0)}</AvatarFallback>
                                   </Avatar>
                                   <div>
-                                    <p className="font-medium text-sm text-white">{member.user.name}</p>
+                                    <p className="font-medium text-sm text-[hsl(var(--text-primary))]">{member.user.name}</p>
                                     <p className="text-xs text-[hsl(var(--text-secondary))]">{member.user.department?.name}</p>
                                   </div>
                                 </div>
@@ -1503,7 +1503,7 @@ export default function ReportsPage() {
                               <td className="text-center py-3 px-2 text-[hsl(var(--text-primary))]">
                                 {member.dailyScore?.eodrScore ?? '-'}
                               </td>
-                              <td className="text-center py-3 px-2 font-bold text-white">
+                              <td className="text-center py-3 px-2 font-bold text-[hsl(var(--text-primary))]">
                                 {member.dailyScore?.totalScore?.toFixed(1) ?? '-'}
                               </td>
                               <td className="text-center py-3 px-2">
@@ -1594,7 +1594,7 @@ export default function ReportsPage() {
                 <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardContent className="p-6 text-center">
                     <AlertTriangle className="h-12 w-12 text-orange-400 mx-auto" />
-                    <h3 className="mt-4 text-lg font-medium text-white">No Eligible Winner</h3>
+                    <h3 className="mt-4 text-lg font-medium text-[hsl(var(--text-primary))]">No Eligible Winner</h3>
                     <p className="text-sm text-[hsl(var(--text-secondary))] mt-2">
                       Employee of the month is only awarded to those who achieve a positive or zero difference from the average.
                     </p>
@@ -1606,13 +1606,13 @@ export default function ReportsPage() {
               <div className="grid gap-4 md:grid-cols-4">
                 <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-white">{eom.workingDays}</p>
+                    <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{eom.workingDays}</p>
                     <p className="text-sm text-[hsl(var(--text-secondary))]">Working Days</p>
                   </CardContent>
                 </Card>
                 <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-white">{eom.avgPointsRequired.toFixed(1)}</p>
+                    <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{eom.avgPointsRequired.toFixed(1)}</p>
                     <p className="text-sm text-[hsl(var(--text-secondary))]">Avg Points</p>
                   </CardContent>
                 </Card>
@@ -1633,7 +1633,7 @@ export default function ReportsPage() {
               {/* Employee Table */}
               <Card className="!bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                 <CardHeader>
-                  <CardTitle className="text-white">{MONTHS[selectedMonth - 1]} {selectedYear}</CardTitle>
+                  <CardTitle className="text-[hsl(var(--text-primary))]">{MONTHS[selectedMonth - 1]} {selectedYear}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   {eom.employees.length > 0 ? (
@@ -1665,11 +1665,11 @@ export default function ReportsPage() {
                                     <AvatarImage src={emp.user.avatar} />
                                     <AvatarFallback className="bg-blue-500 text-white">{emp.user.name.charAt(0)}</AvatarFallback>
                                   </Avatar>
-                                  <span className="font-medium text-white">{emp.user.name}</span>
+                                  <span className="font-medium text-[hsl(var(--text-primary))]">{emp.user.name}</span>
                                 </div>
                               </td>
                               <td className="text-center py-3 px-4 text-[hsl(var(--text-primary))]">{emp.daysScored}</td>
-                              <td className="text-center py-3 px-4 font-bold text-white">{emp.points.toFixed(1)}</td>
+                              <td className="text-center py-3 px-4 font-bold text-[hsl(var(--text-primary))]">{emp.points.toFixed(1)}</td>
                               <td className="text-center py-3 px-4 text-[hsl(var(--text-primary))]">{emp.avgPoint.toFixed(1)}</td>
                               <td className="text-center py-3 px-4">
                                 <span className={`font-bold ${
@@ -1855,7 +1855,7 @@ export default function ReportsPage() {
       <Dialog open={!!reviewingEntry} onOpenChange={() => setReviewingEntry(null)}>
         <DialogContent className="max-w-lg bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
           <DialogHeader>
-            <DialogTitle className="text-white">Review EODR Entry</DialogTitle>
+            <DialogTitle className="text-[hsl(var(--text-primary))]">Review EODR Entry</DialogTitle>
           </DialogHeader>
           {reviewingEntry && (
             <div className="space-y-4">
@@ -1865,7 +1865,7 @@ export default function ReportsPage() {
                   <AvatarFallback className="bg-blue-500 text-white">{reviewingEntry.user?.name?.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-medium text-white">{reviewingEntry.user?.name}</p>
+                  <p className="font-medium text-[hsl(var(--text-primary))]">{reviewingEntry.user?.name}</p>
                   <p className="text-sm text-[hsl(var(--text-secondary))]">
                     {new Date(reviewingEntry.date).toLocaleDateString()}
                   </p>
@@ -1873,10 +1873,10 @@ export default function ReportsPage() {
               </div>
 
               <div className="bg-[hsl(var(--layout-bg))] p-3 rounded border border-[hsl(var(--layout-border))]">
-                <p className="text-sm font-medium mb-2 text-white">Tasks:</p>
+                <p className="text-sm font-medium mb-2 text-[hsl(var(--text-primary))]">Tasks:</p>
                 {Array.isArray(reviewingEntry.tasks) && reviewingEntry.tasks.map((task, idx) => (
                   <div key={idx} className="text-sm py-1 border-b border-[hsl(var(--layout-border))] last:border-0">
-                    <p className="font-medium text-white">{task.title}</p>
+                    <p className="font-medium text-[hsl(var(--text-primary))]">{task.title}</p>
                     {task.description && <p className="text-[hsl(var(--text-secondary))] text-xs">{task.description}</p>}
                     <div className="flex gap-2 text-xs text-[hsl(var(--text-muted))] mt-1">
                       <span>{task.hours.toFixed(1)}h</span>
@@ -1895,7 +1895,7 @@ export default function ReportsPage() {
                   step="0.5"
                   value={adjustedHours}
                   onChange={(e) => setAdjustedHours(e.target.value)}
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                 />
               </div>
 
@@ -1905,7 +1905,7 @@ export default function ReportsPage() {
                   value={managerNotes}
                   onChange={(e) => setManagerNotes(e.target.value)}
                   placeholder="Add notes about the review..."
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 
@@ -1949,7 +1949,7 @@ export default function ReportsPage() {
       <Dialog open={!!scoringMember} onOpenChange={() => setScoringMember(null)}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
           <DialogHeader>
-            <DialogTitle className="text-white">
+            <DialogTitle className="text-[hsl(var(--text-primary))]">
               Daily KPI Score - {scoringMember?.user.name}
             </DialogTitle>
           </DialogHeader>
@@ -1961,14 +1961,14 @@ export default function ReportsPage() {
                   <AvatarFallback className="bg-blue-500 text-white">{scoringMember.user.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <p className="font-medium text-white">{scoringMember.user.name}</p>
+                  <p className="font-medium text-[hsl(var(--text-primary))]">{scoringMember.user.name}</p>
                   <p className="text-sm text-[hsl(var(--text-secondary))]">{selectedDateStr}</p>
                 </div>
               </div>
 
               {scoringMember.eodrEntry && (
                 <div className="bg-[hsl(var(--layout-bg))] p-3 rounded text-sm border border-[hsl(var(--layout-border))]">
-                  <p className="font-medium mb-1 text-white">EODR Summary:</p>
+                  <p className="font-medium mb-1 text-[hsl(var(--text-primary))]">EODR Summary:</p>
                   <p className="text-[hsl(var(--text-primary))]">Hours: {scoringMember.eodrEntry.totalHours.toFixed(1)}h | Tasks: {scoringMember.eodrEntry.tasksCompleted}</p>
                 </div>
               )}
@@ -1983,7 +1983,7 @@ export default function ReportsPage() {
               <div className="space-y-4">
                 {/* Attendance */}
                 <div className="space-y-2">
-                  <Label className="font-semibold text-white">Attendance</Label>
+                  <Label className="font-semibold text-[hsl(var(--text-primary))]">Attendance</Label>
                   <div className="space-y-1">
                     {[0, 1, 2].map((score) => (
                       <label key={score} className={`flex items-start gap-3 p-2 rounded cursor-pointer border ${dailyScoreValues.attendance === score ? 'bg-blue-500/20 border-blue-500/50' : 'bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] hover:bg-[hsl(var(--layout-card-hover))]'}`}>
@@ -2008,7 +2008,7 @@ export default function ReportsPage() {
 
                 {/* Quality */}
                 <div className="space-y-2">
-                  <Label className="font-semibold text-white">Quality</Label>
+                  <Label className="font-semibold text-[hsl(var(--text-primary))]">Quality</Label>
                   <div className="space-y-1">
                     {[0, 1, 2].map((score) => (
                       <label key={score} className={`flex items-start gap-3 p-2 rounded cursor-pointer border ${dailyScoreValues.quality === score ? 'bg-blue-500/20 border-blue-500/50' : 'bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] hover:bg-[hsl(var(--layout-card-hover))]'}`}>
@@ -2033,7 +2033,7 @@ export default function ReportsPage() {
 
                 {/* EODR */}
                 <div className="space-y-2">
-                  <Label className="font-semibold text-white">EODR</Label>
+                  <Label className="font-semibold text-[hsl(var(--text-primary))]">EODR</Label>
                   <div className="space-y-1">
                     {[0, 1, 2].map((score) => (
                       <label key={score} className={`flex items-start gap-3 p-2 rounded cursor-pointer border ${dailyScoreValues.eodrScore === score ? 'bg-blue-500/20 border-blue-500/50' : 'bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] hover:bg-[hsl(var(--layout-card-hover))]'}`}>
@@ -2058,7 +2058,7 @@ export default function ReportsPage() {
 
                 {/* Behaviour */}
                 <div className="space-y-2">
-                  <Label className="font-semibold text-white">Behaviour</Label>
+                  <Label className="font-semibold text-[hsl(var(--text-primary))]">Behaviour</Label>
                   <div className="space-y-1">
                     {[0, 1, 2].map((score) => (
                       <label key={score} className={`flex items-start gap-3 p-2 rounded cursor-pointer border ${dailyScoreValues.behaviour === score ? 'bg-blue-500/20 border-blue-500/50' : 'bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] hover:bg-[hsl(var(--layout-card-hover))]'}`}>
@@ -2088,7 +2088,7 @@ export default function ReportsPage() {
                   value={dailyScoreValues.comments}
                   onChange={(e) => setDailyScoreValues({ ...dailyScoreValues, comments: e.target.value })}
                   placeholder="Add any notes about today's performance..."
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 

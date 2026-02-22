@@ -109,7 +109,7 @@ export function ProjectHealthCard({
     <Card className={cn('bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]', className)}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-white flex items-center gap-2">
+          <CardTitle className="text-[hsl(var(--text-primary))] flex items-center gap-2">
             <Activity className="h-5 w-5 text-purple-400" />
             Project Health
           </CardTitle>
@@ -118,7 +118,7 @@ export function ProjectHealthCard({
             size="sm"
             onClick={() => refetch()}
             disabled={isFetching}
-            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-white"
+            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
           >
             <RefreshCw
               className={cn('h-4 w-4', isFetching && 'animate-spin')}
@@ -155,7 +155,7 @@ export function ProjectHealthCard({
         {/* Stats */}
         <div className="grid grid-cols-3 gap-2">
           <div className="bg-[hsl(var(--layout-card))] rounded-lg p-2 text-center">
-            <p className="text-lg font-bold text-white">
+            <p className="text-lg font-bold text-[hsl(var(--text-primary))]">
               {analysis.projectStats.totalTasks}
             </p>
             <p className="text-xs text-[hsl(var(--text-secondary))]">Total Tasks</p>
@@ -178,7 +178,7 @@ export function ProjectHealthCard({
         <div>
           <div className="flex justify-between text-sm mb-1">
             <span className="text-[hsl(var(--text-secondary))]">Completion Rate</span>
-            <span className="text-white font-medium">
+            <span className="text-[hsl(var(--text-primary))] font-medium">
               {analysis.projectStats.completionRate}%
             </span>
           </div>

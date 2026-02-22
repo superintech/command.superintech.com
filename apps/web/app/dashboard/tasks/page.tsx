@@ -423,7 +423,7 @@ export default function TasksPage() {
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Tasks</h1>
+          <h1 className="text-2xl font-bold text-[hsl(var(--text-primary))]">Tasks</h1>
           <p className="text-[hsl(var(--text-secondary))] mt-1">Manage and track your tasks</p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -432,7 +432,7 @@ export default function TasksPage() {
               variant={viewMode === 'kanban' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('kanban')}
-              className={cn("rounded-r-none", viewMode === 'kanban' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]')}
+              className={cn("rounded-r-none", viewMode === 'kanban' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]')}
             >
               Kanban
             </Button>
@@ -440,7 +440,7 @@ export default function TasksPage() {
               variant={viewMode === 'list' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('list')}
-              className={cn("rounded-none border-x border-[hsl(var(--layout-border))]", viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]')}
+              className={cn("rounded-none border-x border-[hsl(var(--layout-border))]", viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]')}
             >
               List
             </Button>
@@ -448,7 +448,7 @@ export default function TasksPage() {
               variant={viewMode === 'calendar' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('calendar')}
-              className={cn("rounded-l-none", viewMode === 'calendar' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]')}
+              className={cn("rounded-l-none", viewMode === 'calendar' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]')}
             >
               Calendar
             </Button>
@@ -496,7 +496,7 @@ export default function TasksPage() {
       {/* Create Form */}
       {showCreateForm && canCreateTasks && (
         <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">Create New Task</h2>
+          <h2 className="text-lg font-semibold text-[hsl(var(--text-primary))] mb-4">Create New Task</h2>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -506,7 +506,7 @@ export default function TasksPage() {
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   placeholder="Enter task title"
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
               <div className="space-y-2">
@@ -515,7 +515,7 @@ export default function TasksPage() {
                   id="project"
                   value={newTask.projectId}
                   onChange={(e) => setNewTask({ ...newTask, projectId: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   <option value="" className="bg-[hsl(var(--layout-bg))]">Select project</option>
                   {projects.map((proj) => (
@@ -533,7 +533,7 @@ export default function TasksPage() {
                   id="priority"
                   value={newTask.priority}
                   onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   {priorities.map((p) => (
                     <option key={p.value} value={p.value} className="bg-[hsl(var(--layout-bg))]">
@@ -548,7 +548,7 @@ export default function TasksPage() {
                   id="assignee"
                   value={newTask.assigneeId}
                   onChange={(e) => setNewTask({ ...newTask, assigneeId: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   <option value="" className="bg-[hsl(var(--layout-bg))]">Unassigned</option>
                   {users.map((u) => (
@@ -565,7 +565,7 @@ export default function TasksPage() {
                   type="date"
                   value={newTask.dueDate}
                   onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                 />
               </div>
             </div>
@@ -591,7 +591,7 @@ export default function TasksPage() {
               <Button type="submit" disabled={createMutation.isPending} className="bg-blue-500 hover:bg-blue-600 text-white">
                 {createMutation.isPending ? 'Creating...' : 'Create Task'}
               </Button>
-              <Button type="button" variant="outline" onClick={() => setShowCreateForm(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+              <Button type="button" variant="outline" onClick={() => setShowCreateForm(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                 Cancel
               </Button>
             </div>
@@ -607,7 +607,7 @@ export default function TasksPage() {
             placeholder="Search tasks..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+            className="pl-10 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
           />
         </div>
 
@@ -616,7 +616,7 @@ export default function TasksPage() {
           variant={filters.myTasks ? 'default' : 'outline'}
           size="sm"
           onClick={() => setFilters({ ...filters, myTasks: !filters.myTasks })}
-          className={filters.myTasks ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white'}
+          className={filters.myTasks ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))]'}
         >
           <User className="h-4 w-4 mr-1" />
           My Tasks
@@ -625,7 +625,7 @@ export default function TasksPage() {
         {/* Filter Popover */}
         <Popover open={showFilters} onOpenChange={setShowFilters}>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm" className="relative border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white">
+            <Button variant="outline" size="sm" className="relative border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))]">
               <SlidersHorizontal className="h-4 w-4 mr-1" />
               Filters
               {activeFiltersCount > 0 && (
@@ -638,9 +638,9 @@ export default function TasksPage() {
           <PopoverContent className="w-80 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]" align="end">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h4 className="font-medium text-white">Filters</h4>
+                <h4 className="font-medium text-[hsl(var(--text-primary))]">Filters</h4>
                 {activeFiltersCount > 0 && (
-                  <Button variant="ghost" size="sm" onClick={clearFilters} className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
+                  <Button variant="ghost" size="sm" onClick={clearFilters} className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                     Clear all
                   </Button>
                 )}
@@ -726,7 +726,7 @@ export default function TasksPage() {
                     const values = Array.from(e.target.selectedOptions, (opt) => opt.value);
                     setFilters({ ...filters, projectId: values });
                   }}
-                  className="w-full h-24 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="w-full h-24 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   {projects.map((proj) => (
                     <option key={proj.id} value={proj.id} className="bg-[hsl(var(--layout-bg))]">
@@ -746,7 +746,7 @@ export default function TasksPage() {
                     const values = Array.from(e.target.selectedOptions, (opt) => opt.value);
                     setFilters({ ...filters, assigneeId: values });
                   }}
-                  className="w-full h-24 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
+                  className="w-full h-24 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-[hsl(var(--text-primary))]"
                 >
                   {users.map((u) => (
                     <option key={u.id} value={u.id} className="bg-[hsl(var(--layout-bg))]">
@@ -907,14 +907,14 @@ export default function TasksPage() {
       ) : viewMode === 'calendar' ? (
         <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))]">
           <div className="flex items-center justify-between p-6 border-b border-[hsl(var(--layout-border))]">
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-[hsl(var(--text-primary))]">
               {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
             </h2>
             <div className="flex gap-2">
-              <Button variant="outline" size="icon" onClick={prevMonth} className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white">
+              <Button variant="outline" size="icon" onClick={prevMonth} className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))]">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" onClick={nextMonth} className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white">
+              <Button variant="outline" size="icon" onClick={nextMonth} className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))]">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
@@ -937,7 +937,7 @@ export default function TasksPage() {
                       isToday(date) && 'bg-blue-500/10'
                     )}
                   >
-                    <div className={cn('text-sm font-medium text-white', isToday(date) && 'text-blue-400', !isCurrentMonth(date) && 'text-[hsl(var(--text-muted))]')}>
+                    <div className={cn('text-sm font-medium text-[hsl(var(--text-primary))]', isToday(date) && 'text-blue-400', !isCurrentMonth(date) && 'text-[hsl(var(--text-muted))]')}>
                       {date.getDate()}
                     </div>
                     <div className="mt-1 space-y-1">
@@ -968,7 +968,7 @@ export default function TasksPage() {
           {filteredTasks.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12">
               <CheckSquare className="h-12 w-12 text-[hsl(var(--text-muted))]" />
-              <h3 className="mt-4 text-lg font-medium text-white">No tasks found</h3>
+              <h3 className="mt-4 text-lg font-medium text-[hsl(var(--text-primary))]">No tasks found</h3>
               <p className="mt-2 text-sm text-[hsl(var(--text-secondary))]">
                 {search || activeFiltersCount > 0
                   ? 'Try adjusting your filters'
@@ -990,7 +990,7 @@ export default function TasksPage() {
                   onClick={() => setSelectedTaskId(task.id)}
                 >
                   <div className="flex-1 space-y-1">
-                    <h4 className="font-medium text-white">{task.title}</h4>
+                    <h4 className="font-medium text-[hsl(var(--text-primary))]">{task.title}</h4>
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-sm text-[hsl(var(--text-secondary))]">
                         {task.project?.name} {task.assignee && `- ${task.assignee.name}`}
@@ -1033,7 +1033,7 @@ export default function TasksPage() {
                         handleStatusChange(task.id, e.target.value);
                       }}
                       onClick={(e) => e.stopPropagation()}
-                      className="rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-2 py-1 text-sm text-white"
+                      className="rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-2 py-1 text-sm text-[hsl(var(--text-primary))]"
                     >
                       {statusColumns.map((s) => (
                         <option key={s.id} value={s.id} className="bg-[hsl(var(--layout-bg))]">

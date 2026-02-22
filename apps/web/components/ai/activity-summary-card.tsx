@@ -62,7 +62,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
     <Card className={cn('bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]', className)}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-white flex items-center gap-2">
+          <CardTitle className="text-[hsl(var(--text-primary))] flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-purple-400" />
             AI Activity Summary
           </CardTitle>
@@ -107,7 +107,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
                   <FileText className="h-4 w-4 text-blue-400" />
                   <span className="text-xs text-[hsl(var(--text-secondary))]">Tasks Worked</span>
                 </div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">
                   {summaryData.stats.tasksWorkedOn}
                 </p>
               </div>

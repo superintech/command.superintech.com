@@ -135,7 +135,7 @@ export function AIChatBot() {
             <Bot className="h-4 w-4 text-white" />
           </div>
           <div>
-            <h3 className="font-semibold text-white text-sm">AI Assistant</h3>
+            <h3 className="font-semibold text-[hsl(var(--text-primary))] text-sm">AI Assistant</h3>
             {!isMinimized && (
               <p className="text-xs text-[hsl(var(--text-secondary))]">Always here to help</p>
             )}
@@ -146,7 +146,7 @@ export function AIChatBot() {
             variant="ghost"
             size="sm"
             onClick={() => setIsMinimized(!isMinimized)}
-            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-white"
+            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
           >
             {isMinimized ? (
               <Maximize2 className="h-4 w-4" />
@@ -158,7 +158,7 @@ export function AIChatBot() {
             variant="ghost"
             size="sm"
             onClick={() => setIsOpen(false)}
-            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-white"
+            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))]"
           >
             <X className="h-4 w-4" />
           </Button>
@@ -242,7 +242,7 @@ export function AIChatBot() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything..."
-                className="flex-1 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] rounded-xl"
+                className="flex-1 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))] rounded-xl"
                 disabled={chatMutation.isPending}
               />
               <Button

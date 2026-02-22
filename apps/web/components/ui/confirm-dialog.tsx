@@ -62,7 +62,7 @@ export function ConfirmDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-white">{title}</AlertDialogTitle>
+          <AlertDialogTitle className="text-[hsl(var(--text-primary))]">{title}</AlertDialogTitle>
           <AlertDialogDescription className="text-[hsl(var(--text-secondary))]">{description}</AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -75,7 +75,7 @@ export function ConfirmDialog({
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder={confirmationText}
-              className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] font-mono"
+              className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))] font-mono"
               autoComplete="off"
             />
           </div>
@@ -84,7 +84,7 @@ export function ConfirmDialog({
         <AlertDialogFooter>
           <AlertDialogCancel
             disabled={loading}
-            className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white bg-transparent"
+            className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))] bg-transparent"
           >
             {cancelText}
           </AlertDialogCancel>

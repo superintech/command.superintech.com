@@ -147,7 +147,7 @@ export function NotificationsDropdown() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
+        <Button variant="ghost" size="icon" className="relative text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
           <Bell className="h-5 w-5" />
           {unreadCount > 0 && (
             <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
@@ -158,14 +158,14 @@ export function NotificationsDropdown() {
       </PopoverTrigger>
       <PopoverContent className="w-80 p-0 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]" align="end">
         <div className="flex items-center justify-between border-b border-[hsl(var(--layout-border))] px-4 py-3">
-          <h3 className="font-semibold text-white">Notifications</h3>
+          <h3 className="font-semibold text-[hsl(var(--text-primary))]">Notifications</h3>
           {unreadCount > 0 && (
             <Button
               variant="ghost"
               size="sm"
               onClick={() => markAllReadMutation.mutate()}
               disabled={markAllReadMutation.isPending}
-              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+              className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <CheckCheck className="h-4 w-4 mr-1" />
               Mark all read
@@ -195,7 +195,7 @@ export function NotificationsDropdown() {
                   <div className="flex-1 min-w-0">
                     <p className={cn(
                       'text-sm text-[hsl(var(--text-primary))]',
-                      !notification.isRead && 'font-medium text-white'
+                      !notification.isRead && 'font-medium text-[hsl(var(--text-primary))]'
                     )}>
                       {notification.title}
                     </p>

@@ -163,7 +163,7 @@ export function MentionInput({
         placeholder={placeholder}
         disabled={disabled}
         className={cn(
-          'w-full bg-transparent border-0 text-white placeholder:text-[hsl(var(--text-muted))] focus:outline-none focus:ring-0',
+          'w-full bg-transparent border-0 text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))] focus:outline-none focus:ring-0',
           className
         )}
       />

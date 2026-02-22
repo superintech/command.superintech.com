@@ -264,7 +264,7 @@ export default function FilesPage() {
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">Files</h1>
+          <h1 className="text-2xl font-bold text-[hsl(var(--text-primary))]">Files</h1>
           <p className="text-[hsl(var(--text-secondary))] mt-1">Project files and documents</p>
         </div>
         {canUpload && (
@@ -292,7 +292,7 @@ export default function FilesPage() {
               <FolderOpen className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{files.length}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{files.length}</p>
               <p className="text-sm text-[hsl(var(--text-secondary))]">Total Files</p>
             </div>
           </CardContent>
@@ -303,7 +303,7 @@ export default function FilesPage() {
               <HardDrive className="h-5 w-5 text-green-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{formatFileSize(totalSize)}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{formatFileSize(totalSize)}</p>
               <p className="text-sm text-[hsl(var(--text-secondary))]">Total Size</p>
             </div>
           </CardContent>
@@ -314,7 +314,7 @@ export default function FilesPage() {
               <ImageIcon className="h-5 w-5 text-purple-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{imageCount}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{imageCount}</p>
               <p className="text-sm text-[hsl(var(--text-secondary))]">Images</p>
             </div>
           </CardContent>
@@ -325,7 +325,7 @@ export default function FilesPage() {
               <FileText className="h-5 w-5 text-red-400" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-white">{docCount}</p>
+              <p className="text-2xl font-bold text-[hsl(var(--text-primary))]">{docCount}</p>
               <p className="text-sm text-[hsl(var(--text-secondary))]">Documents</p>
             </div>
           </CardContent>
@@ -336,7 +336,7 @@ export default function FilesPage() {
       {uploadingFiles.length > 0 && (
         <Card className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
           <CardHeader>
-            <CardTitle className="text-lg text-white">Ready to Upload</CardTitle>
+            <CardTitle className="text-lg text-[hsl(var(--text-primary))]">Ready to Upload</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -344,14 +344,14 @@ export default function FilesPage() {
                 <div key={idx} className="flex items-center justify-between p-2 bg-[hsl(var(--layout-bg))] rounded border border-[hsl(var(--layout-border))]">
                   <div className="flex items-center gap-2">
                     {getFileIcon(file.type)}
-                    <span className="text-sm font-medium text-white">{file.name}</span>
+                    <span className="text-sm font-medium text-[hsl(var(--text-primary))]">{file.name}</span>
                     <span className="text-xs text-[hsl(var(--text-secondary))]">({formatFileSize(file.size)})</span>
                   </div>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setUploadingFiles(files => files.filter((_, i) => i !== idx))}
-                    className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                    className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -372,7 +372,7 @@ export default function FilesPage() {
                   </>
                 )}
               </Button>
-              <Button variant="outline" onClick={() => setUploadingFiles([])} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+              <Button variant="outline" onClick={() => setUploadingFiles([])} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
                 Cancel
               </Button>
             </div>
@@ -412,17 +412,17 @@ export default function FilesPage() {
               placeholder="Search files..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+              className="pl-9 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
             />
           </div>
           <Select value={projectFilter} onValueChange={setProjectFilter}>
-            <SelectTrigger className="w-[180px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+            <SelectTrigger className="w-[180px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
               <SelectValue placeholder="All Projects" />
             </SelectTrigger>
             <SelectContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
-              <SelectItem value="all" className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">All Projects</SelectItem>
+              <SelectItem value="all" className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">All Projects</SelectItem>
               {projects.map(project => (
-                <SelectItem key={project.id} value={project.id} className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
+                <SelectItem key={project.id} value={project.id} className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">
                   {project.name}
                 </SelectItem>
               ))}
@@ -434,7 +434,7 @@ export default function FilesPage() {
             variant={viewMode === 'grid' ? 'secondary' : 'ghost'}
             size="sm"
             onClick={() => setViewMode('grid')}
-            className={viewMode === 'grid' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]'}
+            className={viewMode === 'grid' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]'}
           >
             <Grid className="h-4 w-4" />
           </Button>
@@ -442,7 +442,7 @@ export default function FilesPage() {
             variant={viewMode === 'list' ? 'secondary' : 'ghost'}
             size="sm"
             onClick={() => setViewMode('list')}
-            className={viewMode === 'list' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]'}
+            className={viewMode === 'list' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]'}
           >
             <List className="h-4 w-4" />
           </Button>
@@ -458,7 +458,7 @@ export default function FilesPage() {
         <Card className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
           <CardContent className="flex flex-col items-center justify-center py-12">
             <FolderOpen className="h-12 w-12 text-[hsl(var(--text-muted))]" />
-            <h3 className="mt-4 text-lg font-medium text-white">No files found</h3>
+            <h3 className="mt-4 text-lg font-medium text-[hsl(var(--text-primary))]">No files found</h3>
             <p className="text-sm text-[hsl(var(--text-secondary))] mt-1">
               {searchQuery ? 'Try a different search term' : 'Upload your first file to get started'}
             </p>
@@ -486,7 +486,7 @@ export default function FilesPage() {
                 </div>
 
                 {/* File Info */}
-                <p className="font-medium text-sm text-white truncate" title={file.originalName}>
+                <p className="font-medium text-sm text-[hsl(var(--text-primary))] truncate" title={file.originalName}>
                   {file.originalName}
                 </p>
                 <p className="text-xs text-[hsl(var(--text-secondary))] mt-1">
@@ -500,7 +500,7 @@ export default function FilesPage() {
                     size="sm"
                     onClick={() => window.open(filesApi.getDownloadUrl(file.id), '_blank')}
                     title="Download"
-                    className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                    className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                   >
                     <Download className="h-4 w-4" />
                   </Button>
@@ -510,7 +510,7 @@ export default function FilesPage() {
                       size="sm"
                       onClick={() => setSharingFile(file)}
                       title="Share"
-                      className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                      className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                     >
                       <Share2 className="h-4 w-4" />
                     </Button>
@@ -551,7 +551,7 @@ export default function FilesPage() {
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         {getFileIcon(file.mimeType)}
-                        <span className="font-medium text-white truncate max-w-[200px]" title={file.originalName}>
+                        <span className="font-medium text-[hsl(var(--text-primary))] truncate max-w-[200px]" title={file.originalName}>
                           {file.originalName}
                         </span>
                       </div>
@@ -578,7 +578,7 @@ export default function FilesPage() {
                             size="sm"
                             onClick={() => setPreviewFile(file)}
                             title="Preview"
-                            className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
@@ -588,7 +588,7 @@ export default function FilesPage() {
                           size="sm"
                           onClick={() => window.open(filesApi.getDownloadUrl(file.id), '_blank')}
                           title="Download"
-                          className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                          className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                         >
                           <Download className="h-4 w-4" />
                         </Button>
@@ -598,7 +598,7 @@ export default function FilesPage() {
                             size="sm"
                             onClick={() => setSharingFile(file)}
                             title="Share"
-                            className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
+                            className="text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
                           >
                             <Share2 className="h-4 w-4" />
                           </Button>
@@ -626,9 +626,9 @@ export default function FilesPage() {
 
       {/* Image Preview Dialog */}
       <Dialog open={!!previewFile} onOpenChange={() => setPreviewFile(null)}>
-        <DialogContent className="max-w-4xl bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+        <DialogContent className="max-w-4xl bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
           <DialogHeader>
-            <DialogTitle className="text-white">{previewFile?.originalName}</DialogTitle>
+            <DialogTitle className="text-[hsl(var(--text-primary))]">{previewFile?.originalName}</DialogTitle>
           </DialogHeader>
           {previewFile && (
             <div className="flex items-center justify-center bg-[hsl(var(--layout-bg))] rounded-lg p-4">
@@ -640,7 +640,7 @@ export default function FilesPage() {
             </div>
           )}
           <DialogFooter>
-            <Button variant="outline" onClick={() => setPreviewFile(null)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+            <Button variant="outline" onClick={() => setPreviewFile(null)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
               Close
             </Button>
             <Button onClick={() => window.open(filesApi.getDownloadUrl(previewFile!.id), '_blank')} className="bg-blue-500 hover:bg-blue-600">
@@ -653,16 +653,16 @@ export default function FilesPage() {
 
       {/* Share Dialog */}
       <Dialog open={!!sharingFile} onOpenChange={handleCloseShareDialog}>
-        <DialogContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+        <DialogContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
           <DialogHeader>
-            <DialogTitle className="text-white">Share File</DialogTitle>
+            <DialogTitle className="text-[hsl(var(--text-primary))]">Share File</DialogTitle>
           </DialogHeader>
           {sharingFile && !createdShare && (
             <div className="space-y-4">
               <div className="flex items-center gap-3 p-3 bg-[hsl(var(--layout-bg))] rounded-lg border border-[hsl(var(--layout-border))]">
                 {getFileIcon(sharingFile.mimeType)}
                 <div>
-                  <p className="font-medium text-white">{sharingFile.originalName}</p>
+                  <p className="font-medium text-[hsl(var(--text-primary))]">{sharingFile.originalName}</p>
                   <p className="text-sm text-[hsl(var(--text-secondary))]">{formatFileSize(sharingFile.size)}</p>
                 </div>
               </div>
@@ -673,14 +673,14 @@ export default function FilesPage() {
                   value={shareOptions.expiresIn.toString()}
                   onValueChange={(v) => setShareOptions({ ...shareOptions, expiresIn: parseInt(v) })}
                 >
-                  <SelectTrigger className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white">
+                  <SelectTrigger className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
-                    <SelectItem value="1" className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">1 day</SelectItem>
-                    <SelectItem value="7" className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">7 days</SelectItem>
-                    <SelectItem value="30" className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">30 days</SelectItem>
-                    <SelectItem value="0" className="text-white hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">Never</SelectItem>
+                    <SelectItem value="1" className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">1 day</SelectItem>
+                    <SelectItem value="7" className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">7 days</SelectItem>
+                    <SelectItem value="30" className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">30 days</SelectItem>
+                    <SelectItem value="0" className="text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] focus:bg-[hsl(var(--layout-card-hover))]">Never</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -692,7 +692,7 @@ export default function FilesPage() {
                   placeholder="Enter password..."
                   value={shareOptions.password}
                   onChange={(e) => setShareOptions({ ...shareOptions, password: e.target.value })}
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 
@@ -703,7 +703,7 @@ export default function FilesPage() {
                   min="0"
                   value={shareOptions.maxDownloads}
                   onChange={(e) => setShareOptions({ ...shareOptions, maxDownloads: parseInt(e.target.value) || 0 })}
-                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                 />
               </div>
             </div>
@@ -722,7 +722,7 @@ export default function FilesPage() {
                   <Input
                     readOnly
                     value={filesApi.getPublicShareUrl(createdShare.code)}
-                    className="font-mono text-sm bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                    className="font-mono text-sm bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]"
                   />
                   <Button onClick={handleCopyLink} className="bg-blue-500 hover:bg-blue-600">
                     {copiedLink ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
@@ -754,7 +754,7 @@ export default function FilesPage() {
           )}
 
           <DialogFooter>
-            <Button variant="outline" onClick={handleCloseShareDialog} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+            <Button variant="outline" onClick={handleCloseShareDialog} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
               {createdShare ? 'Done' : 'Cancel'}
             </Button>
             {!createdShare && (
@@ -773,15 +773,15 @@ export default function FilesPage() {
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={!!deletingFile} onOpenChange={() => setDeletingFile(null)}>
-        <DialogContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
+        <DialogContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
           <DialogHeader>
-            <DialogTitle className="text-white">Delete File</DialogTitle>
+            <DialogTitle className="text-[hsl(var(--text-primary))]">Delete File</DialogTitle>
           </DialogHeader>
           <p className="text-[hsl(var(--text-primary))]">
-            Are you sure you want to delete <strong className="text-white">{deletingFile?.originalName}</strong>? This action cannot be undone.
+            Are you sure you want to delete <strong className="text-[hsl(var(--text-primary))]">{deletingFile?.originalName}</strong>? This action cannot be undone.
           </p>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDeletingFile(null)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
+            <Button variant="outline" onClick={() => setDeletingFile(null)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]">
               Cancel
             </Button>
             <Button

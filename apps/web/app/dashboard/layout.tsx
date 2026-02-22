@@ -182,7 +182,7 @@ export default function DashboardLayout({
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden text-white"
+              className="lg:hidden text-[hsl(var(--text-primary))]"
               onClick={() => setSidebarOpen(false)}
             >
               <X className="h-5 w-5" />
@@ -265,7 +265,7 @@ export default function DashboardLayout({
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden text-white"
+                className="lg:hidden text-[hsl(var(--text-primary))]"
                 onClick={() => setSidebarOpen(true)}
               >
                 <Menu className="h-5 w-5" />

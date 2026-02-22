@@ -162,7 +162,7 @@ function TaskCard({
       <ContextMenuTrigger>
         <Card
           className={cn(
-            'cursor-pointer hover:shadow-md transition-all bg-[#0a1628] border-slate-700',
+            'cursor-pointer hover:shadow-md transition-all bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]',
             isDragging && 'opacity-50 shadow-lg rotate-2',
             overdue && 'border-red-500/50 bg-red-500/10',
             dueSoon && !overdue && 'border-amber-500/50 bg-amber-500/10',
@@ -175,7 +175,7 @@ function TaskCard({
         >
           <CardContent className="p-3">
             <div className="flex items-start justify-between gap-2">
-              <h4 className="font-medium text-sm line-clamp-2 flex-1 text-white">{task.title}</h4>
+              <h4 className="font-medium text-sm line-clamp-2 flex-1 text-[hsl(var(--text-primary))]">{task.title}</h4>
               <div className="flex items-center gap-1 shrink-0">
                 {overdue && <AlertCircle className="h-4 w-4 text-red-400" />}
                 {/* Timer Button */}
@@ -185,7 +185,7 @@ function TaskCard({
                     size="icon"
                     className={cn(
                       'h-6 w-6',
-                      isTimerActive ? 'bg-red-500 hover:bg-red-600 animate-pulse' : 'text-slate-400 hover:text-white hover:bg-slate-700'
+                      isTimerActive ? 'bg-red-500 hover:bg-red-600 animate-pulse' : 'text-[hsl(var(--text-muted))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]'
                     )}
                     onClick={handleTimerClick}
                     title={isTimerActive ? 'Stop Timer' : 'Start Timer'}
@@ -201,7 +201,7 @@ function TaskCard({
             </div>
 
             {task.description && (
-              <p className="text-xs text-slate-400 mt-1 line-clamp-2">
+              <p className="text-xs text-[hsl(var(--text-muted))] mt-1 line-clamp-2">
                 {task.description.replace(/<[^>]*>/g, '').slice(0, 80)}
               </p>
             )}
@@ -222,7 +222,7 @@ function TaskCard({
                   </span>
                 ))}
                 {task.tags.length > 3 && (
-                  <span className="text-xs text-slate-500">+{task.tags.length - 3}</span>
+                  <span className="text-xs text-[hsl(var(--text-muted))]">+{task.tags.length - 3}</span>
                 )}
               </div>
             )}
@@ -235,7 +235,7 @@ function TaskCard({
               </div>
 
               {task.assignee && (
-                <Avatar className="h-6 w-6 border border-slate-600">
+                <Avatar className="h-6 w-6 border border-[hsl(var(--layout-border))]">
                   <AvatarImage src={task.assignee.avatar} />
                   <AvatarFallback className="text-xs bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                     {getInitials(task.assignee.name)}
@@ -245,7 +245,7 @@ function TaskCard({
             </div>
 
             {/* Footer with metadata */}
-            <div className="mt-2 flex items-center gap-3 text-xs text-slate-500">
+            <div className="mt-2 flex items-center gap-3 text-xs text-[hsl(var(--text-muted))]">
               {task.dueDate && (
                 <div className={cn(
                   'flex items-center gap-1',
@@ -281,27 +281,27 @@ function TaskCard({
         </Card>
       </ContextMenuTrigger>
 
-      <ContextMenuContent className="w-48 bg-[#131d2e] border-slate-700">
-        <ContextMenuItem onClick={() => onTaskClick(task.id)} className="text-slate-300 focus:bg-slate-700 focus:text-white">
+      <ContextMenuContent className="w-48 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
+        <ContextMenuItem onClick={() => onTaskClick(task.id)} className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-[hsl(var(--text-primary))]">
           <Edit className="mr-2 h-4 w-4" />
           View Details
         </ContextMenuItem>
-        <ContextMenuItem onClick={() => onTaskEdit(task.id)} className="text-slate-300 focus:bg-slate-700 focus:text-white">
+        <ContextMenuItem onClick={() => onTaskEdit(task.id)} className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-[hsl(var(--text-primary))]">
           <Edit className="mr-2 h-4 w-4" />
           Edit Task
         </ContextMenuItem>
-        <ContextMenuSeparator className="bg-slate-700" />
+        <ContextMenuSeparator className="bg-[hsl(var(--layout-border))]" />
         <ContextMenuSub>
-          <ContextMenuSubTrigger className="text-slate-300 focus:bg-slate-700 focus:text-white">
+          <ContextMenuSubTrigger className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-[hsl(var(--text-primary))]">
             <ArrowRight className="mr-2 h-4 w-4" />
             Move to
           </ContextMenuSubTrigger>
-          <ContextMenuSubContent className="w-40 bg-[#131d2e] border-slate-700">
+          <ContextMenuSubContent className="w-40 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
             {STATUS_COLUMNS.filter(s => s.id !== task.status).map((status) => (
               <ContextMenuItem
                 key={status.id}
                 onClick={() => onStatusChange(task.id, status.id)}
-                className="text-slate-300 focus:bg-slate-700 focus:text-white"
+                className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-[hsl(var(--text-primary))]"
               >
                 <div className={cn('h-2 w-2 rounded-full mr-2', status.color)} />
                 {status.label}
@@ -309,8 +309,8 @@ function TaskCard({
             ))}
           </ContextMenuSubContent>
         </ContextMenuSub>
-        <ContextMenuSeparator className="bg-slate-700" />
-        <ContextMenuItem onClick={() => onTaskArchive(task.id)} className="text-slate-300 focus:bg-slate-700 focus:text-white">
+        <ContextMenuSeparator className="bg-[hsl(var(--layout-border))]" />
+        <ContextMenuItem onClick={() => onTaskArchive(task.id)} className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-[hsl(var(--text-primary))]">
           <Archive className="mr-2 h-4 w-4" />
           Archive
         </ContextMenuItem>
@@ -380,14 +380,14 @@ function KanbanColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        'flex flex-col rounded-xl bg-[#131d2e] border border-slate-700/50 p-3 min-h-[500px] transition-colors',
+        'flex flex-col rounded-xl bg-[hsl(var(--layout-bg))] border border-[hsl(var(--layout-border))] p-3 min-h-[500px] transition-colors',
         isOver && 'bg-blue-500/10 ring-2 ring-blue-400'
       )}
     >
       <div className="mb-3 flex items-center gap-2">
         <div className={cn('h-3 w-3 rounded-full', column.color)} />
-        <h3 className="font-medium text-sm text-white">{column.label}</h3>
-        <span className="text-xs text-slate-400 bg-slate-700 px-1.5 py-0.5 rounded">
+        <h3 className="font-medium text-sm text-[hsl(var(--text-primary))]">{column.label}</h3>
+        <span className="text-xs text-[hsl(var(--text-secondary))] bg-[hsl(var(--layout-card-hover))] px-1.5 py-0.5 rounded">
           {tasks.length}
         </span>
       </div>
@@ -412,7 +412,7 @@ function KanbanColumn({
           ))}
           {tasks.length === 0 && (
             <div className={cn(
-              'flex items-center justify-center h-24 text-sm text-slate-500 border-2 border-dashed border-slate-700 rounded-lg transition-colors',
+              'flex items-center justify-center h-24 text-sm text-[hsl(var(--text-muted))] border-2 border-dashed border-[hsl(var(--layout-border))] rounded-lg transition-colors',
               isOver && 'border-blue-400 bg-blue-500/10 text-blue-400'
             )}>
               {isOver ? 'Drop here' : 'Drop tasks here'}
