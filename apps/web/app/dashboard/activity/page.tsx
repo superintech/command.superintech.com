@@ -62,8 +62,8 @@ export default function ActivityPage() {
   });
 
   const isLoading = tasksLoading || projectsLoading;
-  const tasks: Task[] = tasksData?.data || [];
-  const projects: Project[] = projectsData?.data || [];
+  const tasks = (tasksData?.data || []) as Task[];
+  const projects = (projectsData?.data || []) as Project[];
 
   const getInitials = (name: string) => {
     if (!name) return '?';
