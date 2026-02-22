@@ -74,7 +74,7 @@ export function ProjectHealthCard({
 
   if (isLoading) {
     return (
-      <Card className={cn('bg-[#131d2e] border-slate-700', className)}>
+      <Card className={cn('bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]', className)}>
         <CardContent className="flex items-center justify-center h-48">
           <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
         </CardContent>
@@ -84,15 +84,15 @@ export function ProjectHealthCard({
 
   if (!analysis) {
     return (
-      <Card className={cn('bg-[#131d2e] border-slate-700', className)}>
+      <Card className={cn('bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]', className)}>
         <CardContent className="flex flex-col items-center justify-center h-48 gap-3">
-          <Activity className="h-8 w-8 text-slate-500" />
-          <p className="text-slate-400 text-sm">Unable to analyze project</p>
+          <Activity className="h-8 w-8 text-[hsl(var(--text-muted))]" />
+          <p className="text-[hsl(var(--text-secondary))] text-sm">Unable to analyze project</p>
           <Button
             variant="outline"
             size="sm"
             onClick={() => refetch()}
-            className="border-slate-600"
+            className="border-[hsl(var(--layout-border))]"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
             Try Again
@@ -106,7 +106,7 @@ export function ProjectHealthCard({
   const StatusIcon = statusConfig.icon;
 
   return (
-    <Card className={cn('bg-[#131d2e] border-slate-700', className)}>
+    <Card className={cn('bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]', className)}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-white flex items-center gap-2">
@@ -118,14 +118,14 @@ export function ProjectHealthCard({
             size="sm"
             onClick={() => refetch()}
             disabled={isFetching}
-            className="h-8 w-8 p-0 text-slate-400 hover:text-white"
+            className="h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-white"
           >
             <RefreshCw
               className={cn('h-4 w-4', isFetching && 'animate-spin')}
             />
           </Button>
         </div>
-        <p className="text-sm text-slate-400">{projectName}</p>
+        <p className="text-sm text-[hsl(var(--text-secondary))]">{projectName}</p>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Health Score */}
@@ -148,50 +148,50 @@ export function ProjectHealthCard({
                 {statusConfig.label}
               </span>
             </div>
-            <p className="text-sm text-slate-400">{analysis.assessment}</p>
+            <p className="text-sm text-[hsl(var(--text-secondary))]">{analysis.assessment}</p>
           </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-2">
-          <div className="bg-slate-800/50 rounded-lg p-2 text-center">
+          <div className="bg-[hsl(var(--layout-card))] rounded-lg p-2 text-center">
             <p className="text-lg font-bold text-white">
               {analysis.projectStats.totalTasks}
             </p>
-            <p className="text-xs text-slate-400">Total Tasks</p>
+            <p className="text-xs text-[hsl(var(--text-secondary))]">Total Tasks</p>
           </div>
-          <div className="bg-slate-800/50 rounded-lg p-2 text-center">
+          <div className="bg-[hsl(var(--layout-card))] rounded-lg p-2 text-center">
             <p className="text-lg font-bold text-green-400">
               {analysis.projectStats.completedTasks}
             </p>
-            <p className="text-xs text-slate-400">Completed</p>
+            <p className="text-xs text-[hsl(var(--text-secondary))]">Completed</p>
           </div>
-          <div className="bg-slate-800/50 rounded-lg p-2 text-center">
+          <div className="bg-[hsl(var(--layout-card))] rounded-lg p-2 text-center">
             <p className="text-lg font-bold text-red-400">
               {analysis.projectStats.overdueTasks}
             </p>
-            <p className="text-xs text-slate-400">Overdue</p>
+            <p className="text-xs text-[hsl(var(--text-secondary))]">Overdue</p>
           </div>
         </div>
 
         {/* Completion Rate */}
         <div>
           <div className="flex justify-between text-sm mb-1">
-            <span className="text-slate-400">Completion Rate</span>
+            <span className="text-[hsl(var(--text-secondary))]">Completion Rate</span>
             <span className="text-white font-medium">
               {analysis.projectStats.completionRate}%
             </span>
           </div>
           <Progress
             value={Number(analysis.projectStats.completionRate)}
-            className="h-2 bg-slate-700"
+            className="h-2 bg-[hsl(var(--layout-card-hover))]"
           />
         </div>
 
         {/* Risks */}
         {analysis.risks.length > 0 && (
           <div>
-            <h4 className="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+            <h4 className="text-sm font-medium text-[hsl(var(--text-primary))] mb-2 flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-yellow-500" />
               Risks Identified
             </h4>
@@ -199,7 +199,7 @@ export function ProjectHealthCard({
               {analysis.risks.slice(0, 3).map((risk, idx) => (
                 <li
                   key={idx}
-                  className="text-xs text-slate-400 bg-slate-800/50 px-3 py-2 rounded"
+                  className="text-xs text-[hsl(var(--text-secondary))] bg-[hsl(var(--layout-card))] px-3 py-2 rounded"
                 >
                   {risk}
                 </li>
@@ -211,7 +211,7 @@ export function ProjectHealthCard({
         {/* Recommendations */}
         {analysis.recommendations.length > 0 && (
           <div>
-            <h4 className="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+            <h4 className="text-sm font-medium text-[hsl(var(--text-primary))] mb-2 flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-purple-400" />
               AI Recommendations
             </h4>
@@ -219,7 +219,7 @@ export function ProjectHealthCard({
               {analysis.recommendations.slice(0, 3).map((rec, idx) => (
                 <li
                   key={idx}
-                  className="text-xs text-slate-400 bg-purple-500/10 px-3 py-2 rounded border border-purple-500/20"
+                  className="text-xs text-[hsl(var(--text-secondary))] bg-purple-500/10 px-3 py-2 rounded border border-purple-500/20"
                 >
                   {rec}
                 </li>

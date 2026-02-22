@@ -280,14 +280,14 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
   });
 
   return (
-    <div className="flex flex-col h-full bg-[#131d2e]">
+    <div className="flex flex-col h-full bg-[hsl(var(--layout-card))]">
       {/* Header */}
-      <div className="h-12 px-4 flex items-center justify-between border-b border-slate-700 shadow-sm">
+      <div className="h-12 px-4 flex items-center justify-between border-b border-[hsl(var(--layout-border))] shadow-sm">
         <div className="flex items-center gap-2">
           {room.type === 'DIRECT' ? (
-            <span className="text-slate-400">@</span>
+            <span className="text-[hsl(var(--text-secondary))]">@</span>
           ) : (
-            <Hash className="h-5 w-5 text-slate-400" />
+            <Hash className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
           )}
           <h3 className="font-semibold text-white">{displayName}</h3>
           {room.type === 'DIRECT' && (
@@ -307,7 +307,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-700/50">
+                  <Button variant="ghost" size="icon" className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
                     <Users className="h-5 w-5" />
                   </Button>
                 </TooltipTrigger>
@@ -319,23 +319,23 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
           )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-slate-400 hover:text-white hover:bg-slate-700/50">
+              <Button variant="ghost" size="icon" className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-[#0a1628] border-slate-700 text-slate-200">
+            <DropdownMenuContent align="end" className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))]">
               {room.type !== 'DIRECT' && (
                 <>
-                  <DropdownMenuItem className="hover:bg-slate-700/50 cursor-pointer focus:bg-slate-700/50">
+                  <DropdownMenuItem className="hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer focus:bg-[hsl(var(--layout-card-hover))]">
                     <UserPlus className="h-4 w-4 mr-2" />
                     Add Members
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="hover:bg-slate-700/50 cursor-pointer focus:bg-slate-700/50">
+                  <DropdownMenuItem className="hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer focus:bg-[hsl(var(--layout-card-hover))]">
                     <Settings className="h-4 w-4 mr-2" />
                     Settings
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    className="text-red-400 hover:bg-slate-700/50 cursor-pointer focus:bg-slate-700/50 focus:text-red-400"
+                    className="text-red-400 hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer focus:bg-[hsl(var(--layout-card-hover))] focus:text-red-400"
                     onClick={onLeaveRoom}
                   >
                     <LogOut className="h-4 w-4 mr-2" />
@@ -355,7 +355,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
           </div>
         ) : messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-slate-400">
+          <div className="flex flex-col items-center justify-center h-full text-[hsl(var(--text-secondary))]">
             <Hash className="h-16 w-16 mb-4 opacity-30" />
             <h3 className="text-xl font-semibold text-white">
               Welcome to #{displayName}
@@ -368,11 +368,11 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
               <div key={groupIndex}>
                 {/* Date Divider */}
                 <div className="flex items-center gap-2 my-4">
-                  <div className="flex-1 h-px bg-slate-700" />
-                  <span className="text-xs text-slate-400 font-medium">
+                  <div className="flex-1 h-px bg-[hsl(var(--layout-card-hover))]" />
+                  <span className="text-xs text-[hsl(var(--text-secondary))] font-medium">
                     {formatDateDivider(group.date)}
                   </span>
-                  <div className="flex-1 h-px bg-slate-700" />
+                  <div className="flex-1 h-px bg-[hsl(var(--layout-card-hover))]" />
                 </div>
 
                 {/* Messages */}
@@ -388,7 +388,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                     <div
                       key={msg.id}
                       className={cn(
-                        'group relative hover:bg-slate-700/30 rounded px-2 py-0.5',
+                        'group relative hover:bg-[hsl(var(--layout-card-hover))] rounded px-2 py-0.5',
                         showHeader && 'mt-4 pt-1'
                       )}
                     >
@@ -402,7 +402,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                           </Avatar>
                         ) : (
                           <div className="w-10 flex items-center justify-center">
-                            <span className="text-[10px] text-slate-500 opacity-0 group-hover:opacity-100">
+                            <span className="text-[10px] text-[hsl(var(--text-muted))] opacity-0 group-hover:opacity-100">
                               {format(new Date(msg.createdAt), 'h:mm')}
                             </span>
                           </div>
@@ -413,12 +413,12 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                               <span className="font-medium text-white hover:underline cursor-pointer">
                                 {msg.sender.name}
                               </span>
-                              <span className="text-xs text-slate-500">
+                              <span className="text-xs text-[hsl(var(--text-muted))]">
                                 {formatMessageTime(new Date(msg.createdAt))}
                               </span>
                             </div>
                           )}
-                          <div className="text-slate-200 break-words">
+                          <div className="text-[hsl(var(--text-primary))] break-words">
                             {renderMessageWithMentions(
                               msg.content,
                               room.members.map((m) => ({
@@ -435,7 +435,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                           {msg.file && (
                             <div className="mt-2 max-w-md">
                               {msg.file.mimeType.startsWith('image/') ? (
-                                <div className="rounded-lg overflow-hidden bg-[#0a1628]">
+                                <div className="rounded-lg overflow-hidden bg-[hsl(var(--layout-bg))]">
                                   <img
                                     src={`${API_URL}/api/files/${msg.file.id}/download`}
                                     alt={msg.file.originalName}
@@ -447,18 +447,18 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                                   href={`${API_URL}/api/files/${msg.file.id}/download`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-3 p-3 bg-[#0a1628] rounded-lg hover:bg-slate-700/50 transition-colors border border-slate-700"
+                                  className="flex items-center gap-3 p-3 bg-[hsl(var(--layout-bg))] rounded-lg hover:bg-[hsl(var(--layout-card-hover))] transition-colors border border-[hsl(var(--layout-border))]"
                                 >
-                                  <FileIcon className="h-10 w-10 text-slate-400" />
+                                  <FileIcon className="h-10 w-10 text-[hsl(var(--text-secondary))]" />
                                   <div className="flex-1 min-w-0">
                                     <p className="text-sm text-blue-400 hover:underline truncate">
                                       {msg.file.originalName}
                                     </p>
-                                    <p className="text-xs text-slate-500">
+                                    <p className="text-xs text-[hsl(var(--text-muted))]">
                                       {(msg.file.size / 1024).toFixed(1)} KB
                                     </p>
                                   </div>
-                                  <Download className="h-5 w-5 text-slate-400" />
+                                  <Download className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
                                 </a>
                               )}
                             </div>
@@ -479,12 +479,12 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                                   onClick={() => handleReaction(msg.id, emoji)}
                                   className={cn(
                                     'flex items-center gap-1 px-2 py-0.5 rounded-full text-xs',
-                                    'bg-[#0a1628] hover:bg-slate-700/50 border border-slate-700',
+                                    'bg-[hsl(var(--layout-bg))] hover:bg-[hsl(var(--layout-card-hover))] border border-[hsl(var(--layout-border))]',
                                     users.includes(user?.name || '') && 'border-blue-500 bg-blue-500/20'
                                   )}
                                 >
                                   <span>{emoji}</span>
-                                  <span className="text-slate-400">{users.length}</span>
+                                  <span className="text-[hsl(var(--text-secondary))]">{users.length}</span>
                                 </button>
                               ))}
                             </div>
@@ -492,12 +492,12 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
                         </div>
 
                         {/* Reaction Button */}
-                        <div className="opacity-0 group-hover:opacity-100 absolute right-2 -top-3 flex items-center gap-0.5 bg-[#0a1628] rounded border border-slate-700">
+                        <div className="opacity-0 group-hover:opacity-100 absolute right-2 -top-3 flex items-center gap-0.5 bg-[hsl(var(--layout-bg))] rounded border border-[hsl(var(--layout-border))]">
                           {REACTION_EMOJIS.slice(0, 4).map((emoji) => (
                             <button
                               key={emoji}
                               onClick={() => handleReaction(msg.id, emoji)}
-                              className="p-1 hover:bg-slate-700/50 rounded text-sm"
+                              className="p-1 hover:bg-[hsl(var(--layout-card-hover))] rounded text-sm"
                             >
                               {emoji}
                             </button>
@@ -515,7 +515,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
 
         {/* Typing Indicator */}
         {typingUserNames.length > 0 && (
-          <div className="flex items-center gap-2 text-sm text-slate-400 px-4 py-2">
+          <div className="flex items-center gap-2 text-sm text-[hsl(var(--text-secondary))] px-4 py-2">
             <div className="flex gap-1">
               <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" />
               <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
@@ -531,22 +531,22 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
 
       {/* File Preview */}
       {selectedFile && (
-        <div className="px-4 py-2 bg-[#0a1628] border-t border-slate-700">
-          <div className="flex items-center gap-3 p-2 bg-[#131d2e] rounded-lg border border-slate-700">
+        <div className="px-4 py-2 bg-[hsl(var(--layout-bg))] border-t border-[hsl(var(--layout-border))]">
+          <div className="flex items-center gap-3 p-2 bg-[hsl(var(--layout-card))] rounded-lg border border-[hsl(var(--layout-border))]">
             {selectedFile.type.startsWith('image/') ? (
-              <ImageIcon className="h-8 w-8 text-slate-400" />
+              <ImageIcon className="h-8 w-8 text-[hsl(var(--text-secondary))]" />
             ) : (
-              <FileIcon className="h-8 w-8 text-slate-400" />
+              <FileIcon className="h-8 w-8 text-[hsl(var(--text-secondary))]" />
             )}
             <div className="flex-1 min-w-0">
               <p className="text-sm text-white truncate">{selectedFile.name}</p>
-              <p className="text-xs text-slate-500">{(selectedFile.size / 1024).toFixed(1)} KB</p>
+              <p className="text-xs text-[hsl(var(--text-muted))]">{(selectedFile.size / 1024).toFixed(1)} KB</p>
             </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setSelectedFile(null)}
-              className="text-slate-400 hover:text-white hover:bg-slate-700/50"
+              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -556,7 +556,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
 
       {/* Input */}
       <div className="p-4">
-        <div className="flex items-center gap-2 bg-[#0a1628] border border-slate-700 rounded-lg px-4 py-2">
+        <div className="flex items-center gap-2 bg-[hsl(var(--layout-bg))] border border-[hsl(var(--layout-border))] rounded-lg px-4 py-2">
           <input
             type="file"
             ref={fileInputRef}
@@ -569,7 +569,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
             size="icon"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="text-slate-400 hover:text-white hover:bg-slate-700/50 h-8 w-8"
+            className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))] h-8 w-8"
           >
             <Paperclip className="h-5 w-5" />
           </Button>
@@ -603,7 +603,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
               onKeyPress={handleKeyPress}
               placeholder={`Message @${displayName}`}
               disabled={!isConnected || isUploading}
-              className="flex-1 bg-transparent border-0 text-white placeholder:text-slate-500 focus-visible:ring-0"
+              className="flex-1 bg-transparent border-0 text-white placeholder:text-[hsl(var(--text-muted))] focus-visible:ring-0"
             />
           )}
           <div className="relative">
@@ -611,7 +611,7 @@ export function ChatMessageArea({ room, onlineUsers, onLeaveRoom }: ChatMessageA
               variant="ghost"
               size="icon"
               onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-              className="text-slate-400 hover:text-white hover:bg-slate-700/50 h-8 w-8"
+              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))] h-8 w-8"
             >
               <Smile className="h-5 w-5" />
             </Button>

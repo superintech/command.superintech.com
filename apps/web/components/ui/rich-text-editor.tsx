@@ -54,8 +54,8 @@ function ToolbarButton({
       onClick={onClick}
       title={title}
       className={cn(
-        'h-8 w-8 p-0',
-        isActive && 'bg-gray-200 text-gray-900'
+        'h-8 w-8 p-0 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]',
+        isActive && 'bg-blue-500/20 text-blue-400'
       )}
     >
       {children}
@@ -74,7 +74,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-0.5 border-b bg-gray-50 p-1">
+    <div className="flex flex-wrap items-center gap-0.5 border-b border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] p-1">
       {/* Text formatting */}
       <ToolbarButton
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -112,7 +112,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
         <Highlighter className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-gray-300" />
+      <div className="mx-1 h-6 w-px bg-[hsl(var(--layout-border))]" />
 
       {/* Lists */}
       <ToolbarButton
@@ -130,7 +130,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
         <ListOrdered className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-gray-300" />
+      <div className="mx-1 h-6 w-px bg-[hsl(var(--layout-border))]" />
 
       {/* Alignment */}
       <ToolbarButton
@@ -155,7 +155,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
         <AlignRight className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-gray-300" />
+      <div className="mx-1 h-6 w-px bg-[hsl(var(--layout-border))]" />
 
       {/* Block formatting */}
       <ToolbarButton
@@ -180,7 +180,7 @@ function Toolbar({ editor }: { editor: Editor | null }) {
         <LinkIcon className="h-4 w-4" />
       </ToolbarButton>
 
-      <div className="mx-1 h-6 w-px bg-gray-300" />
+      <div className="mx-1 h-6 w-px bg-[hsl(var(--layout-border))]" />
 
       {/* History */}
       <ToolbarButton
@@ -235,10 +235,11 @@ export function RichTextEditor({
     editorProps: {
       attributes: {
         class: cn(
-          'prose prose-sm max-w-none focus:outline-none p-3',
+          'prose prose-sm dark:prose-invert max-w-none focus:outline-none p-3',
+          'text-[hsl(var(--text-primary))]',
           'prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-li:my-0',
-          'prose-blockquote:border-l-2 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:italic',
-          'prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded',
+          'prose-blockquote:border-l-2 prose-blockquote:border-[hsl(var(--layout-border))] prose-blockquote:pl-4 prose-blockquote:italic',
+          'prose-code:bg-[hsl(var(--layout-bg))] prose-code:px-1 prose-code:rounded',
           'prose-pre:bg-gray-900 prose-pre:text-gray-100'
         ),
         style: `min-height: ${minHeight}`,
@@ -259,7 +260,7 @@ export function RichTextEditor({
   });
 
   return (
-    <div className={cn('rounded-md border border-input bg-background', className)}>
+    <div className={cn('rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))]', className)}>
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
     </div>
@@ -271,13 +272,13 @@ export function RichTextDisplay({ content, className }: { content: string; class
   return (
     <div
       className={cn(
-        'prose prose-sm prose-invert max-w-none',
-        'prose-p:my-1 prose-p:text-white prose-ul:my-1 prose-ol:my-1 prose-li:my-0 prose-li:text-white',
-        'prose-blockquote:border-l-2 prose-blockquote:border-slate-500 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-slate-300',
-        'prose-code:bg-slate-700 prose-code:px-1 prose-code:rounded prose-code:text-white',
-        'prose-pre:bg-slate-900 prose-pre:text-slate-100',
-        'prose-strong:text-white prose-em:text-white',
-        'prose-headings:text-white',
+        'prose prose-sm dark:prose-invert max-w-none',
+        'prose-p:my-1 prose-p:text-[hsl(var(--text-primary))] prose-ul:my-1 prose-ol:my-1 prose-li:my-0 prose-li:text-[hsl(var(--text-primary))]',
+        'prose-blockquote:border-l-2 prose-blockquote:border-[hsl(var(--layout-border))] prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-[hsl(var(--text-secondary))]',
+        'prose-code:bg-[hsl(var(--layout-bg))] prose-code:px-1 prose-code:rounded prose-code:text-[hsl(var(--text-primary))]',
+        'prose-pre:bg-gray-900 prose-pre:text-gray-100',
+        'prose-strong:text-[hsl(var(--text-primary))] prose-em:text-[hsl(var(--text-primary))]',
+        'prose-headings:text-[hsl(var(--text-primary))]',
         '[&_a]:!text-blue-400 [&_a]:underline [&_a:hover]:!text-blue-300',
         className
       )}

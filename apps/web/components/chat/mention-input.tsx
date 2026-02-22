@@ -163,7 +163,7 @@ export function MentionInput({
         placeholder={placeholder}
         disabled={disabled}
         className={cn(
-          'w-full bg-transparent border-0 text-white placeholder:text-slate-500 focus:outline-none focus:ring-0',
+          'w-full bg-transparent border-0 text-white placeholder:text-[hsl(var(--text-muted))] focus:outline-none focus:ring-0',
           className
         )}
       />
@@ -172,10 +172,10 @@ export function MentionInput({
       {showMentions && filteredMembers.length > 0 && (
         <div
           ref={mentionListRef}
-          className="absolute bottom-full left-0 mb-2 w-72 max-h-48 overflow-y-auto bg-[#131d2e] rounded-lg shadow-lg border border-slate-700 z-50"
+          className="absolute bottom-full left-0 mb-2 w-72 max-h-48 overflow-y-auto bg-[hsl(var(--layout-card))] rounded-lg shadow-lg border border-[hsl(var(--layout-border))] z-50"
         >
           <div className="p-2">
-            <p className="text-xs text-slate-400 uppercase font-semibold px-2 py-1">
+            <p className="text-xs text-[hsl(var(--text-secondary))] uppercase font-semibold px-2 py-1">
               Members matching @{mentionSearch}
             </p>
             {filteredMembers.map((member, index) => (
@@ -185,7 +185,7 @@ export function MentionInput({
                   'flex items-center gap-3 w-full p-2 rounded text-left transition-colors',
                   index === mentionIndex
                     ? 'bg-blue-500 text-white'
-                    : 'hover:bg-slate-700/50 text-slate-200'
+                    : 'hover:bg-[hsl(var(--layout-card-hover))] text-[hsl(var(--text-primary))]'
                 )}
                 onClick={() => insertMention(member)}
                 onMouseEnter={() => setMentionIndex(index)}
@@ -201,7 +201,7 @@ export function MentionInput({
                   {member.role && (
                     <p className={cn(
                       'text-xs truncate',
-                      index === mentionIndex ? 'text-white/70' : 'text-slate-400'
+                      index === mentionIndex ? 'text-white/70' : 'text-[hsl(var(--text-secondary))]'
                     )}>
                       {member.role}
                     </p>
@@ -215,8 +215,8 @@ export function MentionInput({
 
       {/* No matches message */}
       {showMentions && filteredMembers.length === 0 && mentionSearch && (
-        <div className="absolute bottom-full left-0 mb-2 w-72 bg-[#131d2e] rounded-lg shadow-lg border border-slate-700 z-50 p-4 text-center">
-          <p className="text-sm text-slate-400">No members found matching @{mentionSearch}</p>
+        <div className="absolute bottom-full left-0 mb-2 w-72 bg-[hsl(var(--layout-card))] rounded-lg shadow-lg border border-[hsl(var(--layout-border))] z-50 p-4 text-center">
+          <p className="text-sm text-[hsl(var(--text-secondary))]">No members found matching @{mentionSearch}</p>
         </div>
       )}
     </div>

@@ -50,7 +50,7 @@ const statusColumns = [
 ];
 
 const priorities = [
-  { value: 'LOW', label: 'Low', color: 'bg-slate-500/20 text-slate-400' },
+  { value: 'LOW', label: 'Low', color: 'bg-[hsl(var(--layout-card-hover))] text-[hsl(var(--text-secondary))]' },
   { value: 'MEDIUM', label: 'Medium', color: 'bg-blue-500/20 text-blue-400' },
   { value: 'HIGH', label: 'High', color: 'bg-orange-500/20 text-orange-400' },
   { value: 'URGENT', label: 'Urgent', color: 'bg-red-500/20 text-red-400' },
@@ -424,15 +424,15 @@ export default function TasksPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white">Tasks</h1>
-          <p className="text-slate-400 mt-1">Manage and track your tasks</p>
+          <p className="text-[hsl(var(--text-secondary))] mt-1">Manage and track your tasks</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <div className="flex rounded-lg border border-slate-700 bg-[#131d2e]">
+          <div className="flex rounded-lg border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))]">
             <Button
               variant={viewMode === 'kanban' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('kanban')}
-              className={cn("rounded-r-none", viewMode === 'kanban' ? 'bg-blue-500 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700')}
+              className={cn("rounded-r-none", viewMode === 'kanban' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]')}
             >
               Kanban
             </Button>
@@ -440,7 +440,7 @@ export default function TasksPage() {
               variant={viewMode === 'list' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('list')}
-              className={cn("rounded-none border-x border-slate-700", viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700')}
+              className={cn("rounded-none border-x border-[hsl(var(--layout-border))]", viewMode === 'list' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]')}
             >
               List
             </Button>
@@ -448,7 +448,7 @@ export default function TasksPage() {
               variant={viewMode === 'calendar' ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setViewMode('calendar')}
-              className={cn("rounded-l-none", viewMode === 'calendar' ? 'bg-blue-500 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-700')}
+              className={cn("rounded-l-none", viewMode === 'calendar' ? 'bg-blue-500 text-white' : 'text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]')}
             >
               Calendar
             </Button>
@@ -495,31 +495,31 @@ export default function TasksPage() {
 
       {/* Create Form */}
       {showCreateForm && canCreateTasks && (
-        <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-6">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Create New Task</h2>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="title" className="text-slate-300">Task Title *</Label>
+                <Label htmlFor="title" className="text-[hsl(var(--text-primary))]">Task Title *</Label>
                 <Input
                   id="title"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   placeholder="Enter task title"
-                  className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="project" className="text-slate-300">Project *</Label>
+                <Label htmlFor="project" className="text-[hsl(var(--text-primary))]">Project *</Label>
                 <select
                   id="project"
                   value={newTask.projectId}
                   onChange={(e) => setNewTask({ ...newTask, projectId: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
                 >
-                  <option value="" className="bg-[#0a1628]">Select project</option>
+                  <option value="" className="bg-[hsl(var(--layout-bg))]">Select project</option>
                   {projects.map((proj) => (
-                    <option key={proj.id} value={proj.id} className="bg-[#0a1628]">
+                    <option key={proj.id} value={proj.id} className="bg-[hsl(var(--layout-bg))]">
                       {proj.name}
                     </option>
                   ))}
@@ -528,49 +528,49 @@ export default function TasksPage() {
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               <div className="space-y-2">
-                <Label htmlFor="priority" className="text-slate-300">Priority</Label>
+                <Label htmlFor="priority" className="text-[hsl(var(--text-primary))]">Priority</Label>
                 <select
                   id="priority"
                   value={newTask.priority}
                   onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
                 >
                   {priorities.map((p) => (
-                    <option key={p.value} value={p.value} className="bg-[#0a1628]">
+                    <option key={p.value} value={p.value} className="bg-[hsl(var(--layout-bg))]">
                       {p.label}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="assignee" className="text-slate-300">Assignee</Label>
+                <Label htmlFor="assignee" className="text-[hsl(var(--text-primary))]">Assignee</Label>
                 <select
                   id="assignee"
                   value={newTask.assigneeId}
                   onChange={(e) => setNewTask({ ...newTask, assigneeId: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
                 >
-                  <option value="" className="bg-[#0a1628]">Unassigned</option>
+                  <option value="" className="bg-[hsl(var(--layout-bg))]">Unassigned</option>
                   {users.map((u) => (
-                    <option key={u.id} value={u.id} className="bg-[#0a1628]">
+                    <option key={u.id} value={u.id} className="bg-[hsl(var(--layout-bg))]">
                       {u.name}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="dueDate" className="text-slate-300">Due Date</Label>
+                <Label htmlFor="dueDate" className="text-[hsl(var(--text-primary))]">Due Date</Label>
                 <Input
                   id="dueDate"
                   type="date"
                   value={newTask.dueDate}
                   onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                  className="bg-[#0a1628] border-slate-700 text-white"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
                 />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-slate-300">Description</Label>
+              <Label htmlFor="description" className="text-[hsl(var(--text-primary))]">Description</Label>
               <RichTextEditor
                 value={newTask.description}
                 onChange={(value) => setNewTask({ ...newTask, description: value })}
@@ -579,7 +579,7 @@ export default function TasksPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-slate-300">Attachments</Label>
+              <Label className="text-[hsl(var(--text-primary))]">Attachments</Label>
               <FileUploader
                 files={taskFiles}
                 onChange={setTaskFiles}
@@ -591,7 +591,7 @@ export default function TasksPage() {
               <Button type="submit" disabled={createMutation.isPending} className="bg-blue-500 hover:bg-blue-600 text-white">
                 {createMutation.isPending ? 'Creating...' : 'Create Task'}
               </Button>
-              <Button type="button" variant="outline" onClick={() => setShowCreateForm(false)} className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700">
+              <Button type="button" variant="outline" onClick={() => setShowCreateForm(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
                 Cancel
               </Button>
             </div>
@@ -602,12 +602,12 @@ export default function TasksPage() {
       {/* Search and Filters */}
       <div className="flex gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[hsl(var(--text-secondary))]" />
           <Input
             placeholder="Search tasks..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 bg-[#131d2e] border-slate-700 text-white placeholder:text-slate-500"
+            className="pl-10 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
           />
         </div>
 
@@ -616,7 +616,7 @@ export default function TasksPage() {
           variant={filters.myTasks ? 'default' : 'outline'}
           size="sm"
           onClick={() => setFilters({ ...filters, myTasks: !filters.myTasks })}
-          className={filters.myTasks ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white'}
+          className={filters.myTasks ? 'bg-blue-500 hover:bg-blue-600 text-white' : 'border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white'}
         >
           <User className="h-4 w-4 mr-1" />
           My Tasks
@@ -625,7 +625,7 @@ export default function TasksPage() {
         {/* Filter Popover */}
         <Popover open={showFilters} onOpenChange={setShowFilters}>
           <PopoverTrigger asChild>
-            <Button variant="outline" size="sm" className="relative border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white">
+            <Button variant="outline" size="sm" className="relative border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white">
               <SlidersHorizontal className="h-4 w-4 mr-1" />
               Filters
               {activeFiltersCount > 0 && (
@@ -635,12 +635,12 @@ export default function TasksPage() {
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-80 bg-[#131d2e] border-slate-700" align="end">
+          <PopoverContent className="w-80 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]" align="end">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <h4 className="font-medium text-white">Filters</h4>
                 {activeFiltersCount > 0 && (
-                  <Button variant="ghost" size="sm" onClick={clearFilters} className="text-slate-400 hover:text-white hover:bg-slate-700">
+                  <Button variant="ghost" size="sm" onClick={clearFilters} className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
                     Clear all
                   </Button>
                 )}
@@ -648,7 +648,7 @@ export default function TasksPage() {
 
               {/* Due Date Filters */}
               <div className="space-y-2">
-                <Label className="text-sm text-slate-400">Due Date</Label>
+                <Label className="text-sm text-[hsl(var(--text-secondary))]">Due Date</Label>
                 <div className="flex flex-col gap-2">
                   <label className="flex items-center gap-2">
                     <Checkbox
@@ -657,7 +657,7 @@ export default function TasksPage() {
                         setFilters({ ...filters, dueSoon: checked as boolean })
                       }
                     />
-                    <span className="text-sm text-slate-300">Due soon (within 3 days)</span>
+                    <span className="text-sm text-[hsl(var(--text-primary))]">Due soon (within 3 days)</span>
                   </label>
                   <label className="flex items-center gap-2">
                     <Checkbox
@@ -666,20 +666,20 @@ export default function TasksPage() {
                         setFilters({ ...filters, overdue: checked as boolean })
                       }
                     />
-                    <span className="text-sm text-slate-300">Overdue</span>
+                    <span className="text-sm text-[hsl(var(--text-primary))]">Overdue</span>
                   </label>
                 </div>
               </div>
 
               {/* Status Filter */}
               <div className="space-y-2">
-                <Label className="text-sm text-slate-400">Status</Label>
+                <Label className="text-sm text-[hsl(var(--text-secondary))]">Status</Label>
                 <div className="flex flex-wrap gap-2">
                   {statusColumns.map((status) => (
                     <Badge
                       key={status.id}
                       variant={filters.status.includes(status.id) ? 'default' : 'outline'}
-                      className={cn("cursor-pointer", filters.status.includes(status.id) ? 'bg-blue-500' : 'border-slate-600 text-slate-300 hover:bg-slate-700')}
+                      className={cn("cursor-pointer", filters.status.includes(status.id) ? 'bg-blue-500' : 'border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]')}
                       onClick={() => {
                         const newStatus = filters.status.includes(status.id)
                           ? filters.status.filter((s) => s !== status.id)
@@ -696,13 +696,13 @@ export default function TasksPage() {
 
               {/* Priority Filter */}
               <div className="space-y-2">
-                <Label className="text-sm text-slate-400">Priority</Label>
+                <Label className="text-sm text-[hsl(var(--text-secondary))]">Priority</Label>
                 <div className="flex flex-wrap gap-2">
                   {priorities.map((priority) => (
                     <Badge
                       key={priority.value}
                       variant={filters.priority.includes(priority.value) ? 'default' : 'outline'}
-                      className={cn("cursor-pointer", filters.priority.includes(priority.value) ? 'bg-blue-500' : 'border-slate-600 text-slate-300 hover:bg-slate-700')}
+                      className={cn("cursor-pointer", filters.priority.includes(priority.value) ? 'bg-blue-500' : 'border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]')}
                       onClick={() => {
                         const newPriority = filters.priority.includes(priority.value)
                           ? filters.priority.filter((p) => p !== priority.value)
@@ -718,7 +718,7 @@ export default function TasksPage() {
 
               {/* Project Filter */}
               <div className="space-y-2">
-                <Label className="text-sm text-slate-400">Project</Label>
+                <Label className="text-sm text-[hsl(var(--text-secondary))]">Project</Label>
                 <select
                   multiple
                   value={filters.projectId}
@@ -726,10 +726,10 @@ export default function TasksPage() {
                     const values = Array.from(e.target.selectedOptions, (opt) => opt.value);
                     setFilters({ ...filters, projectId: values });
                   }}
-                  className="w-full h-24 rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white"
+                  className="w-full h-24 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
                 >
                   {projects.map((proj) => (
-                    <option key={proj.id} value={proj.id} className="bg-[#0a1628]">
+                    <option key={proj.id} value={proj.id} className="bg-[hsl(var(--layout-bg))]">
                       {proj.name}
                     </option>
                   ))}
@@ -738,7 +738,7 @@ export default function TasksPage() {
 
               {/* Assignee Filter */}
               <div className="space-y-2">
-                <Label className="text-sm text-slate-400">Assignee</Label>
+                <Label className="text-sm text-[hsl(var(--text-secondary))]">Assignee</Label>
                 <select
                   multiple
                   value={filters.assigneeId}
@@ -746,10 +746,10 @@ export default function TasksPage() {
                     const values = Array.from(e.target.selectedOptions, (opt) => opt.value);
                     setFilters({ ...filters, assigneeId: values });
                   }}
-                  className="w-full h-24 rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white"
+                  className="w-full h-24 rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white"
                 >
                   {users.map((u) => (
-                    <option key={u.id} value={u.id} className="bg-[#0a1628]">
+                    <option key={u.id} value={u.id} className="bg-[hsl(var(--layout-bg))]">
                       {u.name}
                     </option>
                   ))}
@@ -759,7 +759,7 @@ export default function TasksPage() {
               {/* Tag Filter */}
               {allTags.length > 0 && (
                 <div className="space-y-2">
-                  <Label className="text-sm text-slate-400">Tags</Label>
+                  <Label className="text-sm text-[hsl(var(--text-secondary))]">Tags</Label>
                   <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
                     {allTags.map((tag) => (
                       <Badge
@@ -873,18 +873,18 @@ export default function TasksPage() {
           {viewMode === 'kanban' ? (
             <div className="grid gap-4 md:grid-cols-4">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="rounded-lg bg-[#131d2e] p-4 space-y-3">
-                  <Skeleton className="h-6 w-24 bg-slate-700" />
-                  <Skeleton className="h-24 w-full bg-slate-700" />
-                  <Skeleton className="h-24 w-full bg-slate-700" />
+                <div key={i} className="rounded-lg bg-[hsl(var(--layout-card))] p-4 space-y-3">
+                  <Skeleton className="h-6 w-24 bg-[hsl(var(--layout-card-hover))]" />
+                  <Skeleton className="h-24 w-full bg-[hsl(var(--layout-card-hover))]" />
+                  <Skeleton className="h-24 w-full bg-[hsl(var(--layout-card-hover))]" />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-[#131d2e] rounded-xl border border-slate-700/50">
+            <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))]">
               <div className="p-4 space-y-3">
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <Skeleton key={i} className="h-16 w-full bg-slate-700" />
+                  <Skeleton key={i} className="h-16 w-full bg-[hsl(var(--layout-card-hover))]" />
                 ))}
               </div>
             </div>
@@ -905,24 +905,24 @@ export default function TasksPage() {
           onStopTimer={handleStopTimer}
         />
       ) : viewMode === 'calendar' ? (
-        <div className="bg-[#131d2e] rounded-xl border border-slate-700/50">
-          <div className="flex items-center justify-between p-6 border-b border-slate-700/50">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))]">
+          <div className="flex items-center justify-between p-6 border-b border-[hsl(var(--layout-border))]">
             <h2 className="text-lg font-semibold text-white">
               {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
             </h2>
             <div className="flex gap-2">
-              <Button variant="outline" size="icon" onClick={prevMonth} className="border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white">
+              <Button variant="outline" size="icon" onClick={prevMonth} className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white">
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" onClick={nextMonth} className="border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white">
+              <Button variant="outline" size="icon" onClick={nextMonth} className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white">
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
           </div>
           <div className="p-4">
-            <div className="grid grid-cols-7 gap-px bg-slate-700">
+            <div className="grid grid-cols-7 gap-px bg-[hsl(var(--layout-card-hover))]">
               {DAYS.map((day) => (
-                <div key={day} className="bg-[#0a1628] p-2 text-center text-sm font-medium text-slate-400">
+                <div key={day} className="bg-[hsl(var(--layout-bg))] p-2 text-center text-sm font-medium text-[hsl(var(--text-secondary))]">
                   {day}
                 </div>
               ))}
@@ -932,12 +932,12 @@ export default function TasksPage() {
                   <div
                     key={index}
                     className={cn(
-                      'min-h-[100px] bg-[#131d2e] p-2',
-                      !isCurrentMonth(date) && 'bg-[#0a1628] text-slate-600',
+                      'min-h-[100px] bg-[hsl(var(--layout-card))] p-2',
+                      !isCurrentMonth(date) && 'bg-[hsl(var(--layout-bg))] text-[hsl(var(--text-muted))]',
                       isToday(date) && 'bg-blue-500/10'
                     )}
                   >
-                    <div className={cn('text-sm font-medium text-white', isToday(date) && 'text-blue-400', !isCurrentMonth(date) && 'text-slate-600')}>
+                    <div className={cn('text-sm font-medium text-white', isToday(date) && 'text-blue-400', !isCurrentMonth(date) && 'text-[hsl(var(--text-muted))]')}>
                       {date.getDate()}
                     </div>
                     <div className="mt-1 space-y-1">
@@ -954,7 +954,7 @@ export default function TasksPage() {
                         </div>
                       ))}
                       {dayTasks.length > 3 && (
-                        <div className="text-xs text-slate-500">+{dayTasks.length - 3} more</div>
+                        <div className="text-xs text-[hsl(var(--text-muted))]">+{dayTasks.length - 3} more</div>
                       )}
                     </div>
                   </div>
@@ -964,12 +964,12 @@ export default function TasksPage() {
           </div>
         </div>
       ) : (
-        <div className="bg-[#131d2e] rounded-xl border border-slate-700/50">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))]">
           {filteredTasks.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12">
-              <CheckSquare className="h-12 w-12 text-slate-600" />
+              <CheckSquare className="h-12 w-12 text-[hsl(var(--text-muted))]" />
               <h3 className="mt-4 text-lg font-medium text-white">No tasks found</h3>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-[hsl(var(--text-secondary))]">
                 {search || activeFiltersCount > 0
                   ? 'Try adjusting your filters'
                   : 'Create your first task to get started'}
@@ -986,13 +986,13 @@ export default function TasksPage() {
               {filteredTasks.map((task) => (
                 <div
                   key={task.id}
-                  className="flex items-center justify-between p-4 hover:bg-slate-800/50 cursor-pointer transition-colors"
+                  className="flex items-center justify-between p-4 hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer transition-colors"
                   onClick={() => setSelectedTaskId(task.id)}
                 >
                   <div className="flex-1 space-y-1">
                     <h4 className="font-medium text-white">{task.title}</h4>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm text-slate-400">
+                      <span className="text-sm text-[hsl(var(--text-secondary))]">
                         {task.project?.name} {task.assignee && `- ${task.assignee.name}`}
                       </span>
                       {task.actualHours && task.actualHours > 0 && (
@@ -1016,7 +1016,7 @@ export default function TasksPage() {
                             </span>
                           ))}
                           {task.tags.length > 3 && (
-                            <span className="text-xs text-slate-500">+{task.tags.length - 3}</span>
+                            <span className="text-xs text-[hsl(var(--text-muted))]">+{task.tags.length - 3}</span>
                           )}
                         </div>
                       )}
@@ -1033,10 +1033,10 @@ export default function TasksPage() {
                         handleStatusChange(task.id, e.target.value);
                       }}
                       onClick={(e) => e.stopPropagation()}
-                      className="rounded-md border border-slate-700 bg-[#0a1628] px-2 py-1 text-sm text-white"
+                      className="rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-2 py-1 text-sm text-white"
                     >
                       {statusColumns.map((s) => (
-                        <option key={s.id} value={s.id} className="bg-[#0a1628]">
+                        <option key={s.id} value={s.id} className="bg-[hsl(var(--layout-bg))]">
                           {s.label}
                         </option>
                       ))}

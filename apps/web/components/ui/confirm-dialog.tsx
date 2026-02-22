@@ -60,22 +60,22 @@ export function ConfirmDialog({
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className="bg-[#131d2e] border-slate-700">
+      <AlertDialogContent className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-white">{title}</AlertDialogTitle>
-          <AlertDialogDescription className="text-slate-400">{description}</AlertDialogDescription>
+          <AlertDialogDescription className="text-[hsl(var(--text-secondary))]">{description}</AlertDialogDescription>
         </AlertDialogHeader>
 
         {requireConfirmation && (
           <div className="space-y-2 py-2">
-            <Label className="text-slate-300 text-sm">
+            <Label className="text-[hsl(var(--text-primary))] text-sm">
               Type <span className="font-mono font-bold text-red-400">{confirmationText}</span> to confirm:
             </Label>
             <Input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder={confirmationText}
-              className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-600 font-mono"
+              className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] font-mono"
               autoComplete="off"
             />
           </div>
@@ -84,7 +84,7 @@ export function ConfirmDialog({
         <AlertDialogFooter>
           <AlertDialogCancel
             disabled={loading}
-            className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white bg-transparent"
+            className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white bg-transparent"
           >
             {cancelText}
           </AlertDialogCancel>

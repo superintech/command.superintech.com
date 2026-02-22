@@ -135,7 +135,7 @@ export function TimerIndicator() {
       <Clock className="h-4 w-4 text-blue-400 animate-pulse" />
       <div className="text-sm">
         <span className="font-mono font-medium text-blue-400">{elapsed}</span>
-        <span className="ml-2 text-slate-400 hidden sm:inline truncate max-w-[150px]">
+        <span className="ml-2 text-[hsl(var(--text-secondary))] hidden sm:inline truncate max-w-[150px]">
           {activeTimer.task?.title || 'Task'}
         </span>
       </div>

@@ -172,19 +172,19 @@ export function AITaskAssistant({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden flex flex-col bg-[#0f1729] border-slate-700">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-hidden flex flex-col bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-white">
             <Sparkles className="h-5 w-5 text-purple-400" />
             AI Task Assistant
           </DialogTitle>
-          <DialogDescription className="text-slate-400">
+          <DialogDescription className="text-[hsl(var(--text-secondary))]">
             Let AI help you create tasks faster and smarter
           </DialogDescription>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col overflow-hidden">
-          <TabsList className="bg-slate-800 border-slate-700">
+          <TabsList className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
             <TabsTrigger value="generate" className="data-[state=active]:bg-purple-600">
               <Wand2 className="h-4 w-4 mr-2" />
               Generate Task
@@ -200,22 +200,22 @@ export function AITaskAssistant({
             <div className="space-y-4">
               {/* Input Section */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-[hsl(var(--text-primary))]">
                   Describe the task you want to create
                 </label>
                 <Textarea
                   placeholder="e.g., Create a user authentication system with login, signup, and password reset functionality..."
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  className="min-h-[100px] bg-slate-800 border-slate-600 text-white placeholder:text-slate-500"
+                  className="min-h-[100px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
                 />
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-xs text-slate-500">Try:</span>
+                  <span className="text-xs text-[hsl(var(--text-muted))]">Try:</span>
                   {EXAMPLE_PROMPTS.slice(0, 3).map((example, idx) => (
                     <button
                       key={idx}
                       onClick={() => setPrompt(example)}
-                      className="text-xs px-2 py-1 rounded bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-300 transition-colors"
+                      className="text-xs px-2 py-1 rounded bg-[hsl(var(--layout-card))] text-[hsl(var(--text-secondary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-[hsl(var(--text-primary))] transition-colors"
                     >
                       {example.slice(0, 40)}...
                     </button>
@@ -243,7 +243,7 @@ export function AITaskAssistant({
 
               {/* Generated Task Result */}
               {generatedTask && (
-                <Card className="bg-slate-800/50 border-slate-700">
+                <Card className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardHeader className="pb-2">
                     <div className="flex items-start justify-between">
                       <CardTitle className="text-lg text-white">
@@ -271,21 +271,21 @@ export function AITaskAssistant({
                   <CardContent className="space-y-4">
                     {/* Description */}
                     <div>
-                      <h4 className="text-sm font-medium text-slate-400 mb-1">Description</h4>
-                      <div className="text-sm text-slate-300 whitespace-pre-wrap bg-slate-900/50 p-3 rounded-lg">
+                      <h4 className="text-sm font-medium text-[hsl(var(--text-secondary))] mb-1">Description</h4>
+                      <div className="text-sm text-[hsl(var(--text-primary))] whitespace-pre-wrap bg-[hsl(var(--layout-bg))] p-3 rounded-lg">
                         {generatedTask.description}
                       </div>
                     </div>
 
                     {/* Meta Info */}
                     <div className="flex flex-wrap gap-4">
-                      <div className="flex items-center gap-2 text-sm text-slate-400">
+                      <div className="flex items-center gap-2 text-sm text-[hsl(var(--text-secondary))]">
                         <Clock className="h-4 w-4" />
                         <span>{generatedTask.estimatedHours}h estimated</span>
                       </div>
                       {generatedTask.tags.length > 0 && (
                         <div className="flex items-center gap-2">
-                          <Tag className="h-4 w-4 text-slate-400" />
+                          <Tag className="h-4 w-4 text-[hsl(var(--text-secondary))]" />
                           {generatedTask.tags.map((tag, idx) => (
                             <Badge key={idx} variant="outline" className="text-xs">
                               {tag}
@@ -298,7 +298,7 @@ export function AITaskAssistant({
                     {/* Subtasks */}
                     {generatedTask.subtasks.length > 0 && (
                       <div>
-                        <h4 className="text-sm font-medium text-slate-400 mb-2 flex items-center gap-2">
+                        <h4 className="text-sm font-medium text-[hsl(var(--text-secondary))] mb-2 flex items-center gap-2">
                           <ListTodo className="h-4 w-4" />
                           Subtasks ({generatedTask.subtasks.length})
                         </h4>
@@ -306,9 +306,9 @@ export function AITaskAssistant({
                           {generatedTask.subtasks.map((subtask, idx) => (
                             <li
                               key={idx}
-                              className="flex items-center gap-2 text-sm text-slate-300 bg-slate-900/30 px-3 py-2 rounded"
+                              className="flex items-center gap-2 text-sm text-[hsl(var(--text-primary))] bg-[hsl(var(--layout-bg))] px-3 py-2 rounded"
                             >
-                              <ChevronRight className="h-3 w-3 text-slate-500" />
+                              <ChevronRight className="h-3 w-3 text-[hsl(var(--text-muted))]" />
                               {subtask}
                             </li>
                           ))}
@@ -328,7 +328,7 @@ export function AITaskAssistant({
                       <Button
                         variant="outline"
                         onClick={() => setGeneratedTask(null)}
-                        className="border-slate-600"
+                        className="border-[hsl(var(--layout-border))]"
                       >
                         Regenerate
                       </Button>
@@ -344,7 +344,7 @@ export function AITaskAssistant({
             <div className="space-y-4">
               {/* Input Section */}
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">
+                <label className="text-sm font-medium text-[hsl(var(--text-primary))]">
                   Paste meeting notes, emails, or any text
                 </label>
                 <Textarea
@@ -356,7 +356,7 @@ Meeting Notes - Sprint Planning
 - Review the API documentation before release`}
                   value={meetingNotes}
                   onChange={(e) => setMeetingNotes(e.target.value)}
-                  className="min-h-[150px] bg-slate-800 border-slate-600 text-white placeholder:text-slate-500"
+                  className="min-h-[150px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
                 />
               </div>
 
@@ -380,21 +380,21 @@ Meeting Notes - Sprint Planning
 
               {/* Extracted Tasks Result */}
               {extractedTasks.length > 0 && (
-                <Card className="bg-slate-800/50 border-slate-700">
+                <Card className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <CardHeader className="pb-2">
                     <CardTitle className="text-lg text-white flex items-center gap-2">
                       <ListTodo className="h-5 w-5" />
                       Extracted Tasks ({extractedTasks.length})
                     </CardTitle>
                     {extractSummary && (
-                      <p className="text-sm text-slate-400">{extractSummary}</p>
+                      <p className="text-sm text-[hsl(var(--text-secondary))]">{extractSummary}</p>
                     )}
                   </CardHeader>
                   <CardContent className="space-y-3">
                     {extractedTasks.map((task, idx) => (
                       <div
                         key={idx}
-                        className="bg-slate-900/50 p-3 rounded-lg space-y-2"
+                        className="bg-[hsl(var(--layout-bg))] p-3 rounded-lg space-y-2"
                       >
                         <div className="flex items-start justify-between">
                           <h4 className="font-medium text-white">{task.title}</h4>
@@ -403,9 +403,9 @@ Meeting Notes - Sprint Planning
                           </Badge>
                         </div>
                         {task.description && (
-                          <p className="text-sm text-slate-400">{task.description}</p>
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">{task.description}</p>
                         )}
-                        <div className="flex flex-wrap gap-3 text-xs text-slate-500">
+                        <div className="flex flex-wrap gap-3 text-xs text-[hsl(var(--text-muted))]">
                           {task.assignee && (
                             <span className="flex items-center gap-1">
                               <Users className="h-3 w-3" />
@@ -437,7 +437,7 @@ Meeting Notes - Sprint Planning
                           setExtractedTasks([]);
                           setExtractSummary('');
                         }}
-                        className="border-slate-600"
+                        className="border-[hsl(var(--layout-border))]"
                       >
                         Clear
                       </Button>
@@ -450,7 +450,7 @@ Meeting Notes - Sprint Planning
         </Tabs>
 
         {/* Footer Info */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 pt-2 border-t border-slate-800">
+        <div className="flex items-center gap-2 text-xs text-[hsl(var(--text-muted))] pt-2 border-t border-[hsl(var(--layout-border))]">
           <AlertCircle className="h-3 w-3" />
           AI-generated content may need review. Always verify before creating tasks.
         </div>

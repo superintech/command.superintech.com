@@ -8,6 +8,7 @@ import { formatDateTime, formatDuration, formatFileSize } from '@/lib/utils';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -446,7 +447,7 @@ export function TaskDetailModal({
       case 'URGENT': return 'bg-red-500/20 text-red-400';
       case 'HIGH': return 'bg-orange-500/20 text-orange-400';
       case 'MEDIUM': return 'bg-blue-500/20 text-blue-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      default: return 'bg-[hsl(var(--layout-card-hover))] text-[hsl(var(--text-secondary))]';
     }
   };
 
@@ -455,7 +456,7 @@ export function TaskDetailModal({
       case 'COMPLETED': return 'bg-emerald-500/20 text-emerald-400';
       case 'IN_PROGRESS': return 'bg-amber-500/20 text-amber-400';
       case 'IN_REVIEW': return 'bg-purple-500/20 text-purple-400';
-      default: return 'bg-slate-500/20 text-slate-400';
+      default: return 'bg-[hsl(var(--layout-card-hover))] text-[hsl(var(--text-secondary))]';
     }
   };
 
@@ -493,26 +494,36 @@ export function TaskDetailModal({
   return (
     <>
       <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[#131d2e] border-slate-700 text-white">
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white">
           {isLoading ? (
-            <div className="flex justify-center py-12">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-            </div>
+            <>
+              <DialogHeader className="sr-only">
+                <DialogTitle>Loading task details</DialogTitle>
+                <DialogDescription>Please wait while the task details are being loaded.</DialogDescription>
+              </DialogHeader>
+              <div className="flex justify-center py-12">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+              </div>
+            </>
           ) : task ? (
             <>
               <DialogHeader>
                 <div className="flex items-start justify-between pr-8">
                   <div className="flex-1">
                     {isEditing ? (
-                      <Input
-                        value={editForm.title}
-                        onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-                        className="text-xl font-semibold bg-[#0a1628] border-slate-700 text-white"
-                      />
+                      <>
+                        <DialogTitle className="sr-only">Editing: {task.title}</DialogTitle>
+                        <DialogDescription className="sr-only">Edit task details</DialogDescription>
+                        <Input
+                          value={editForm.title}
+                          onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                          className="text-xl font-semibold bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
+                        />
+                      </>
                     ) : (
                       <>
                         <DialogTitle className="text-xl text-white">{task.title}</DialogTitle>
-                        <p className="text-sm text-slate-400 mt-1">{task.project?.name}</p>
+                        <DialogDescription className="text-sm text-[hsl(var(--text-secondary))] mt-1">{task.project?.name}</DialogDescription>
                       </>
                     )}
                   </div>
@@ -523,13 +534,13 @@ export function TaskDetailModal({
                           <Save className="h-4 w-4 mr-1" />
                           Save
                         </Button>
-                        <Button size="sm" variant="outline" onClick={() => setIsEditing(false)} className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700">
+                        <Button size="sm" variant="outline" onClick={() => setIsEditing(false)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
                           Cancel
                         </Button>
                       </>
                     ) : (
                       <>
-                        <Button size="sm" variant="outline" onClick={() => setIsEditing(true)} className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700">
+                        <Button size="sm" variant="outline" onClick={() => setIsEditing(true)} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
                           <Edit className="h-4 w-4 mr-1" />
                           Edit
                         </Button>
@@ -554,19 +565,19 @@ export function TaskDetailModal({
                     <select
                       value={editForm.status}
                       onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                      className="text-sm rounded-md border border-slate-700 bg-[#0a1628] text-white px-2 py-1"
+                      className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-white px-2 py-1"
                     >
                       {STATUS_OPTIONS.map((s) => (
-                        <option key={s.value} value={s.value} className="bg-[#0a1628]">{s.label}</option>
+                        <option key={s.value} value={s.value} className="bg-[hsl(var(--layout-bg))]">{s.label}</option>
                       ))}
                     </select>
                     <select
                       value={editForm.priority}
                       onChange={(e) => setEditForm({ ...editForm, priority: e.target.value })}
-                      className="text-sm rounded-md border border-slate-700 bg-[#0a1628] text-white px-2 py-1"
+                      className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-white px-2 py-1"
                     >
                       {PRIORITY_OPTIONS.map((p) => (
-                        <option key={p.value} value={p.value} className="bg-[#0a1628]">{p.label}</option>
+                        <option key={p.value} value={p.value} className="bg-[hsl(var(--layout-bg))]">{p.label}</option>
                       ))}
                     </select>
                   </>
@@ -584,19 +595,19 @@ export function TaskDetailModal({
               </div>
 
               <Tabs value={activeTab} onValueChange={setActiveTab} className="mt-4">
-                <TabsList className="bg-[#0a1628] border border-slate-700/50">
-                  <TabsTrigger value="details" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-slate-400">Details</TabsTrigger>
-                  <TabsTrigger value="subtasks" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-slate-400">
+                <TabsList className="bg-[hsl(var(--layout-bg))] border border-[hsl(var(--layout-border))]">
+                  <TabsTrigger value="details" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-[hsl(var(--text-secondary))]">Details</TabsTrigger>
+                  <TabsTrigger value="subtasks" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-[hsl(var(--text-secondary))]">
                     Subtasks ({task.subtasks?.length || 0})
                   </TabsTrigger>
-                  <TabsTrigger value="comments" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-slate-400">
+                  <TabsTrigger value="comments" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-[hsl(var(--text-secondary))]">
                     Comments ({task.comments?.length || 0})
                   </TabsTrigger>
-                  <TabsTrigger value="time" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-slate-400">Time Tracking</TabsTrigger>
-                  <TabsTrigger value="files" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-slate-400">
+                  <TabsTrigger value="time" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-[hsl(var(--text-secondary))]">Time Tracking</TabsTrigger>
+                  <TabsTrigger value="files" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-[hsl(var(--text-secondary))]">
                     Files ({task.files?.length || 0})
                   </TabsTrigger>
-                  <TabsTrigger value="activity" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-slate-400">
+                  <TabsTrigger value="activity" className="data-[state=active]:bg-blue-500 data-[state=active]:text-white text-[hsl(var(--text-secondary))]">
                     <History className="h-4 w-4 mr-1" />
                     Activity
                   </TabsTrigger>
@@ -605,7 +616,7 @@ export function TaskDetailModal({
                 <TabsContent value="details" className="space-y-4 mt-4">
                   {/* Description */}
                   <div>
-                    <Label className="text-sm font-medium text-slate-300 mb-2 block">Description</Label>
+                    <Label className="text-sm font-medium text-[hsl(var(--text-primary))] mb-2 block">Description</Label>
                     {isEditing ? (
                       <RichTextEditor
                         value={editForm.description}
@@ -614,29 +625,29 @@ export function TaskDetailModal({
                         minHeight="120px"
                       />
                     ) : task.description ? (
-                      <div className="bg-[#0a1628] rounded-lg p-3 text-white">
+                      <div className="bg-[hsl(var(--layout-bg))] rounded-lg p-3 text-white">
                         <RichTextDisplay content={task.description} />
                       </div>
                     ) : (
-                      <p className="text-sm text-slate-500 italic">No description</p>
+                      <p className="text-sm text-[hsl(var(--text-muted))] italic">No description</p>
                     )}
                   </div>
 
                   {/* Metadata Grid */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center gap-2">
-                      <User className="h-4 w-4 text-slate-500" />
+                      <User className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       <div>
-                        <p className="text-xs text-slate-500">Assignee</p>
+                        <p className="text-xs text-[hsl(var(--text-muted))]">Assignee</p>
                         {isEditing ? (
                           <select
                             value={editForm.assigneeId}
                             onChange={(e) => setEditForm({ ...editForm, assigneeId: e.target.value })}
-                            className="text-sm rounded-md border border-slate-700 bg-[#0a1628] text-white px-2 py-1 w-full"
+                            className="text-sm rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] text-white px-2 py-1 w-full"
                           >
-                            <option value="" className="bg-[#0a1628]">Unassigned</option>
+                            <option value="" className="bg-[hsl(var(--layout-bg))]">Unassigned</option>
                             {users.map((u) => (
-                              <option key={u.id} value={u.id} className="bg-[#0a1628]">{u.name}</option>
+                              <option key={u.id} value={u.id} className="bg-[hsl(var(--layout-bg))]">{u.name}</option>
                             ))}
                           </select>
                         ) : (
@@ -646,23 +657,23 @@ export function TaskDetailModal({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <User className="h-4 w-4 text-slate-500" />
+                      <User className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       <div>
-                        <p className="text-xs text-slate-500">Reporter</p>
+                        <p className="text-xs text-[hsl(var(--text-muted))]">Reporter</p>
                         <p className="text-sm font-medium text-white">{task.reporter?.name}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-slate-500" />
+                      <Calendar className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       <div>
-                        <p className="text-xs text-slate-500">Due Date</p>
+                        <p className="text-xs text-[hsl(var(--text-muted))]">Due Date</p>
                         {isEditing ? (
                           <Input
                             type="date"
                             value={editForm.dueDate}
                             onChange={(e) => setEditForm({ ...editForm, dueDate: e.target.value })}
-                            className="h-8 bg-[#0a1628] border-slate-700 text-white"
+                            className="h-8 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white"
                           />
                         ) : (
                           <p className="text-sm font-medium text-white">
@@ -673,9 +684,9 @@ export function TaskDetailModal({
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-slate-500" />
+                      <Clock className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       <div>
-                        <p className="text-xs text-slate-500">Time Spent</p>
+                        <p className="text-xs text-[hsl(var(--text-muted))]">Time Spent</p>
                         <p className="text-sm font-medium text-white">
                           {totalTimeSpent > 0 ? formatDuration(totalTimeSpent) : 'No time logged'}
                         </p>
@@ -685,7 +696,7 @@ export function TaskDetailModal({
 
                   {/* Tags Section */}
                   <div>
-                    <Label className="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+                    <Label className="text-sm font-medium text-[hsl(var(--text-primary))] mb-2 flex items-center gap-2">
                       <Tags className="h-4 w-4" />
                       Tags
                     </Label>
@@ -708,20 +719,20 @@ export function TaskDetailModal({
                           </Badge>
                         ))
                       ) : (
-                        <span className="text-sm text-slate-500 italic">No tags</span>
+                        <span className="text-sm text-[hsl(var(--text-muted))] italic">No tags</span>
                       )}
 
                       {/* Add Tag Popover */}
                       <Popover>
                         <PopoverTrigger asChild>
-                          <Button variant="outline" size="sm" className="h-6 gap-1 border-slate-600 bg-slate-800 text-white hover:bg-slate-700">
+                          <Button variant="outline" size="sm" className="h-6 gap-1 border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
                             <Plus className="h-3 w-3" />
                             Add
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-48 p-2 bg-[#131d2e] border-slate-700" align="start">
+                        <PopoverContent className="w-48 p-2 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]" align="start">
                           <div className="space-y-1">
-                            <p className="text-xs font-medium text-slate-400 mb-2">Available Tags</p>
+                            <p className="text-xs font-medium text-[hsl(var(--text-secondary))] mb-2">Available Tags</p>
                             {projectTags.length > 0 ? (
                               projectTags
                                 .filter((tag) => !taskTagIds.includes(tag.id))
@@ -729,7 +740,7 @@ export function TaskDetailModal({
                                   <button
                                     key={tag.id}
                                     onClick={() => addTagMutation.mutate(tag.id)}
-                                    className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-slate-700 text-left text-slate-300"
+                                    className="w-full flex items-center gap-2 px-2 py-1.5 text-sm rounded hover:bg-[hsl(var(--layout-card-hover))] text-left text-[hsl(var(--text-primary))]"
                                     disabled={addTagMutation.isPending}
                                   >
                                     <span
@@ -740,12 +751,12 @@ export function TaskDetailModal({
                                   </button>
                                 ))
                             ) : (
-                              <p className="text-xs text-slate-500 text-center py-2">
+                              <p className="text-xs text-[hsl(var(--text-muted))] text-center py-2">
                                 No tags in this project
                               </p>
                             )}
                             {projectTags.length > 0 && projectTags.every((t) => taskTagIds.includes(t.id)) && (
-                              <p className="text-xs text-slate-500 text-center py-2">
+                              <p className="text-xs text-[hsl(var(--text-muted))] text-center py-2">
                                 All tags added
                               </p>
                             )}
@@ -769,7 +780,7 @@ export function TaskDetailModal({
                             addSubtaskMutation.mutate(newSubtask);
                           }
                         }}
-                        className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500"
+                        className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
                       />
                       <Button
                         size="icon"
@@ -787,7 +798,7 @@ export function TaskDetailModal({
                         task.subtasks.map((subtask) => (
                           <div
                             key={subtask.id}
-                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-800"
+                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-[hsl(var(--layout-card-hover))]"
                           >
                             <button
                               onClick={() => toggleSubtaskMutation.mutate({
@@ -799,16 +810,16 @@ export function TaskDetailModal({
                               {subtask.status === 'COMPLETED' ? (
                                 <CheckCircle2 className="h-5 w-5 text-emerald-500" />
                               ) : (
-                                <Circle className="h-5 w-5 text-slate-500" />
+                                <Circle className="h-5 w-5 text-[hsl(var(--text-muted))]" />
                               )}
                             </button>
-                            <span className={subtask.status === 'COMPLETED' ? 'line-through text-slate-500' : 'text-white'}>
+                            <span className={subtask.status === 'COMPLETED' ? 'line-through text-[hsl(var(--text-muted))]' : 'text-white'}>
                               {subtask.title}
                             </span>
                           </div>
                         ))
                       ) : (
-                        <p className="text-sm text-slate-500 text-center py-4">
+                        <p className="text-sm text-[hsl(var(--text-muted))] text-center py-4">
                           No subtasks yet. Add one above!
                         </p>
                       )}
@@ -824,7 +835,7 @@ export function TaskDetailModal({
                         placeholder="Add a comment..."
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
-                        className="min-h-[60px] bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500"
+                        className="min-h-[60px] bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
                       />
                       <Button
                         size="icon"
@@ -840,8 +851,8 @@ export function TaskDetailModal({
                     <div className="space-y-3">
                       {task.comments && task.comments.length > 0 ? (
                         task.comments.map((comment) => (
-                          <div key={comment.id} className="flex gap-3 p-3 bg-[#0a1628] rounded-lg">
-                            <Avatar className="h-8 w-8 shrink-0 border border-slate-700">
+                          <div key={comment.id} className="flex gap-3 p-3 bg-[hsl(var(--layout-bg))] rounded-lg">
+                            <Avatar className="h-8 w-8 shrink-0 border border-[hsl(var(--layout-border))]">
                               <AvatarImage src={comment.user.avatar} />
                               <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-xs">{getInitials(comment.user.name)}</AvatarFallback>
                             </Avatar>
@@ -849,7 +860,7 @@ export function TaskDetailModal({
                               <div className="flex items-center justify-between gap-2">
                                 <div className="flex items-center gap-2">
                                   <span className="text-sm font-medium text-white">{comment.user.name}</span>
-                                  <span className="text-xs text-slate-500">
+                                  <span className="text-xs text-[hsl(var(--text-muted))]">
                                     {formatDateTime(comment.createdAt)}
                                   </span>
                                 </div>
@@ -859,7 +870,7 @@ export function TaskDetailModal({
                                     <Button
                                       variant="ghost"
                                       size="sm"
-                                      className="h-6 w-6 p-0 text-slate-400 hover:text-white hover:bg-slate-700"
+                                      className="h-6 w-6 p-0 text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
                                       onClick={() => {
                                         setEditingCommentId(comment.id);
                                         setEditingCommentContent(comment.content);
@@ -884,7 +895,7 @@ export function TaskDetailModal({
                                   <Textarea
                                     value={editingCommentContent}
                                     onChange={(e) => setEditingCommentContent(e.target.value)}
-                                    className="min-h-[60px] bg-[#131d2e] border-slate-700 text-white"
+                                    className="min-h-[60px] bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white"
                                   />
                                   <div className="flex gap-2">
                                     <Button
@@ -907,20 +918,20 @@ export function TaskDetailModal({
                                         setEditingCommentId(null);
                                         setEditingCommentContent('');
                                       }}
-                                      className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700"
+                                      className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]"
                                     >
                                       Cancel
                                     </Button>
                                   </div>
                                 </div>
                               ) : (
-                                <p className="text-sm text-slate-300 mt-1">{comment.content}</p>
+                                <p className="text-sm text-[hsl(var(--text-primary))] mt-1">{comment.content}</p>
                               )}
                             </div>
                           </div>
                         ))
                       ) : (
-                        <p className="text-sm text-slate-500 text-center py-4">
+                        <p className="text-sm text-[hsl(var(--text-muted))] text-center py-4">
                           No comments yet. Be the first to comment!
                         </p>
                       )}
@@ -931,13 +942,13 @@ export function TaskDetailModal({
                 <TabsContent value="time" className="mt-4">
                   <div className="space-y-4">
                     {/* Timer control */}
-                    <div className="p-4 bg-[#0a1628] rounded-lg space-y-3">
+                    <div className="p-4 bg-[hsl(var(--layout-bg))] rounded-lg space-y-3">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="font-medium text-white">
                             {isTimerRunningForThisTask ? 'Timer Running' : 'Start Timer'}
                           </p>
-                          <p className="text-sm text-slate-400">
+                          <p className="text-sm text-[hsl(var(--text-secondary))]">
                             Total: {totalTimeSpent > 0 ? formatDuration(totalTimeSpent) : '0m'}
                           </p>
                         </div>
@@ -966,19 +977,19 @@ export function TaskDetailModal({
                       {/* Description input - only show when not running */}
                       {!isTimerRunningForThisTask && !activeTimer && (
                         <div className="space-y-1">
-                          <Label className="text-xs text-slate-400">What are you working on?</Label>
+                          <Label className="text-xs text-[hsl(var(--text-secondary))]">What are you working on?</Label>
                           <Input
                             value={timerDescription}
                             onChange={(e) => setTimerDescription(e.target.value)}
                             placeholder="e.g., Fixing bug in login form..."
-                            className="bg-[#131d2e] border-slate-700 text-white placeholder:text-slate-500"
+                            className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))]"
                           />
                         </div>
                       )}
 
                       {/* Show current timer description if running */}
                       {isTimerRunningForThisTask && activeTimer?.description && (
-                        <p className="text-sm text-slate-400 italic">
+                        <p className="text-sm text-[hsl(var(--text-secondary))] italic">
                           Working on: {activeTimer.description}
                         </p>
                       )}
@@ -989,11 +1000,11 @@ export function TaskDetailModal({
                       <h4 className="text-sm font-medium text-white">Time Entries</h4>
                       {task.timeEntries && task.timeEntries.length > 0 ? (
                         task.timeEntries.map((entry) => (
-                          <div key={entry.id} className="p-3 border border-slate-700 rounded-lg bg-[#0a1628]">
+                          <div key={entry.id} className="p-3 border border-[hsl(var(--layout-border))] rounded-lg bg-[hsl(var(--layout-bg))]">
                             <div className="flex items-center justify-between">
                               <div>
                                 <p className="text-sm font-medium text-white">{entry.user.name}</p>
-                                <p className="text-xs text-slate-500">
+                                <p className="text-xs text-[hsl(var(--text-muted))]">
                                   {formatDateTime(entry.startTime)}
                                   {entry.endTime && ` - ${formatDateTime(entry.endTime)}`}
                                 </p>
@@ -1003,14 +1014,14 @@ export function TaskDetailModal({
                               </span>
                             </div>
                             {entry.description && (
-                              <p className="text-sm text-slate-400 mt-2 pt-2 border-t border-slate-700">
+                              <p className="text-sm text-[hsl(var(--text-secondary))] mt-2 pt-2 border-t border-[hsl(var(--layout-border))]">
                                 {entry.description}
                               </p>
                             )}
                           </div>
                         ))
                       ) : (
-                        <p className="text-sm text-slate-500 text-center py-4">
+                        <p className="text-sm text-[hsl(var(--text-muted))] text-center py-4">
                           No time entries yet.
                         </p>
                       )}
@@ -1049,17 +1060,17 @@ export function TaskDetailModal({
                         {task.files.map((file) => (
                           <div
                             key={file.id}
-                            className="flex items-center justify-between p-3 bg-[#0a1628] rounded-lg"
+                            className="flex items-center justify-between p-3 bg-[hsl(var(--layout-bg))] rounded-lg"
                           >
                             <div className="flex items-center gap-3">
                               {file.mimeType.startsWith('image/') ? (
                                 <FileImage className="h-5 w-5 text-blue-400" />
                               ) : (
-                                <FileText className="h-5 w-5 text-slate-400" />
+                                <FileText className="h-5 w-5 text-[hsl(var(--text-secondary))]" />
                               )}
                               <div>
                                 <p className="text-sm font-medium text-white">{file.originalName}</p>
-                                <p className="text-xs text-slate-500">
+                                <p className="text-xs text-[hsl(var(--text-muted))]">
                                   {formatFileSize(file.size)}
                                 </p>
                               </div>
@@ -1108,12 +1119,12 @@ export function TaskDetailModal({
                         ))}
                       </div>
                     ) : (
-                      <div className="text-center py-8 border-2 border-dashed border-slate-700 rounded-lg">
-                        <Paperclip className="h-8 w-8 text-slate-600 mx-auto mb-2" />
-                        <p className="text-sm text-slate-400">
+                      <div className="text-center py-8 border-2 border-dashed border-[hsl(var(--layout-border))] rounded-lg">
+                        <Paperclip className="h-8 w-8 text-[hsl(var(--text-muted))] mx-auto mb-2" />
+                        <p className="text-sm text-[hsl(var(--text-secondary))]">
                           No files attached to this task.
                         </p>
-                        <p className="text-xs text-slate-500 mt-1">
+                        <p className="text-xs text-[hsl(var(--text-muted))] mt-1">
                           Click the Upload button above to add files.
                         </p>
                       </div>
@@ -1129,10 +1140,10 @@ export function TaskDetailModal({
           ) : error ? (
             <div className="text-center py-8">
               <p className="text-red-400 font-medium">Error loading task</p>
-              <p className="text-sm text-slate-500 mt-2">{(error as Error).message}</p>
+              <p className="text-sm text-[hsl(var(--text-muted))] mt-2">{(error as Error).message}</p>
             </div>
           ) : (
-            <p className="text-center py-8 text-slate-500">Task not found</p>
+            <p className="text-center py-8 text-[hsl(var(--text-muted))]">Task not found</p>
           )}
         </DialogContent>
       </Dialog>
@@ -1150,26 +1161,26 @@ export function TaskDetailModal({
 
       {/* Share Link Dialog */}
       <Dialog open={!!shareUrl} onOpenChange={(open) => !open && closeShareDialog()}>
-        <DialogContent className="max-w-md bg-[#131d2e] border-slate-700">
+        <DialogContent className="max-w-md bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-white">
               <Link className="h-5 w-5" />
               Share Link Created
             </DialogTitle>
+            <DialogDescription className="text-sm text-[hsl(var(--text-secondary))]">
+              Anyone with this link can download the file. The link will remain active until you delete it.
+            </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 pt-2">
-            <p className="text-sm text-slate-400">
-              Anyone with this link can download the file. The link will remain active until you delete it.
-            </p>
             <div className="flex items-center gap-2">
               <Input
                 readOnly
                 value={shareUrl || ''}
-                className="flex-1 bg-[#0a1628] border-slate-700 text-white font-mono text-sm"
+                className="flex-1 bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white font-mono text-sm"
               />
               <Button
                 onClick={handleCopyShareUrl}
-                className={copiedShareUrl ? 'shrink-0 bg-emerald-500 hover:bg-emerald-600' : 'shrink-0 border-slate-600 bg-slate-800 text-white hover:bg-slate-700'}
+                className={copiedShareUrl ? 'shrink-0 bg-emerald-500 hover:bg-emerald-600' : 'shrink-0 border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]'}
                 variant={copiedShareUrl ? 'default' : 'outline'}
               >
                 {copiedShareUrl ? (
@@ -1186,7 +1197,7 @@ export function TaskDetailModal({
               </Button>
             </div>
             <div className="flex justify-end">
-              <Button variant="outline" onClick={closeShareDialog} className="border-slate-600 bg-slate-800 text-white hover:bg-slate-700">
+              <Button variant="outline" onClick={closeShareDialog} className="border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-card))] text-white hover:bg-[hsl(var(--layout-card-hover))]">
                 Done
               </Button>
             </div>

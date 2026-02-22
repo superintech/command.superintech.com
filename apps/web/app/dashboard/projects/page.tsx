@@ -187,7 +187,7 @@ export default function ProjectsPage() {
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold text-slate-400 bg-slate-500/20">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold text-[hsl(var(--text-secondary))] bg-[hsl(var(--layout-card-hover))]">
             {status}
             <span className="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
           </span>
@@ -206,7 +206,7 @@ export default function ProjectsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white">Projects</h1>
-          <p className="text-slate-400 mt-1">Manage your team projects</p>
+          <p className="text-[hsl(var(--text-secondary))] mt-1">Manage your team projects</p>
         </div>
         {canCreateProjects && (
           <Button
@@ -221,46 +221,46 @@ export default function ProjectsPage() {
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
               <FolderKanban className="h-5 w-5 text-blue-400" />
             </div>
             <div>
-              <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Total Projects</p>
+              <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Total Projects</p>
               <p className="text-2xl font-bold text-white">{String(projects.length).padStart(2, '0')}</p>
             </div>
           </div>
         </div>
-        <div className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
               <FolderKanban className="h-5 w-5 text-emerald-400" />
             </div>
             <div>
-              <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Active</p>
+              <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Active</p>
               <p className="text-2xl font-bold text-white">{String(activeProjects).padStart(2, '0')}</p>
             </div>
           </div>
         </div>
-        <div className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
               <FolderKanban className="h-5 w-5 text-purple-400" />
             </div>
             <div>
-              <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Completed</p>
+              <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Completed</p>
               <p className="text-2xl font-bold text-white">{String(completedProjects).padStart(2, '0')}</p>
             </div>
           </div>
         </div>
-        <div className="bg-[#131d2e] rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl p-4 border border-[hsl(var(--layout-border))]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
               <CheckSquare className="h-5 w-5 text-amber-400" />
             </div>
             <div>
-              <p className="text-[11px] font-medium text-slate-400 tracking-wider uppercase">Total Tasks</p>
+              <p className="text-[11px] font-medium text-[hsl(var(--text-secondary))] tracking-wider uppercase">Total Tasks</p>
               <p className="text-2xl font-bold text-white">{String(totalTasks).padStart(2, '0')}</p>
             </div>
           </div>
@@ -269,14 +269,14 @@ export default function ProjectsPage() {
 
       {/* Create Form */}
       {showCreateForm && canCreateProjects && (
-        <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-6">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Create New Project</h2>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setShowCreateForm(false)}
-              className="text-slate-400 hover:text-white hover:bg-slate-700"
+              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <X className="h-5 w-5" />
             </Button>
@@ -284,26 +284,26 @@ export default function ProjectsPage() {
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-slate-300">Project Name *</Label>
+                <Label htmlFor="name" className="text-[hsl(var(--text-primary))]">Project Name *</Label>
                 <Input
                   id="name"
                   value={newProject.name}
                   onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
                   placeholder="Enter project name"
-                  className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] focus:border-blue-500"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="department" className="text-slate-300">Department *</Label>
+                <Label htmlFor="department" className="text-[hsl(var(--text-primary))]">Department *</Label>
                 <select
                   id="department"
                   value={newProject.departmentId}
                   onChange={(e) => setNewProject({ ...newProject, departmentId: e.target.value })}
-                  className="flex h-10 w-full rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
-                  <option value="" className="bg-[#0a1628]">Select department</option>
+                  <option value="" className="bg-[hsl(var(--layout-bg))]">Select department</option>
                   {departments.map((dept) => (
-                    <option key={dept.id} value={dept.id} className="bg-[#0a1628]">
+                    <option key={dept.id} value={dept.id} className="bg-[hsl(var(--layout-bg))]">
                       {dept.name}
                     </option>
                   ))}
@@ -311,13 +311,13 @@ export default function ProjectsPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-slate-300">Description</Label>
+              <Label htmlFor="description" className="text-[hsl(var(--text-primary))]">Description</Label>
               <Input
                 id="description"
                 value={newProject.description}
                 onChange={(e) => setNewProject({ ...newProject, description: e.target.value })}
                 placeholder="Enter project description"
-                className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500"
+                className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] focus:border-blue-500"
               />
             </div>
             <div className="flex gap-2">
@@ -328,7 +328,7 @@ export default function ProjectsPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setShowCreateForm(false)}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white"
               >
                 Cancel
               </Button>
@@ -339,14 +339,14 @@ export default function ProjectsPage() {
 
       {/* Edit Project Form */}
       {editingProject && (
-        <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-6">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Edit Project</h2>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setEditingProject(null)}
-              className="text-slate-400 hover:text-white hover:bg-slate-700"
+              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <X className="h-5 w-5" />
             </Button>
@@ -354,7 +354,7 @@ export default function ProjectsPage() {
           <form onSubmit={handleUpdate} className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="edit-name" className="text-slate-300">Project Name *</Label>
+                <Label htmlFor="edit-name" className="text-[hsl(var(--text-primary))]">Project Name *</Label>
                 <Input
                   id="edit-name"
                   value={editingProject.name}
@@ -362,29 +362,29 @@ export default function ProjectsPage() {
                     setEditingProject({ ...editingProject, name: e.target.value })
                   }
                   placeholder="Enter project name"
-                  className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500"
+                  className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] focus:border-blue-500"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="edit-status" className="text-slate-300">Status</Label>
+                <Label htmlFor="edit-status" className="text-[hsl(var(--text-primary))]">Status</Label>
                 <select
                   id="edit-status"
                   value={editingProject.status}
                   onChange={(e) =>
                     setEditingProject({ ...editingProject, status: e.target.value })
                   }
-                  className="flex h-10 w-full rounded-md border border-slate-700 bg-[#0a1628] px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="flex h-10 w-full rounded-md border border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))] px-3 py-2 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 >
-                  <option value="PLANNING" className="bg-[#0a1628]">Planning</option>
-                  <option value="ACTIVE" className="bg-[#0a1628]">Active</option>
-                  <option value="ON_HOLD" className="bg-[#0a1628]">On Hold</option>
-                  <option value="COMPLETED" className="bg-[#0a1628]">Completed</option>
-                  <option value="CANCELLED" className="bg-[#0a1628]">Cancelled</option>
+                  <option value="PLANNING" className="bg-[hsl(var(--layout-bg))]">Planning</option>
+                  <option value="ACTIVE" className="bg-[hsl(var(--layout-bg))]">Active</option>
+                  <option value="ON_HOLD" className="bg-[hsl(var(--layout-bg))]">On Hold</option>
+                  <option value="COMPLETED" className="bg-[hsl(var(--layout-bg))]">Completed</option>
+                  <option value="CANCELLED" className="bg-[hsl(var(--layout-bg))]">Cancelled</option>
                 </select>
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="edit-description" className="text-slate-300">Description</Label>
+              <Label htmlFor="edit-description" className="text-[hsl(var(--text-primary))]">Description</Label>
               <Input
                 id="edit-description"
                 value={editingProject.description || ''}
@@ -392,7 +392,7 @@ export default function ProjectsPage() {
                   setEditingProject({ ...editingProject, description: e.target.value })
                 }
                 placeholder="Enter project description"
-                className="bg-[#0a1628] border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500"
+                className="bg-[hsl(var(--layout-bg))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] focus:border-blue-500"
               />
             </div>
             <div className="flex gap-2">
@@ -403,7 +403,7 @@ export default function ProjectsPage() {
                 type="button"
                 variant="outline"
                 onClick={() => setEditingProject(null)}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                className="border-[hsl(var(--layout-border))] text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))] hover:text-white"
               >
                 Cancel
               </Button>
@@ -414,12 +414,12 @@ export default function ProjectsPage() {
 
       {/* Search */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[hsl(var(--text-secondary))]" />
         <Input
           placeholder="Search projects..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="pl-10 bg-[#131d2e] border-slate-700 text-white placeholder:text-slate-500 focus:border-blue-500"
+          className="pl-10 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] focus:border-blue-500"
         />
       </div>
 
@@ -427,31 +427,31 @@ export default function ProjectsPage() {
       {isLoading ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-5">
+            <div key={i} className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-5">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <Skeleton className="h-5 w-32 bg-slate-700 mb-2" />
-                  <Skeleton className="h-4 w-24 bg-slate-700" />
+                  <Skeleton className="h-5 w-32 bg-[hsl(var(--layout-card-hover))] mb-2" />
+                  <Skeleton className="h-4 w-24 bg-[hsl(var(--layout-card-hover))]" />
                 </div>
-                <Skeleton className="h-5 w-16 bg-slate-700 rounded" />
+                <Skeleton className="h-5 w-16 bg-[hsl(var(--layout-card-hover))] rounded" />
               </div>
-              <Skeleton className="h-4 w-full bg-slate-700 mb-4" />
-              <Skeleton className="h-2 w-full bg-slate-700 mb-4" />
+              <Skeleton className="h-4 w-full bg-[hsl(var(--layout-card-hover))] mb-4" />
+              <Skeleton className="h-2 w-full bg-[hsl(var(--layout-card-hover))] mb-4" />
               <div className="flex justify-between">
-                <Skeleton className="h-4 w-16 bg-slate-700" />
-                <Skeleton className="h-4 w-16 bg-slate-700" />
+                <Skeleton className="h-4 w-16 bg-[hsl(var(--layout-card-hover))]" />
+                <Skeleton className="h-4 w-16 bg-[hsl(var(--layout-card-hover))]" />
               </div>
             </div>
           ))}
         </div>
       ) : filteredProjects.length === 0 ? (
-        <div className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-12">
+        <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-12">
           <div className="flex flex-col items-center justify-center text-center">
-            <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-              <FolderKanban className="h-8 w-8 text-slate-600" />
+            <div className="w-16 h-16 rounded-full bg-[hsl(var(--layout-card))] flex items-center justify-center mb-4">
+              <FolderKanban className="h-8 w-8 text-[hsl(var(--text-muted))]" />
             </div>
             <h3 className="text-lg font-medium text-white mb-2">No projects found</h3>
-            <p className="text-sm text-slate-400 mb-4">
+            <p className="text-sm text-[hsl(var(--text-secondary))] mb-4">
               {search ? 'Try a different search term' : 'Get started by creating your first project'}
             </p>
             {!search && canCreateProjects && (
@@ -471,33 +471,33 @@ export default function ProjectsPage() {
               <ContextMenu key={project.id}>
                 <ContextMenuTrigger>
                   <div
-                    className="bg-[#131d2e] rounded-xl border border-slate-700/50 p-5 hover:bg-[#1a2942] cursor-pointer transition-all duration-200 hover:border-slate-600"
+                    className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))] p-5 hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer transition-all duration-200 hover:border-[hsl(var(--layout-border))]"
                     onClick={() => router.push(`/dashboard/projects/${project.id}`)}
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div>
                         <h3 className="text-lg font-semibold text-white mb-1">{project.name}</h3>
-                        <p className="text-sm text-slate-400">{project.department?.name}</p>
+                        <p className="text-sm text-[hsl(var(--text-secondary))]">{project.department?.name}</p>
                       </div>
                       {getStatusBadge(project.status)}
                     </div>
 
                     {project.description && (
-                      <p className="text-sm text-slate-500 line-clamp-2 mb-4">
+                      <p className="text-sm text-[hsl(var(--text-muted))] line-clamp-2 mb-4">
                         {project.description}
                       </p>
                     )}
 
                     {/* Progress Bar */}
                     <div className="mb-4">
-                      <div className="flex justify-between text-xs text-slate-400 mb-2">
+                      <div className="flex justify-between text-xs text-[hsl(var(--text-secondary))] mb-2">
                         <span>Progress</span>
                         <span>{progress}%</span>
                       </div>
-                      <Progress value={progress} className="h-1.5 bg-slate-700" />
+                      <Progress value={progress} className="h-1.5 bg-[hsl(var(--layout-card-hover))]" />
                     </div>
 
-                    <div className="flex items-center justify-between text-sm text-slate-400">
+                    <div className="flex items-center justify-between text-sm text-[hsl(var(--text-secondary))]">
                       <div className="flex items-center gap-1">
                         <CheckSquare className="h-4 w-4" />
                         <span>{projectTasks.length} tasks</span>
@@ -513,10 +513,10 @@ export default function ProjectsPage() {
                   </div>
                 </ContextMenuTrigger>
 
-                <ContextMenuContent className="w-48 bg-[#131d2e] border-slate-700">
+                <ContextMenuContent className="w-48 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]">
                   <ContextMenuItem
                     onClick={() => router.push(`/dashboard/projects/${project.id}`)}
-                    className="text-slate-300 focus:bg-slate-700 focus:text-white"
+                    className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-white"
                   >
                     <Eye className="mr-2 h-4 w-4" />
                     View Details
@@ -526,18 +526,18 @@ export default function ProjectsPage() {
                       e.stopPropagation();
                       setEditingProject(project);
                     }}
-                    className="text-slate-300 focus:bg-slate-700 focus:text-white"
+                    className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-white"
                   >
                     <Edit className="mr-2 h-4 w-4" />
                     Edit Project
                   </ContextMenuItem>
-                  <ContextMenuSeparator className="bg-slate-700" />
+                  <ContextMenuSeparator className="bg-[hsl(var(--layout-card-hover))]" />
                   <ContextMenuItem
                     onClick={(e) => {
                       e.stopPropagation();
                       handleArchive(project.id);
                     }}
-                    className="text-slate-300 focus:bg-slate-700 focus:text-white"
+                    className="text-[hsl(var(--text-primary))] focus:bg-[hsl(var(--layout-card-hover))] focus:text-white"
                   >
                     <Archive className="mr-2 h-4 w-4" />
                     Archive

@@ -59,7 +59,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
   }, [accessToken]);
 
   return (
-    <Card className={cn('bg-[#131d2e] border-slate-700', className)}>
+    <Card className={cn('bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]', className)}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle className="text-white flex items-center gap-2">
@@ -73,7 +73,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
           value={period}
           onValueChange={(v) => handleGenerateSummary(v as 'daily' | 'weekly')}
         >
-          <TabsList className="bg-slate-800 border-slate-700 w-full">
+          <TabsList className="bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] w-full">
             <TabsTrigger
               value="daily"
               className="flex-1 data-[state=active]:bg-purple-600"
@@ -94,7 +94,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
         {summaryMutation.isPending ? (
           <div className="flex flex-col items-center justify-center py-8 gap-3">
             <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-[hsl(var(--text-secondary))]">
               AI is analyzing your activity...
             </p>
           </div>
@@ -102,37 +102,37 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
           <div className="space-y-4">
             {/* Stats Grid */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-800/50 rounded-lg p-3">
+              <div className="bg-[hsl(var(--layout-card))] rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <FileText className="h-4 w-4 text-blue-400" />
-                  <span className="text-xs text-slate-400">Tasks Worked</span>
+                  <span className="text-xs text-[hsl(var(--text-secondary))]">Tasks Worked</span>
                 </div>
                 <p className="text-2xl font-bold text-white">
                   {summaryData.stats.tasksWorkedOn}
                 </p>
               </div>
-              <div className="bg-slate-800/50 rounded-lg p-3">
+              <div className="bg-[hsl(var(--layout-card))] rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <CheckCircle2 className="h-4 w-4 text-green-400" />
-                  <span className="text-xs text-slate-400">Completed</span>
+                  <span className="text-xs text-[hsl(var(--text-secondary))]">Completed</span>
                 </div>
                 <p className="text-2xl font-bold text-green-400">
                   {summaryData.stats.tasksCompleted}
                 </p>
               </div>
-              <div className="bg-slate-800/50 rounded-lg p-3">
+              <div className="bg-[hsl(var(--layout-card))] rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <Clock className="h-4 w-4 text-orange-400" />
-                  <span className="text-xs text-slate-400">Hours Logged</span>
+                  <span className="text-xs text-[hsl(var(--text-secondary))]">Hours Logged</span>
                 </div>
                 <p className="text-2xl font-bold text-orange-400">
                   {summaryData.stats.hoursLogged}h
                 </p>
               </div>
-              <div className="bg-slate-800/50 rounded-lg p-3">
+              <div className="bg-[hsl(var(--layout-card))] rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <TrendingUp className="h-4 w-4 text-purple-400" />
-                  <span className="text-xs text-slate-400">Productivity</span>
+                  <span className="text-xs text-[hsl(var(--text-secondary))]">Productivity</span>
                 </div>
                 <p className="text-2xl font-bold text-purple-400">
                   {summaryData.stats.tasksWorkedOn > 0
@@ -155,7 +155,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
                   AI Insights
                 </span>
               </div>
-              <p className="text-sm text-slate-300 whitespace-pre-wrap leading-relaxed">
+              <p className="text-sm text-[hsl(var(--text-primary))] whitespace-pre-wrap leading-relaxed">
                 {summaryData.summary}
               </p>
             </div>
@@ -166,7 +166,7 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
               size="sm"
               onClick={() => summaryMutation.mutate(period)}
               disabled={summaryMutation.isPending}
-              className="w-full border-slate-600"
+              className="w-full border-[hsl(var(--layout-border))]"
             >
               <RefreshCw
                 className={cn(
@@ -179,8 +179,8 @@ export function ActivitySummaryCard({ className }: ActivitySummaryCardProps) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-8 gap-3">
-            <Sparkles className="h-8 w-8 text-slate-500" />
-            <p className="text-sm text-slate-400">
+            <Sparkles className="h-8 w-8 text-[hsl(var(--text-muted))]" />
+            <p className="text-sm text-[hsl(var(--text-secondary))]">
               Click to generate your activity summary
             </p>
             <Button

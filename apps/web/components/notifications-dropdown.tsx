@@ -42,7 +42,7 @@ function getNotificationIcon(type: string) {
     case 'TASK_DUE_SOON':
       return <Clock className="h-4 w-4 text-amber-400" />;
     default:
-      return <Bell className="h-4 w-4 text-slate-400" />;
+      return <Bell className="h-4 w-4 text-[hsl(var(--text-secondary))]" />;
   }
 }
 
@@ -147,7 +147,7 @@ export function NotificationsDropdown() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative text-slate-400 hover:text-white hover:bg-slate-800">
+        <Button variant="ghost" size="icon" className="relative text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]">
           <Bell className="h-5 w-5" />
           {unreadCount > 0 && (
             <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
@@ -156,8 +156,8 @@ export function NotificationsDropdown() {
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-0 bg-[#131d2e] border-slate-700" align="end">
-        <div className="flex items-center justify-between border-b border-slate-700 px-4 py-3">
+      <PopoverContent className="w-80 p-0 bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))]" align="end">
+        <div className="flex items-center justify-between border-b border-[hsl(var(--layout-border))] px-4 py-3">
           <h3 className="font-semibold text-white">Notifications</h3>
           {unreadCount > 0 && (
             <Button
@@ -165,7 +165,7 @@ export function NotificationsDropdown() {
               size="sm"
               onClick={() => markAllReadMutation.mutate()}
               disabled={markAllReadMutation.isPending}
-              className="text-slate-400 hover:text-white hover:bg-slate-700"
+              className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
             >
               <CheckCheck className="h-4 w-4 mr-1" />
               Mark all read
@@ -175,16 +175,16 @@ export function NotificationsDropdown() {
         <ScrollArea className="h-[400px]">
           {notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <Bell className="h-10 w-10 text-slate-600 mb-2" />
-              <p className="text-sm text-slate-400">No notifications yet</p>
+              <Bell className="h-10 w-10 text-[hsl(var(--text-muted))] mb-2" />
+              <p className="text-sm text-[hsl(var(--text-secondary))]">No notifications yet</p>
             </div>
           ) : (
-            <div className="divide-y divide-slate-700">
+            <div className="divide-y divide-[hsl(var(--layout-border))]">
               {notifications.map((notification) => (
                 <div
                   key={notification.id}
                   className={cn(
-                    'flex gap-3 p-4 hover:bg-slate-800 cursor-pointer transition-colors',
+                    'flex gap-3 p-4 hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer transition-colors',
                     !notification.isRead && 'bg-blue-500/10'
                   )}
                   onClick={() => handleNotificationClick(notification)}
@@ -194,15 +194,15 @@ export function NotificationsDropdown() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className={cn(
-                      'text-sm text-slate-300',
+                      'text-sm text-[hsl(var(--text-primary))]',
                       !notification.isRead && 'font-medium text-white'
                     )}>
                       {notification.title}
                     </p>
-                    <p className="text-xs text-slate-500 line-clamp-2 mt-0.5">
+                    <p className="text-xs text-[hsl(var(--text-muted))] line-clamp-2 mt-0.5">
                       {notification.message}
                     </p>
-                    <p className="text-xs text-slate-600 mt-1">
+                    <p className="text-xs text-[hsl(var(--text-muted))] mt-1">
                       {formatTimeAgo(notification.createdAt)}
                     </p>
                   </div>

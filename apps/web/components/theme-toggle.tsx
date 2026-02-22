@@ -21,7 +21,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" className="h-9 w-9 text-slate-400">
+      <Button variant="ghost" size="icon" className="h-9 w-9 text-[hsl(var(--text-secondary))]">
         <Sun className="h-4 w-4" />
       </Button>
     );
@@ -33,7 +33,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="h-9 w-9 text-slate-400 hover:text-white hover:bg-slate-700/50"
+          className="h-9 w-9 text-[hsl(var(--text-secondary))] hover:text-[hsl(var(--text-primary))] hover:bg-[hsl(var(--layout-card-hover))]"
           title="Toggle theme"
         >
           {theme === 'light' ? (

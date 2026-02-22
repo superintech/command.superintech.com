@@ -163,7 +163,7 @@ export function GlobalSearch() {
       case 'PLANNING':
         return 'bg-blue-500/20 text-blue-400';
       default:
-        return 'bg-slate-500/20 text-slate-400';
+        return 'bg-[hsl(var(--layout-card-hover))] text-[hsl(var(--text-secondary))]';
     }
   };
 
@@ -171,7 +171,7 @@ export function GlobalSearch() {
     <div ref={containerRef} className="relative w-full">
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[hsl(var(--text-secondary))]" />
         <Input
           ref={inputRef}
           type="text"
@@ -180,12 +180,12 @@ export function GlobalSearch() {
           onChange={handleInputChange}
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
-          className="w-full bg-[#131d2e] border-slate-700 text-white placeholder:text-slate-500 pl-10 pr-10 h-10 rounded-lg focus:border-blue-500 focus:ring-blue-500/20"
+          className="w-full bg-[hsl(var(--layout-card))] border-[hsl(var(--layout-border))] text-white placeholder:text-[hsl(var(--text-muted))] pl-10 pr-10 h-10 rounded-lg focus:border-blue-500 focus:ring-blue-500/20"
         />
         {query && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[hsl(var(--text-secondary))] hover:text-white"
           >
             <X className="h-4 w-4" />
           </button>
@@ -194,23 +194,23 @@ export function GlobalSearch() {
 
       {/* Search Results Dropdown */}
       {isOpen && query.length >= 2 && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-[#131d2e] border border-slate-700 rounded-xl shadow-xl z-50 overflow-hidden">
+        <div className="absolute top-full left-0 right-0 mt-2 bg-[hsl(var(--layout-card))] border border-[hsl(var(--layout-border))] rounded-xl shadow-xl z-50 overflow-hidden">
           {isLoading ? (
             <div className="flex items-center justify-center py-8">
               <Loader2 className="h-6 w-6 text-blue-400 animate-spin" />
             </div>
           ) : !hasResults ? (
             <div className="py-8 text-center">
-              <Search className="h-8 w-8 text-slate-600 mx-auto mb-2" />
-              <p className="text-slate-400 text-sm">No results found for &quot;{query}&quot;</p>
+              <Search className="h-8 w-8 text-[hsl(var(--text-muted))] mx-auto mb-2" />
+              <p className="text-[hsl(var(--text-secondary))] text-sm">No results found for &quot;{query}&quot;</p>
             </div>
           ) : (
             <div className="max-h-[400px] overflow-y-auto">
               {/* Projects Section */}
               {filteredProjects.length > 0 && (
                 <div>
-                  <div className="px-4 py-2 bg-slate-800/50 border-b border-slate-700">
-                    <p className="text-xs font-medium text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                  <div className="px-4 py-2 bg-[hsl(var(--layout-card))] border-b border-[hsl(var(--layout-border))]">
+                    <p className="text-xs font-medium text-[hsl(var(--text-secondary))] uppercase tracking-wider flex items-center gap-2">
                       <FolderKanban className="h-3 w-3" />
                       Projects ({filteredProjects.length})
                     </p>
@@ -222,7 +222,7 @@ export function GlobalSearch() {
                         'flex items-center justify-between px-4 py-3 cursor-pointer transition-colors',
                         selectedIndex === index
                           ? 'bg-blue-500/20'
-                          : 'hover:bg-slate-800'
+                          : 'hover:bg-[hsl(var(--layout-card-hover))]'
                       )}
                       onClick={() => handleSelect({ type: 'project', item: project })}
                       onMouseEnter={() => setSelectedIndex(index)}
@@ -234,7 +234,7 @@ export function GlobalSearch() {
                         <div className="flex-1 min-w-0">
                           <p className="text-white font-medium truncate">{project.name}</p>
                           {project.description && (
-                            <p className="text-xs text-slate-500 truncate">{project.description}</p>
+                            <p className="text-xs text-[hsl(var(--text-muted))] truncate">{project.description}</p>
                           )}
                         </div>
                       </div>
@@ -245,7 +245,7 @@ export function GlobalSearch() {
                         )}>
                           {project.status}
                         </span>
-                        <ArrowRight className="h-4 w-4 text-slate-500" />
+                        <ArrowRight className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                       </div>
                     </div>
                   ))}
@@ -255,8 +255,8 @@ export function GlobalSearch() {
               {/* Tasks Section */}
               {filteredTasks.length > 0 && (
                 <div>
-                  <div className="px-4 py-2 bg-slate-800/50 border-b border-slate-700">
-                    <p className="text-xs font-medium text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                  <div className="px-4 py-2 bg-[hsl(var(--layout-card))] border-b border-[hsl(var(--layout-border))]">
+                    <p className="text-xs font-medium text-[hsl(var(--text-secondary))] uppercase tracking-wider flex items-center gap-2">
                       <CheckSquare className="h-3 w-3" />
                       Tasks ({filteredTasks.length})
                     </p>
@@ -270,7 +270,7 @@ export function GlobalSearch() {
                           'flex items-center justify-between px-4 py-3 cursor-pointer transition-colors',
                           selectedIndex === resultIndex
                             ? 'bg-blue-500/20'
-                            : 'hover:bg-slate-800'
+                            : 'hover:bg-[hsl(var(--layout-card-hover))]'
                         )}
                         onClick={() => handleSelect({ type: 'task', item: task })}
                         onMouseEnter={() => setSelectedIndex(resultIndex)}
@@ -282,7 +282,7 @@ export function GlobalSearch() {
                           <div className="flex-1 min-w-0">
                             <p className="text-white font-medium truncate">{task.title}</p>
                             {task.project && (
-                              <p className="text-xs text-slate-500 truncate">
+                              <p className="text-xs text-[hsl(var(--text-muted))] truncate">
                                 {task.project.name}
                               </p>
                             )}
@@ -295,7 +295,7 @@ export function GlobalSearch() {
                           )}>
                             {task.status.replace('_', ' ')}
                           </span>
-                          <ArrowRight className="h-4 w-4 text-slate-500" />
+                          <ArrowRight className="h-4 w-4 text-[hsl(var(--text-muted))]" />
                         </div>
                       </div>
                     );
@@ -305,12 +305,12 @@ export function GlobalSearch() {
 
               {/* View All Results */}
               {totalResults > 0 && (
-                <div className="px-4 py-3 border-t border-slate-700 bg-slate-800/30">
-                  <p className="text-xs text-slate-500 text-center">
-                    Press <kbd className="px-1.5 py-0.5 bg-slate-700 rounded text-slate-300">Enter</kbd> to select,{' '}
-                    <kbd className="px-1.5 py-0.5 bg-slate-700 rounded text-slate-300">↑</kbd>{' '}
-                    <kbd className="px-1.5 py-0.5 bg-slate-700 rounded text-slate-300">↓</kbd> to navigate,{' '}
-                    <kbd className="px-1.5 py-0.5 bg-slate-700 rounded text-slate-300">Esc</kbd> to close
+                <div className="px-4 py-3 border-t border-[hsl(var(--layout-border))] bg-[hsl(var(--layout-bg))]">
+                  <p className="text-xs text-[hsl(var(--text-muted))] text-center">
+                    Press <kbd className="px-1.5 py-0.5 bg-[hsl(var(--layout-card-hover))] rounded text-[hsl(var(--text-primary))]">Enter</kbd> to select,{' '}
+                    <kbd className="px-1.5 py-0.5 bg-[hsl(var(--layout-card-hover))] rounded text-[hsl(var(--text-primary))]">↑</kbd>{' '}
+                    <kbd className="px-1.5 py-0.5 bg-[hsl(var(--layout-card-hover))] rounded text-[hsl(var(--text-primary))]">↓</kbd> to navigate,{' '}
+                    <kbd className="px-1.5 py-0.5 bg-[hsl(var(--layout-card-hover))] rounded text-[hsl(var(--text-primary))]">Esc</kbd> to close
                   </p>
                 </div>
               )}

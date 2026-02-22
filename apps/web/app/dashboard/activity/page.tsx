@@ -188,7 +188,7 @@ export default function ActivityPage() {
           variant="ghost"
           size="icon"
           onClick={() => router.push('/dashboard')}
-          className="text-slate-400 hover:text-white hover:bg-slate-800"
+          className="text-[hsl(var(--text-secondary))] hover:text-white hover:bg-[hsl(var(--layout-card-hover))]"
         >
           <ArrowLeft className="h-5 w-5" />
         </Button>
@@ -198,46 +198,46 @@ export default function ActivityPage() {
           </div>
           <div>
             <h1 className="text-2xl font-bold text-white">All Activity</h1>
-            <p className="text-slate-400 text-sm">Complete history of updates from your projects and tasks</p>
+            <p className="text-[hsl(var(--text-secondary))] text-sm">Complete history of updates from your projects and tasks</p>
           </div>
         </div>
       </div>
 
       {/* Activity List */}
-      <div className="bg-[#131d2e] rounded-xl border border-slate-700/50">
+      <div className="bg-[hsl(var(--layout-card))] rounded-xl border border-[hsl(var(--layout-border))]">
         {isLoading ? (
           <div className="p-6 space-y-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <div key={i} className="flex items-center gap-3">
-                <Skeleton className="h-10 w-10 rounded-full bg-slate-700" />
+                <Skeleton className="h-10 w-10 rounded-full bg-[hsl(var(--layout-card-hover))]" />
                 <div className="flex-1">
-                  <Skeleton className="h-4 w-3/4 mb-1 bg-slate-700" />
-                  <Skeleton className="h-3 w-1/4 bg-slate-700" />
+                  <Skeleton className="h-4 w-3/4 mb-1 bg-[hsl(var(--layout-card-hover))]" />
+                  <Skeleton className="h-3 w-1/4 bg-[hsl(var(--layout-card-hover))]" />
                 </div>
               </div>
             ))}
           </div>
         ) : activityItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <Activity className="h-12 w-12 text-slate-600 mb-3" />
-            <p className="text-slate-400 text-lg">No activity yet</p>
-            <p className="text-slate-500 text-sm mt-1">Activity will appear here when tasks and projects are updated</p>
+            <Activity className="h-12 w-12 text-[hsl(var(--text-muted))] mb-3" />
+            <p className="text-[hsl(var(--text-secondary))] text-lg">No activity yet</p>
+            <p className="text-[hsl(var(--text-muted))] text-sm mt-1">Activity will appear here when tasks and projects are updated</p>
           </div>
         ) : (
-          <div className="divide-y divide-slate-700/50">
+          <div className="divide-y divide-[hsl(var(--layout-border))]">
             {Object.entries(groupedActivities).map(([dateKey, activities]) => (
               <div key={dateKey}>
                 {/* Date Header */}
-                <div className="px-6 py-3 bg-slate-800/30 border-b border-slate-700/50">
-                  <p className="text-sm font-medium text-slate-400">{getDateLabel(dateKey)}</p>
+                <div className="px-6 py-3 bg-[hsl(var(--layout-card))] border-b border-[hsl(var(--layout-border))]">
+                  <p className="text-sm font-medium text-[hsl(var(--text-secondary))]">{getDateLabel(dateKey)}</p>
                 </div>
 
                 {/* Activities for this date */}
-                <div className="divide-y divide-slate-700/30">
+                <div className="divide-y divide-[hsl(var(--layout-border))]">
                   {activities.map((activity) => (
                     <div
                       key={activity.id}
-                      className="flex items-center gap-4 px-6 py-4 hover:bg-slate-800/50 cursor-pointer transition-colors"
+                      className="flex items-center gap-4 px-6 py-4 hover:bg-[hsl(var(--layout-card-hover))] cursor-pointer transition-colors"
                       onClick={() => handleActivityClick(activity)}
                     >
                       <div className={cn(
@@ -247,20 +247,20 @@ export default function ActivityPage() {
                         {getInitials(activity.user)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-slate-300">
+                        <p className="text-sm text-[hsl(var(--text-primary))]">
                           <span className="font-medium text-white">{activity.user}</span>{' '}
                           {activity.action}{' '}
                           <span className="text-blue-400">&quot;{activity.target}&quot;</span>
                         </p>
                         {activity.projectName && (
-                          <p className="text-xs text-slate-500 mt-0.5">
+                          <p className="text-xs text-[hsl(var(--text-muted))] mt-0.5">
                             in {activity.projectName}
                           </p>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 text-slate-500 text-xs shrink-0">
+                      <div className="flex items-center gap-2 text-[hsl(var(--text-muted))] text-xs shrink-0">
                         <span>{formatDate(activity.date)}</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--layout-card-hover))]"></span>
                       </div>
                     </div>
                   ))}

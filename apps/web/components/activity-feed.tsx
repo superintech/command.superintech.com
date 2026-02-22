@@ -162,7 +162,7 @@ export function ActivityFeed({ projectId, taskId, limit = 20, showHeader = true 
 
   if (activities.length === 0) {
     return (
-      <div className="text-center py-8 text-slate-500 text-sm">
+      <div className="text-center py-8 text-[hsl(var(--text-muted))] text-sm">
         No activity yet
       </div>
     );
@@ -171,12 +171,12 @@ export function ActivityFeed({ projectId, taskId, limit = 20, showHeader = true 
   return (
     <div className="space-y-4">
       {showHeader && (
-        <h3 className="text-sm font-medium text-slate-400">Activity</h3>
+        <h3 className="text-sm font-medium text-[hsl(var(--text-secondary))]">Activity</h3>
       )}
       <div className="space-y-4">
         {activities.map((activity) => (
           <div key={activity.id} className="flex items-start gap-3">
-            <Avatar className="h-8 w-8 border border-slate-700">
+            <Avatar className="h-8 w-8 border border-[hsl(var(--layout-border))]">
               <AvatarImage src={activity.user.avatar} />
               <AvatarFallback className="text-xs bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                 {getInitials(activity.user.name)}
@@ -186,13 +186,13 @@ export function ActivityFeed({ projectId, taskId, limit = 20, showHeader = true 
               <div className="flex items-center gap-2">
                 {getActivityIcon(activity)}
                 <p className="text-sm">
-                  <span className="font-medium text-white">{activity.user.name}</span>{' '}
-                  <span className="text-slate-400">
+                  <span className="font-medium text-[hsl(var(--text-primary))]">{activity.user.name}</span>{' '}
+                  <span className="text-[hsl(var(--text-secondary))]">
                     {formatActivityMessage(activity)}
                   </span>
                 </p>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-[hsl(var(--text-muted))] mt-0.5">
                 {formatDistanceToNow(new Date(activity.createdAt), { addSuffix: true })}
               </p>
             </div>
